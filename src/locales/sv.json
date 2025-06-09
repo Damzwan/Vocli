@@ -1,0 +1,161 @@
+{
+  "languages": {
+    "English": "Engelska",
+    "German": "Tysk",
+    "French": "Franska",
+    "Italian": "Italienska",
+    "Spanish": "Spanska",
+    "Portuguese": "Portugisiska",
+    "Russian": "Ryska",
+    "Polish": "Polsk",
+    "Dutch": "Holländska",
+    "Turkish": "Turkiska",
+    "Romanian": "rumänska",
+    "Swedish": "Svenska",
+    "Greek": "Grekiska",
+    "Hungarian": "Ungerska",
+    "Czech": "Tjeckien",
+    "en": "Engelska",
+    "de": "Tysk",
+    "fr": "Franska",
+    "it": "Italienska",
+    "es": "Spanska",
+    "pt": "Portugisiska",
+    "ru": "Ryska",
+    "pl": "Polsk",
+    "nl": "Holländska",
+    "tr": "Turkiska",
+    "ro": "rumänska",
+    "sv": "Svenska",
+    "gr": "Grekiska",
+    "hu": "Ungerska",
+    "cz": "Tjeckien"
+  },
+  "home": {
+    "no_word_packs": "Skapa ett ordpaket för att börja öva",
+    "customize_word_pack": "Anpassa ditt Word-paket",
+    "knownLanguage": "Språk du kan",
+    "learnLanguage": "Språk att lära sig",
+    "name": "Namn",
+    "create": "Skapa",
+    "feedback": "Återkoppling",
+    "name_example": "t.ex. grundläggande ordförråd",
+    "title": "Hem",
+    "actions": "Åtgärder",
+    "practice": "Övning",
+    "edit": "Redigera",
+    "delete": "Radera",
+    "delete_alert": {
+      "title": "Ta bort Word Pack?",
+      "subtitle": "Denna åtgärd kan inte ångras.",
+      "cancel": "Avbryt.",
+      "confirm": "Radera"
+    },
+    "word_pack_card": {
+      "words": "ord"
+    },
+    "ok": "Ok",
+    "cancel": "Avbryt"
+  },
+  "create": {
+    "wordsImporter": {
+      "import_words": "Importera ord",
+      "import_method": "Välj importmetod:",
+      "raw_words": "Klistra in råa ord",
+      "raw_placeholder": "Klistra in dina ord här, åtskilda med mellanslag eller nya rader",
+      "topic": "Generera efter ämne",
+      "topic_placeholder": "Ange ett ämne för att generera ord, t.ex. djur",
+      "amount": "Antal ord som ska importeras:",
+      "add": "Lägg till i ordpaket"
+    },
+    "next_word": "Mitt nästa ord...",
+    "auto_translate": "Auto-översättning vid Enter eller klicka",
+    "word_pack_name_placeholder": "Min ordförrådslista",
+    "edit": {
+      "title": "Redigera ord",
+      "delete": "radera",
+      "confirm": "bekräfta"
+    }
+  },
+  "feedback": {
+    "title": "Dela med dig av dina tankar",
+    "subtitle": "Vocli skapades av en enda person. Jag behöver din hjälp!",
+    "like_helper": "Vad tycker du om Vocli?",
+    "like_placeholder": "Jag tror att...",
+    "dislike_helper": "Vad tycker du inte om Vocli?",
+    "dislike_placeholder": "Jag önskar att...",
+    "you_like": "Tycker du om Vocli?",
+    "i_like": "Jag gillar det",
+    "no_opinion": "Ingen stark åsikt",
+    "not_like": "Jag tycker inte om det",
+    "submit": "Skicka in"
+  },
+  "practice_methods": {
+    "title": "Välj övningsmetod",
+    "options": "Övningsalternativ",
+    "order": "Övningsorder",
+    "amount": "Ord att öva på:",
+    "start": "Start",
+    "translation": "Översättning",
+    "translation_description": "Översätt ord.",
+    "multiple-choice": "Flervalsfrågor",
+    "multiple-choice_description": "Välj rätt alternativ.",
+    "flashcards": "Flashkort",
+    "flashcards_description": "Vänd för att lära dig.",
+    "list": "Lista",
+    "list_description": "Bläddra i ordlista"
+  },
+  "flashcards": {
+    "title": "Flashkort"
+  },
+  "list": {
+    "title": "Lista",
+    "search": "Sökord"
+  },
+  "translation": {
+    "title": "Översättning",
+    "hint": "Ledtråd",
+    "check": "Kontrollera",
+    "skip": "Hoppa över",
+    "complete": "Övningen är klar!",
+    "results": "Se resultat",
+    "again": "Försök igen",
+    "different_exercise": "Olika träningsmetoder",
+    "home": "Gå hem",
+    "translation": "översättning",
+    "wrong_try_again": "Fel, försök igen!",
+    "similarity_score": "Likhetspoäng"
+  },
+  "multiple-choice": {
+    "title": "Översättning",
+    "complete": "Övningen är klar!",
+    "results": "Se resultat",
+    "again": "Försök igen",
+    "different_exercise": "Olika träningsmetoder",
+    "home": "Gå hem",
+    "wrong_choice": "Fel val!"
+  },
+  "stats": {
+    "title": "Resultat",
+    "words_to_review": "Ord att granska",
+    "again": "Försök igen",
+    "different_exercise": "Olika träningsmetoder",
+    "home": "Gå hem",
+    "correct_first_try": "Korrekt vid första försöket",
+    "words_practiced": "Ord som praktiseras",
+    "mistakes_made": "Misstag som begåtts",
+    "time_spent": "Tid för övning",
+    "words_skipped": "Ord som hoppats över",
+    "hints_used": "Tips som används"
+  },
+  "toast": {
+    "something_wrong": "Något gick fel, vänligen försök igen",
+    "input_not_empty": "Textinmatningen ska inte vara tom",
+    "thank_feedback": "Tack för din feedback!",
+    "word_in_list": "Ordet finns redan i listan",
+    "need_min_words": "Du behöver minst {antal} fler ord för den här övningen",
+    "all_hints_used": "Alla ledtrådar har redan använts",
+    "deleted_successfully": "Word Pack raderades framgångsrikt.",
+    "fill_one_field": "Fyll i minst ett fält"
+  }
+}

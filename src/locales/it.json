@@ -1,0 +1,161 @@
+{
+  "languages": {
+    "English": "Inglese",
+    "German": "Tedesco",
+    "French": "Francese",
+    "Italian": "Italian",
+    "Spanish": "Spagnolo",
+    "Portuguese": "Portoghese",
+    "Russian": "Russo",
+    "Polish": "Polacco",
+    "Dutch": "Olandese",
+    "Turkish": "Turco",
+    "Romanian": "Rumeno",
+    "Swedish": "Svedese",
+    "Greek": "Greco",
+    "Hungarian": "Ungherese",
+    "Czech": "Repubblica Ceca",
+    "en": "Inglese",
+    "de": "Tedesco",
+    "fr": "Francese",
+    "it": "Italian",
+    "es": "Spagnolo",
+    "pt": "Portoghese",
+    "ru": "Russo",
+    "pl": "Polacco",
+    "nl": "Olandese",
+    "tr": "Turco",
+    "ro": "Rumeno",
+    "sv": "Svedese",
+    "gr": "Greco",
+    "hu": "Ungherese",
+    "cz": "Repubblica Ceca"
+  },
+  "home": {
+    "no_word_packs": "Creare un pacchetto di parole per iniziare a esercitarsi.",
+    "customize_word_pack": "Personalizzate il vostro pacchetto di parole",
+    "knownLanguage": "Lingua conosciuta",
+    "learnLanguage": "Lingua da imparare",
+    "name": "Nome",
+    "create": "Creare",
+    "feedback": "Feedback",
+    "name_example": "Ad esempio, Vocabolario di base",
+    "title": "Casa",
+    "actions": "Azioni",
+    "practice": "Pratica",
+    "edit": "Modifica",
+    "delete": "Cancellare",
+    "delete_alert": {
+      "title": "Cancellare il pacchetto Word?",
+      "subtitle": "Questa azione non può essere annullata.",
+      "cancel": "Annullamento.",
+      "confirm": "Cancellare"
+    },
+    "word_pack_card": {
+      "words": "parole"
+    },
+    "ok": "Ok",
+    "cancel": "Annullamento"
+  },
+  "create": {
+    "wordsImporter": {
+      "import_words": "Importazione di parole",
+      "import_method": "Scegliere il metodo di importazione:",
+      "raw_words": "Incolla le parole grezze",
+      "raw_placeholder": "Incollate qui le vostre parole, separate da spazi o da nuove righe.",
+      "topic": "Generare per argomento",
+      "topic_placeholder": "Inserire un argomento per generare parole, ad esempio animali.",
+      "amount": "Quantità di parole da importare:",
+      "add": "Aggiungi al pacchetto di parole"
+    },
+    "next_word": "La mia prossima parola...",
+    "auto_translate": "Tradurre automaticamente su Invio o fare clic su",
+    "word_pack_name_placeholder": "Il mio elenco di vocaboli",
+    "edit": {
+      "title": "Modifica parola",
+      "delete": "cancellare",
+      "confirm": "confermare"
+    }
+  },
+  "feedback": {
+    "title": "Condividi i tuoi pensieri",
+    "subtitle": "Vocli è stato realizzato da una sola persona. Ho bisogno del vostro aiuto!",
+    "like_helper": "Cosa ne pensate di Vocli?",
+    "like_placeholder": "Penso che...",
+    "dislike_helper": "Cosa non ti piace di Vocli?",
+    "dislike_placeholder": "Vorrei che...",
+    "you_like": "Ti piace Vocli?",
+    "i_like": "Mi piace",
+    "no_opinion": "Nessuna opinione forte",
+    "not_like": "Non mi piace",
+    "submit": "Invia"
+  },
+  "practice_methods": {
+    "title": "Scegliere il metodo di pratica",
+    "options": "Opzioni pratiche",
+    "order": "Ordine di pratica",
+    "amount": "Parole da praticare:",
+    "start": "Inizio",
+    "translation": "Traduzione",
+    "translation_description": "Tradurre le parole.",
+    "multiple-choice": "Scelta multipla",
+    "multiple-choice_description": "Scegliete l'opzione giusta.",
+    "flashcards": "Schede flash",
+    "flashcards_description": "Capovolgere per imparare.",
+    "list": "Elenco",
+    "list_description": "Sfogliare l'elenco delle parole"
+  },
+  "flashcards": {
+    "title": "Schede flash"
+  },
+  "list": {
+    "title": "Elenco",
+    "search": "Parola di ricerca"
+  },
+  "translation": {
+    "title": "Traduzione",
+    "hint": "Suggerimento",
+    "check": "Controllo",
+    "skip": "Salto",
+    "complete": "Esercizio completato!",
+    "results": "Vedi i risultati",
+    "again": "Riprova",
+    "different_exercise": "Metodo di pratica diverso",
+    "home": "Vai a casa",
+    "translation": "traduzione",
+    "wrong_try_again": "Sbagliato, riprova!",
+    "similarity_score": "punteggio di somiglianza"
+  },
+  "multiple-choice": {
+    "title": "Traduzione",
+    "complete": "Esercizio completato!",
+    "results": "Vedi i risultati",
+    "again": "Riprova",
+    "different_exercise": "Metodo di pratica diverso",
+    "home": "Vai a casa",
+    "wrong_choice": "Scelta sbagliata!"
+  },
+  "stats": {
+    "title": "Risultati",
+    "words_to_review": "Parole da rivedere",
+    "again": "Riprova",
+    "different_exercise": "Metodo di pratica diverso",
+    "home": "Vai a casa",
+    "correct_first_try": "Corretto al primo tentativo",
+    "words_practiced": "Parole praticate",
+    "mistakes_made": "Errori commessi",
+    "time_spent": "Tempo dedicato alla pratica",
+    "words_skipped": "Parole saltate",
+    "hints_used": "Suggerimenti utilizzati"
+  },
+  "toast": {
+    "something_wrong": "Qualcosa è andato storto, riprovare",
+    "input_not_empty": "L'input di testo non deve essere vuoto",
+    "thank_feedback": "Grazie per il vostro feedback!",
+    "word_in_list": "Parola già presente nell'elenco",
+    "need_min_words": "Per questo esercizio sono necessarie almeno {conteggio} altre parole.",
+    "all_hints_used": "Tutti i suggerimenti già utilizzati",
+    "deleted_successfully": "Word Pack cancellato con successo.",
+    "fill_one_field": "Riempire almeno un campo"
+  }
+}

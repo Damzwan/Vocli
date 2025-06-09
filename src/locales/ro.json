@@ -1,0 +1,161 @@
+{
+  "languages": {
+    "English": "Engleză",
+    "German": "germană",
+    "French": "franceză",
+    "Italian": "Italiană",
+    "Spanish": "spaniolă",
+    "Portuguese": "portugheză",
+    "Russian": "Rusă",
+    "Polish": "poloneză",
+    "Dutch": "olandeză",
+    "Turkish": "Turcă",
+    "Romanian": "română",
+    "Swedish": "suedeză",
+    "Greek": "Greacă",
+    "Hungarian": "maghiară",
+    "Czech": "Republica Cehă",
+    "en": "Engleză",
+    "de": "germană",
+    "fr": "franceză",
+    "it": "Italiană",
+    "es": "spaniolă",
+    "pt": "portugheză",
+    "ru": "Rusă",
+    "pl": "poloneză",
+    "nl": "olandeză",
+    "tr": "Turcă",
+    "ro": "română",
+    "sv": "suedeză",
+    "gr": "Greacă",
+    "hu": "maghiară",
+    "cz": "Republica Cehă"
+  },
+  "home": {
+    "no_word_packs": "Creați un pachet de cuvinte pentru a începe să exersați",
+    "customize_word_pack": "Personalizați-vă pachetul de cuvinte",
+    "knownLanguage": "Limba pe care o cunoașteți",
+    "learnLanguage": "Limba de învățat",
+    "name": "Nume și prenume",
+    "create": "Creați",
+    "feedback": "Feedback",
+    "name_example": "de exemplu, Vocabular de bază",
+    "title": "Acasă",
+    "actions": "Acțiuni",
+    "practice": "Practică",
+    "edit": "Editare",
+    "delete": "Ștergeți",
+    "delete_alert": {
+      "title": "Ștergeți Word Pack?",
+      "subtitle": "Această acțiune nu poate fi anulată.",
+      "cancel": "Anulează.",
+      "confirm": "Ștergeți"
+    },
+    "word_pack_card": {
+      "words": "cuvinte"
+    },
+    "ok": "Bine",
+    "cancel": "Anulează"
+  },
+  "create": {
+    "wordsImporter": {
+      "import_words": "Cuvinte de import",
+      "import_method": "Alegeți metoda de import:",
+      "raw_words": "Lipiți cuvintele brute",
+      "raw_placeholder": "Lipiți cuvintele dvs. aici, separate prin spații sau linii noi",
+      "topic": "Generați în funcție de subiect",
+      "topic_placeholder": "Introduceți un subiect pentru a genera cuvinte, de ex. animale",
+      "amount": "Cantitatea de cuvinte de importat:",
+      "add": "Adăugați la pachetul de cuvinte"
+    },
+    "next_word": "Următorul meu cuvânt...",
+    "auto_translate": "Traducere automată pe Enter sau faceți clic pe",
+    "word_pack_name_placeholder": "Lista mea de vocabular",
+    "edit": {
+      "title": "Editează cuvântul",
+      "delete": "ștergere",
+      "confirm": "confirmați"
+    }
+  },
+  "feedback": {
+    "title": "Împărtășește-ți gândurile",
+    "subtitle": "Vocli a fost creat de o singură persoană. Am nevoie de ajutorul tău!",
+    "like_helper": "Ce părere aveți despre Vocli?",
+    "like_placeholder": "Cred că...",
+    "dislike_helper": "Ce nu vă place la Vocli?",
+    "dislike_placeholder": "Mi-aș dori ca...",
+    "you_like": "Îți place Vocli?",
+    "i_like": "Îmi place",
+    "no_opinion": "Nici o opinie puternică",
+    "not_like": "Nu-mi place",
+    "submit": "Trimite"
+  },
+  "practice_methods": {
+    "title": "Alegeți metoda de practică",
+    "options": "Opțiuni de practică",
+    "order": "Ordin de practică",
+    "amount": "Cuvinte de exersat:",
+    "start": "Start",
+    "translation": "Traducere",
+    "translation_description": "Traduceți cuvintele.",
+    "multiple-choice": "Alegere multiplă",
+    "multiple-choice_description": "Alegeți opțiunea potrivită.",
+    "flashcards": "Cărți flash",
+    "flashcards_description": "Flip pentru a învăța.",
+    "list": "Listă",
+    "list_description": "Răsfoiți lista de cuvinte"
+  },
+  "flashcards": {
+    "title": "Cărți flash"
+  },
+  "list": {
+    "title": "Listă",
+    "search": "Cuvânt de căutare"
+  },
+  "translation": {
+    "title": "Traducere",
+    "hint": "Indicație",
+    "check": "Verificare",
+    "skip": "Salt",
+    "complete": "Exercițiu complet!",
+    "results": "A se vedea rezultatele",
+    "again": "Încercați din nou",
+    "different_exercise": "Metodă de practică diferită",
+    "home": "Du-te acasă",
+    "translation": "traducere",
+    "wrong_try_again": "Greșit, încercați din nou!",
+    "similarity_score": "scor de similitudine"
+  },
+  "multiple-choice": {
+    "title": "Traducere",
+    "complete": "Exercițiu complet!",
+    "results": "A se vedea rezultatele",
+    "again": "Încercați din nou",
+    "different_exercise": "Metodă de practică diferită",
+    "home": "Du-te acasă",
+    "wrong_choice": "Alegerea greșită!"
+  },
+  "stats": {
+    "title": "Rezultate",
+    "words_to_review": "Cuvinte de revizuit",
+    "again": "Încercați din nou",
+    "different_exercise": "Metodă de practică diferită",
+    "home": "Du-te acasă",
+    "correct_first_try": "Corect de la prima încercare",
+    "words_practiced": "Cuvinte practicate",
+    "mistakes_made": "Greșeli făcute",
+    "time_spent": "Timpul petrecut practicând",
+    "words_skipped": "Cuvinte sărite",
+    "hints_used": "Indicații utilizate"
+  },
+  "toast": {
+    "something_wrong": "Ceva nu a mers bine, vă rugăm să încercați din nou",
+    "input_not_empty": "Introducerea textului nu trebuie să fie goală",
+    "thank_feedback": "Vă mulțumim pentru feedback-ul dumneavoastră!",
+    "word_in_list": "Cuvânt deja în listă",
+    "need_min_words": "Aveți nevoie de cel puțin {număr} mai multe cuvinte pentru acest exercițiu",
+    "all_hints_used": "Toate indicii deja utilizate",
+    "deleted_successfully": "Word Pack șters cu succes.",
+    "fill_one_field": "Completați cel puțin un câmp"
+  }
+}

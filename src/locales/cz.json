@@ -1,0 +1,161 @@
+{
+  "languages": {
+    "English": "Angličtina",
+    "German": "Němčina",
+    "French": "Francouzština",
+    "Italian": "Italský",
+    "Spanish": "Španělština",
+    "Portuguese": "Portugalština",
+    "Russian": "Ruský",
+    "Polish": "Polský",
+    "Dutch": "Holandský",
+    "Turkish": "Turecký",
+    "Romanian": "Rumunština",
+    "Swedish": "Švédský",
+    "Greek": "Řecký",
+    "Hungarian": "Maďarština",
+    "Czech": "Česká republika",
+    "en": "Angličtina",
+    "de": "Němčina",
+    "fr": "Francouzština",
+    "it": "Italský",
+    "es": "Španělština",
+    "pt": "Portugalština",
+    "ru": "Ruský",
+    "pl": "Polský",
+    "nl": "Holandský",
+    "tr": "Turecký",
+    "ro": "Rumunština",
+    "sv": "Švédský",
+    "gr": "Řecký",
+    "hu": "Maďarština",
+    "cz": "Česká republika"
+  },
+  "home": {
+    "no_word_packs": "Vytvořte si balíček slov, abyste mohli začít cvičit.",
+    "customize_word_pack": "Přizpůsobení balíčku slov",
+    "knownLanguage": "Jazyk, který znáte",
+    "learnLanguage": "Jazyk, který se naučíte",
+    "name": "Název",
+    "create": "Vytvořit",
+    "feedback": "Zpětná vazba",
+    "name_example": "např. základní slovní zásoba",
+    "title": "Home",
+    "actions": "Akce",
+    "practice": "Cvičení",
+    "edit": "Upravit",
+    "delete": "Odstranit",
+    "delete_alert": {
+      "title": "Smazat balíček Word Pack?",
+      "subtitle": "Tuto akci nelze vzít zpět.",
+      "cancel": "Zrušit.",
+      "confirm": "Odstranit"
+    },
+    "word_pack_card": {
+      "words": "slova"
+    },
+    "ok": "Ok",
+    "cancel": "Zrušit"
+  },
+  "create": {
+    "wordsImporter": {
+      "import_words": "Importní slova",
+      "import_method": "Zvolte metodu importu:",
+      "raw_words": "Vložit surová slova",
+      "raw_placeholder": "Vložte sem svá slova oddělená mezerami nebo novými řádky.",
+      "topic": "Generování podle tématu",
+      "topic_placeholder": "Zadejte téma a vygenerujte slova, např. zvířata.",
+      "amount": "Množství slov k importu:",
+      "add": "Přidat do balíčku slov"
+    },
+    "next_word": "Moje další slovo...",
+    "auto_translate": "Automatický překlad při zadání nebo kliknutí na",
+    "word_pack_name_placeholder": "Můj seznam slovní zásoby",
+    "edit": {
+      "title": "Upravit slovo",
+      "delete": "smazat",
+      "confirm": "potvrdit"
+    }
+  },
+  "feedback": {
+    "title": "Podělte se o své názory",
+    "subtitle": "Vocli vytvořil jeden jediný člověk. Potřebuji vaši pomoc!",
+    "like_helper": "Co si myslíte o společnosti Vocli?",
+    "like_placeholder": "Myslím, že...",
+    "dislike_helper": "Co se vám na Vocli nelíbí?",
+    "dislike_placeholder": "Přál bych si, aby...",
+    "you_like": "Líbí se vám Vocli?",
+    "i_like": "Líbí se mi to",
+    "no_opinion": "Žádný silný názor",
+    "not_like": "Nelíbí se mi to",
+    "submit": "Odeslat"
+  },
+  "practice_methods": {
+    "title": "Zvolte si metodu cvičení",
+    "options": "Možnosti praxe",
+    "order": "Cvičná objednávka",
+    "amount": "Slova k procvičení:",
+    "start": "Start",
+    "translation": "Překlad",
+    "translation_description": "Přeložit slova.",
+    "multiple-choice": "Vícenásobná volba",
+    "multiple-choice_description": "Vyberte si správnou možnost.",
+    "flashcards": "Flashcards",
+    "flashcards_description": "Převraťte se a učte se.",
+    "list": "Seznam",
+    "list_description": "Procházet seznam slov"
+  },
+  "flashcards": {
+    "title": "Flashcards"
+  },
+  "list": {
+    "title": "Seznam",
+    "search": "Hledané slovo"
+  },
+  "translation": {
+    "title": "Překlad",
+    "hint": "Nápověda",
+    "check": "Podívejte se na stránky .",
+    "skip": "Přeskočit",
+    "complete": "Cvičení dokončeno!",
+    "results": "Zobrazit výsledky",
+    "again": "Zkuste to znovu",
+    "different_exercise": "Různé metody praxe",
+    "home": "Jdi domů",
+    "translation": "překlad",
+    "wrong_try_again": "Špatně, Zkuste to znovu!",
+    "similarity_score": "skóre podobnosti"
+  },
+  "multiple-choice": {
+    "title": "Překlad",
+    "complete": "Cvičení dokončeno!",
+    "results": "Zobrazit výsledky",
+    "again": "Zkuste to znovu",
+    "different_exercise": "Různé metody praxe",
+    "home": "Jdi domů",
+    "wrong_choice": "Špatná volba!"
+  },
+  "stats": {
+    "title": "Výsledky",
+    "words_to_review": "Slova ke kontrole",
+    "again": "Zkuste to znovu",
+    "different_exercise": "Různé metody praxe",
+    "home": "Jdi domů",
+    "correct_first_try": "Správně na první pokus",
+    "words_practiced": "Procvičovaná slova",
+    "mistakes_made": "Chyby, kterých se dopustili",
+    "time_spent": "Čas strávený cvičením",
+    "words_skipped": "Vynechaná slova",
+    "hints_used": "Použité nápovědy"
+  },
+  "toast": {
+    "something_wrong": "Něco se pokazilo, zkuste to prosím znovu",
+    "input_not_empty": "Textový vstup by neměl být prázdný",
+    "thank_feedback": "Děkujeme za vaši zpětnou vazbu!",
+    "word_in_list": "Slovo je již v seznamu",
+    "need_min_words": "Pro toto cvičení potřebujete alespoň {počítejte} více slov.",
+    "all_hints_used": "Všechny již použité nápovědy",
+    "deleted_successfully": "Balíček Word Pack byl úspěšně odstraněn.",
+    "fill_one_field": "Vyplňte alespoň jedno pole"
+  }
+}

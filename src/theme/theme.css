@@ -1,0 +1,79 @@
+:root {
+    /* Enhanced Primary Colors - Teal/Cyan for learning focus */
+    --ion-color-primary: #00e5ff;
+    --ion-color-primary-rgb: 0, 229, 255;
+    --ion-color-primary-contrast: #000000;
+    --ion-color-primary-contrast-rgb: 0, 0, 0;
+    --ion-color-primary-shade: #00c9e0;
+    --ion-color-primary-tint: #1ae8ff;
+
+    /* Secondary - Soft Blue for complementary actions */
+    --ion-color-secondary: #82b1ff;
+    --ion-color-secondary-rgb: 130, 177, 255;
+    --ion-color-secondary-contrast: #000000;
+    --ion-color-secondary-contrast-rgb: 0, 0, 0;
+    --ion-color-secondary-shade: #729be0;
+    --ion-color-secondary-tint: #8fb9ff;
+
+    /* Tertiary - Purple for accents and highlights */
+    --ion-color-tertiary: #bb86fc;
+    --ion-color-tertiary-rgb: 187, 134, 252;
+    --ion-color-tertiary-contrast: #000000;
+    --ion-color-tertiary-contrast-rgb: 0, 0, 0;
+    --ion-color-tertiary-shade: #a576de;
+    --ion-color-tertiary-tint: #c292fc;
+
+    /* Success - Green for correct answers and progress */
+    --ion-color-success: #00c853;
+    --ion-color-success-rgb: 0, 200, 83;
+    --ion-color-success-contrast: #ffffff;
+    --ion-color-success-contrast-rgb: 255, 255, 255;
+    --ion-color-success-shade: #00b049;
+    --ion-color-success-tint: #1acd64;
+
+    /* Warning - Amber for attention and review items */
+    --ion-color-warning: #ffc107;
+    --ion-color-warning-rgb: 255, 193, 7;
+    --ion-color-warning-contrast: #000000;
+    --ion-color-warning-contrast-rgb: 0, 0, 0;
+    --ion-color-warning-shade: #e0aa06;
+    --ion-color-warning-tint: #ffca28;
+
+    /* Danger - Red for errors and difficult items */
+    --ion-color-danger: #ff5252;
+    --ion-color-danger-rgb: 255, 82, 82;
+    --ion-color-danger-contrast: #ffffff;
+    --ion-color-danger-contrast-rgb: 255, 255, 255;
+    --ion-color-danger-shade: #e04848;
+    --ion-color-danger-tint: #ff6363;
+
+    /* Enhanced Neutrals for better card hierarchy */
+    --ion-color-light: #1e1e1e;
+    --ion-color-light-rgb: 30, 30, 30;
+    --ion-color-light-contrast: #ffffff;
+    --ion-color-light-contrast-rgb: 255, 255, 255;
+    --ion-color-light-shade: #1a1a1a;
+    --ion-color-light-tint: #353535;
+
+    --ion-color-medium: #3a3a3a;
+    --ion-color-medium-rgb: 58, 58, 58;
+    --ion-color-medium-contrast: #ffffff;
+    --ion-color-medium-contrast-rgb: 255, 255, 255;
+    --ion-color-medium-shade: #333333;
+    --ion-color-medium-tint: #4e4e4e;
+
+    --ion-color-dark: #0f0f0f;
+    --ion-color-dark-rgb: 15, 15, 15;
+    --ion-color-dark-contrast: #ffffff;
+    --ion-color-dark-contrast-rgb: 255, 255, 255;
+    --ion-color-dark-shade: #0d0d0d;
+    --ion-color-dark-tint: #272727;
+
+    /* Custom Card Variables for Language Learning */
+    --card-background: #222222;
+    --card-background-hover: #2a2a2a;
+    --card-background-active: #323232;
+    --card-border: #404040;
+    --card-border-hover: #525252;
+}
+

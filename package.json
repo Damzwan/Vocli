@@ -1,26 +1,47 @@
 {
-  "name": "ai-word-builder",
+  "name": "Vocli",
   "private": true,
   "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start": "vite",
+    "build_android": "vite build && npx cap sync android && npx cap copy android",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "test:e2e": "cypress run",
     "test:unit": "vitest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "translate": "tsx --env-file=.env translate.ts",
+    "vue-i18n-extract": "vue-i18n-extract report --vueFiles './src/**/*.vue' --languageFiles './src/locales/*.json'"
   },
   "dependencies": {
-    "@capacitor/app": "7.0.1",
+    "@capacitor/android": "^7.2.0",
+      "@capacitor/app": "7.0.1",
     "@capacitor/core": "7.2.0",
+    "@capacitor/device": "^7.0.1",
     "@capacitor/haptics": "7.0.1",
     "@capacitor/keyboard": "7.0.1",
+    "@capacitor/preferences": "^7.0.1",
     "@capacitor/status-bar": "7.0.1",
+    "@capawesome/capacitor-android-edge-to-edge-support": "^7.2.2",
+    "@firebase/firestore": "^4.7.16",
     "@ionic/vue": "^8.0.0",
     "@ionic/vue-router": "^8.0.0",
+    "@tailwindcss/vite": "^4.1.7",
+    "dayjs": "^1.11.13",
+    "firebase": "^11.8.1",
+    "i": "^0.3.7",
     "ionicons": "^7.0.0",
+    "npm": "^11.4.1",
+    "pinia": "^3.0.2",
+    "swiper": "^11.2.8",
+    "tailwindcss": "^4.1.7",
+    "tailwindcss-animated": "^2.0.0",
+    "tsx": "^4.19.4",
+    "uuid": "^11.1.0",
     "vue": "^3.3.0",
+    "vue-i18n": "^11.1.5",
     "vue-router": "^4.2.0"
   },
   "devDependencies": {
@@ -30,14 +51,28 @@
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/test-utils": "^2.3.0",
     "cypress": "^13.5.0",
-    "eslint": "^8.35.0",
-    "eslint-plugin-vue": "^9.9.0",
+    "deepl-node": "^1.18.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-vue": "^9.33.0",
     "jsdom": "^22.1.0",
     "terser": "^5.4.0",
     "typescript": "~5.6.2",
-    "vite": "~5.2.0",
+    "vite": "5.4.19",
     "vitest": "^0.34.6",
+    "vue-i18n-extract": "^2.0.7",
     "vue-tsc": "^2.1.10"
   },
-  "description": "An Ionic project"
+  "description": "A vocabulary learning app",
+  "pnpm": {
+    "supportedArchitectures": {
+      "os": [
+        "linux",
+        "darwin"
+      ],
+      "cpu": [
+        "x64",
+        "arm64"
+      ]
+    }
+  }
 }

@@ -1,0 +1,161 @@
+{
+  "languages": {
+    "English": "Angielski",
+    "German": "Niemiecki",
+    "French": "Francuski",
+    "Italian": "Włoski",
+    "Spanish": "Hiszpański",
+    "Portuguese": "Portugalski",
+    "Russian": "Rosyjski",
+    "Polish": "Polski",
+    "Dutch": "Holenderski",
+    "Turkish": "Turecki",
+    "Romanian": "Rumuński",
+    "Swedish": "Szwedzki",
+    "Greek": "Grecki",
+    "Hungarian": "Węgierski",
+    "Czech": "Czech",
+    "en": "Angielski",
+    "de": "Niemiecki",
+    "fr": "Francuski",
+    "it": "Włoski",
+    "es": "Hiszpański",
+    "pt": "Portugalski",
+    "ru": "Rosyjski",
+    "pl": "Polski",
+    "nl": "Holenderski",
+    "tr": "Turecki",
+    "ro": "Rumuński",
+    "sv": "Szwedzki",
+    "gr": "Grecki",
+    "hu": "Węgierski",
+    "cz": "Czech"
+  },
+  "home": {
+    "no_word_packs": "Utwórz pakiet słów, aby rozpocząć ćwiczenia",
+    "customize_word_pack": "Dostosuj swój pakiet Word",
+    "knownLanguage": "Język, który znasz",
+    "learnLanguage": "Język do nauki",
+    "name": "Nazwa",
+    "create": "Utwórz",
+    "feedback": "Informacje zwrotne",
+    "name_example": "np. podstawowe słownictwo",
+    "title": "Strona główna",
+    "actions": "Działania",
+    "practice": "Praktyka",
+    "edit": "Edytuj",
+    "delete": "Usuń",
+    "delete_alert": {
+      "title": "Usunąć pakiet Word?",
+      "subtitle": "Tego działania nie można cofnąć.",
+      "cancel": "Anuluj.",
+      "confirm": "Usuń"
+    },
+    "word_pack_card": {
+      "words": "słowa"
+    },
+    "ok": "Ok",
+    "cancel": "Anuluj"
+  },
+  "create": {
+    "wordsImporter": {
+      "import_words": "Importuj słowa",
+      "import_method": "Wybierz metodę importu:",
+      "raw_words": "Wklej surowe słowa",
+      "raw_placeholder": "Wklej tutaj swoje słowa, oddzielając je spacjami lub nowymi liniami",
+      "topic": "Generowanie według tematu",
+      "topic_placeholder": "Wprowadź temat, aby wygenerować słowa, np. zwierzęta.",
+      "amount": "Ilość słów do zaimportowania:",
+      "add": "Dodaj do pakietu słów"
+    },
+    "next_word": "Moje następne słowo...",
+    "auto_translate": "Automatyczne tłumaczenie po wprowadzeniu lub kliknięciu",
+    "word_pack_name_placeholder": "Moja lista słownictwa",
+    "edit": {
+      "title": "Edytuj słowo",
+      "delete": "usunąć",
+      "confirm": "potwierdzać"
+    }
+  },
+  "feedback": {
+    "title": "Podziel się swoimi przemyśleniami",
+    "subtitle": "Vocli zostało stworzone przez jedną osobę. Potrzebuję Twojej pomocy!",
+    "like_helper": "Co sądzisz o Vocli?",
+    "like_placeholder": "Myślę, że...",
+    "dislike_helper": "Czego nie lubisz w Vocli?",
+    "dislike_placeholder": "Chciałbym, żeby...",
+    "you_like": "Lubisz Vocli?",
+    "i_like": "Podoba mi się",
+    "no_opinion": "Brak zdecydowanej opinii",
+    "not_like": "Nie podoba mi się to",
+    "submit": "Prześlij"
+  },
+  "practice_methods": {
+    "title": "Wybierz metodę ćwiczeń",
+    "options": "Opcje ćwiczeń",
+    "order": "Kolejność ćwiczeń",
+    "amount": "Słowa do ćwiczenia:",
+    "start": "Start",
+    "translation": "Tłumaczenie",
+    "translation_description": "Tłumaczenie słów.",
+    "multiple-choice": "Wielokrotny wybór",
+    "multiple-choice_description": "Wybierz właściwą opcję.",
+    "flashcards": "Fiszki",
+    "flashcards_description": "Odwróć, aby się uczyć.",
+    "list": "Lista",
+    "list_description": "Przeglądaj listę słów"
+  },
+  "flashcards": {
+    "title": "Fiszki"
+  },
+  "list": {
+    "title": "Lista",
+    "search": "Wyszukiwane słowo"
+  },
+  "translation": {
+    "title": "Tłumaczenie",
+    "hint": "Wskazówka",
+    "check": "Sprawdź",
+    "skip": "Pomiń",
+    "complete": "Ćwiczenie zakończone!",
+    "results": "Zobacz wyniki",
+    "again": "Spróbuj ponownie",
+    "different_exercise": "Różne metody ćwiczeń",
+    "home": "Idź do domu",
+    "translation": "tłumaczenie",
+    "wrong_try_again": "Błąd, spróbuj ponownie!",
+    "similarity_score": "wynik podobieństwa"
+  },
+  "multiple-choice": {
+    "title": "Tłumaczenie",
+    "complete": "Ćwiczenie zakończone!",
+    "results": "Zobacz wyniki",
+    "again": "Spróbuj ponownie",
+    "different_exercise": "Różne metody ćwiczeń",
+    "home": "Idź do domu",
+    "wrong_choice": "Zły wybór!"
+  },
+  "stats": {
+    "title": "Wyniki",
+    "words_to_review": "Słowa do przejrzenia",
+    "again": "Spróbuj ponownie",
+    "different_exercise": "Różne metody ćwiczeń",
+    "home": "Idź do domu",
+    "correct_first_try": "Poprawnie za pierwszym razem",
+    "words_practiced": "Ćwiczone słowa",
+    "mistakes_made": "Popełnione błędy",
+    "time_spent": "Czas spędzony na ćwiczeniach",
+    "words_skipped": "Pominięte słowa",
+    "hints_used": "Użyte wskazówki"
+  },
+  "toast": {
+    "something_wrong": "Coś poszło nie tak, spróbuj ponownie",
+    "input_not_empty": "Wprowadzany tekst nie powinien być pusty",
+    "thank_feedback": "Dziękujemy za opinię!",
+    "word_in_list": "Słowo już znajdujące się na liście",
+    "need_min_words": "Potrzebujesz co najmniej {liczba} więcej słów do tego ćwiczenia",
+    "all_hints_used": "Wszystkie wskazówki zostały już wykorzystane",
+    "deleted_successfully": "Pakiet Word został pomyślnie usunięty.",
+    "fill_one_field": "Wypełnij co najmniej jedno pole"
+  }
+}

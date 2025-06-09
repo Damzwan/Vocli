@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "tailwindcss-animated";
+
+@theme {
+    --color-primary: var(--ion-color-primary);
+    --color-primary-shade: var(--ion-color-primary-shade);
+    --color-primary-light: var(--ion-color-primary-tint);
+    --color-secondary: var(--ion-color-secondary);
+    --color-secondary-light: var(--ion-color-secondary-shade);
+    --color-background: var(--ion-background-color);
+    --color-warning: var(--ion-color-warning);
+
+    --color-card-background: var(--card-background);
+    --color-card-background-hover: var(--card-background-hover);
+    --color-card-background-active: var(--card-background-active);
+    --color-card-border: var(--card-border);
+    --color-card-border-hover: var(--card-border-hover);
+}

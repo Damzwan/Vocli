@@ -1,0 +1,161 @@
+{
+  "languages": {
+    "English": "Anglais",
+    "German": "Allemand",
+    "French": "Français",
+    "Italian": "Italien",
+    "Spanish": "Espagnol",
+    "Portuguese": "Portugais",
+    "Russian": "Russie",
+    "Polish": "Polonais",
+    "Dutch": "Néerlandais",
+    "Turkish": "Turc",
+    "Romanian": "Roumain",
+    "Swedish": "Suédois",
+    "Greek": "Grecque",
+    "Hungarian": "Hongrois",
+    "Czech": "République tchèque",
+    "en": "Anglais",
+    "de": "Allemand",
+    "fr": "Français",
+    "it": "Italien",
+    "es": "Espagnol",
+    "pt": "Portugais",
+    "ru": "Russie",
+    "pl": "Polonais",
+    "nl": "Néerlandais",
+    "tr": "Turc",
+    "ro": "Roumain",
+    "sv": "Suédois",
+    "gr": "Grecque",
+    "hu": "Hongrois",
+    "cz": "République tchèque"
+  },
+  "home": {
+    "no_word_packs": "Créer un pack de mots pour commencer à s'entraîner",
+    "customize_word_pack": "Personnalisez votre pack de mots",
+    "knownLanguage": "Langue que vous connaissez",
+    "learnLanguage": "Langue à apprendre",
+    "name": "Nom",
+    "create": "Créer",
+    "feedback": "Retour d'information",
+    "name_example": "par exemple, Vocabulaire de base",
+    "title": "Accueil",
+    "actions": "Actions",
+    "practice": "Pratique",
+    "edit": "Editer",
+    "delete": "Supprimer",
+    "delete_alert": {
+      "title": "Supprimer Word Pack ?",
+      "subtitle": "Cette action ne peut être annulée.",
+      "cancel": "Annuler.",
+      "confirm": "Supprimer"
+    },
+    "word_pack_card": {
+      "words": "mots"
+    },
+    "ok": "Ok",
+    "cancel": "Annuler"
+  },
+  "create": {
+    "wordsImporter": {
+      "import_words": "Mots d'importation",
+      "import_method": "Choisissez la méthode d'importation :",
+      "raw_words": "Coller les mots bruts",
+      "raw_placeholder": "Collez vos mots ici, en les séparant par des espaces ou de nouvelles lignes.",
+      "topic": "Générer par thème",
+      "topic_placeholder": "Entrer un sujet pour générer des mots, par exemple animaux",
+      "amount": "Nombre de mots à importer :",
+      "add": "Ajouter au pack de mots"
+    },
+    "next_word": "Mon prochain mot...",
+    "auto_translate": "Traduire automatiquement en entrant ou en cliquant",
+    "word_pack_name_placeholder": "Ma liste de vocabulaire",
+    "edit": {
+      "title": "Modifier le mot",
+      "delete": "supprimer",
+      "confirm": "confirmer"
+    }
+  },
+  "feedback": {
+    "title": "Faites part de vos réflexions",
+    "subtitle": "Vocli a été créé par une seule personne. J'ai besoin de votre aide !",
+    "like_helper": "Que pensez-vous de Vocli ?",
+    "like_placeholder": "Je pense que...",
+    "dislike_helper": "Qu'est-ce qui vous déplaît dans Vocli ?",
+    "dislike_placeholder": "Je souhaite que...",
+    "you_like": "Vous aimez Vocli ?",
+    "i_like": "Je l'aime bien",
+    "no_opinion": "Pas d'avis tranché",
+    "not_like": "Je ne l'aime pas",
+    "submit": "Soumettre"
+  },
+  "practice_methods": {
+    "title": "Choisir la méthode de pratique",
+    "options": "Options de pratique",
+    "order": "Ordre de pratique",
+    "amount": "Mots à pratiquer :",
+    "start": "Démarrage",
+    "translation": "Traduction",
+    "translation_description": "Traduire les mots.",
+    "multiple-choice": "Choix multiple",
+    "multiple-choice_description": "Choisissez la bonne option.",
+    "flashcards": "Flashcards",
+    "flashcards_description": "Retourner pour apprendre.",
+    "list": "Liste",
+    "list_description": "Parcourir la liste des mots"
+  },
+  "flashcards": {
+    "title": "Flashcards"
+  },
+  "list": {
+    "title": "Liste",
+    "search": "Mot de recherche"
+  },
+  "translation": {
+    "title": "Traduction",
+    "hint": "Hint",
+    "check": "Vérifier",
+    "skip": "Sauter",
+    "complete": "Exercice terminé !",
+    "results": "Voir les résultats",
+    "again": "Réessayer",
+    "different_exercise": "Différentes méthodes de pratique",
+    "home": "Aller à la maison",
+    "translation": "la traduction",
+    "wrong_try_again": "Faux. Réessayez !",
+    "similarity_score": "score de similarité"
+  },
+  "multiple-choice": {
+    "title": "Traduction",
+    "complete": "Exercice terminé !",
+    "results": "Voir les résultats",
+    "again": "Réessayer",
+    "different_exercise": "Différentes méthodes de pratique",
+    "home": "Aller à la maison",
+    "wrong_choice": "Mauvais choix !"
+  },
+  "stats": {
+    "title": "Résultats",
+    "words_to_review": "Mots à revoir",
+    "again": "Réessayer",
+    "different_exercise": "Différentes méthodes de pratique",
+    "home": "Aller à la maison",
+    "correct_first_try": "Correct du premier coup",
+    "words_practiced": "Mots pratiqués",
+    "mistakes_made": "Les erreurs commises",
+    "time_spent": "Temps consacré à la pratique",
+    "words_skipped": "Mots sautés",
+    "hints_used": "Conseils utilisés"
+  },
+  "toast": {
+    "something_wrong": "Un problème s'est produit, veuillez réessayer",
+    "input_not_empty": "Le texte saisi ne doit pas être vide",
+    "thank_feedback": "Merci pour vos commentaires !",
+    "word_in_list": "Mot déjà dans la liste",
+    "need_min_words": "Vous avez besoin d'au moins {count} mots supplémentaires pour cet exercice",
+    "all_hints_used": "Tous les indices déjà utilisés",
+    "deleted_successfully": "Word Pack supprimé avec succès.",
+    "fill_one_field": "Remplir au moins un champ"
+  }
+}

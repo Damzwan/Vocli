@@ -1,0 +1,161 @@
+{
+  "languages": {
+    "English": "Angol",
+    "German": "Német",
+    "French": "Francia",
+    "Italian": "Olasz",
+    "Spanish": "Spanyol",
+    "Portuguese": "Portugál",
+    "Russian": "Orosz",
+    "Polish": "Lengyel",
+    "Dutch": "Holland",
+    "Turkish": "Török",
+    "Romanian": "Román",
+    "Swedish": "Svéd",
+    "Greek": "Görög",
+    "Hungarian": "Magyar",
+    "Czech": "Cseh Köztársaság",
+    "en": "Angol",
+    "de": "Német",
+    "fr": "Francia",
+    "it": "Olasz",
+    "es": "Spanyol",
+    "pt": "Portugál",
+    "ru": "Orosz",
+    "pl": "Lengyel",
+    "nl": "Holland",
+    "tr": "Török",
+    "ro": "Román",
+    "sv": "Svéd",
+    "gr": "Görög",
+    "hu": "Magyar",
+    "cz": "Cseh Köztársaság"
+  },
+  "home": {
+    "no_word_packs": "Hozzon létre egy szócsomagot, hogy elkezdhesse a gyakorlást",
+    "customize_word_pack": "Testreszabhatja a Word csomagot",
+    "knownLanguage": "Az Ön által ismert nyelv",
+    "learnLanguage": "Tanulandó nyelv",
+    "name": "Név",
+    "create": "Hozzon létre",
+    "feedback": "Visszajelzés",
+    "name_example": "pl. Alapszókincs",
+    "title": "Home",
+    "actions": "Tevékenységek",
+    "practice": "Gyakorlat",
+    "edit": "Szerkesztés",
+    "delete": "Delete",
+    "delete_alert": {
+      "title": "Word Pack törlése?",
+      "subtitle": "Ezt a műveletet nem lehet visszacsinálni.",
+      "cancel": "Törölje.",
+      "confirm": "Delete"
+    },
+    "word_pack_card": {
+      "words": "szavak"
+    },
+    "ok": "Oké",
+    "cancel": "Törölje"
+  },
+  "create": {
+    "wordsImporter": {
+      "import_words": "Import szavak",
+      "import_method": "Válassza ki az importálási módszert:",
+      "raw_words": "Nyers szavak beillesztése",
+      "raw_placeholder": "Illessze be ide a szavait, szóközökkel vagy új sorokkal elválasztva.",
+      "topic": "Téma szerint generálni",
+      "topic_placeholder": "Adjon meg egy témát a szavak generálásához, pl. állatok.",
+      "amount": "Az importálandó szavak száma:",
+      "add": "Hozzáadás a szócsomaghoz"
+    },
+    "next_word": "A következő szavam...",
+    "auto_translate": "Automatikus fordítás Enter vagy kattintás",
+    "word_pack_name_placeholder": "Az én szókincslistám",
+    "edit": {
+      "title": "Szó szerkesztése",
+      "delete": "delete",
+      "confirm": "erősítse meg a  címet."
+    }
+  },
+  "feedback": {
+    "title": "Ossza meg gondolatait",
+    "subtitle": "A Voclit egyetlen ember készítette. Szükségem van a segítségedre!",
+    "like_helper": "Mit gondolsz Vocliról?",
+    "like_placeholder": "Azt hiszem, hogy...",
+    "dislike_helper": "Mit nem szeretsz a Vocliban?",
+    "dislike_placeholder": "Bárcsak...",
+    "you_like": "Szereted Vocli-t?",
+    "i_like": "Nekem tetszik",
+    "no_opinion": "Nincs határozott vélemény",
+    "not_like": "Nem tetszik",
+    "submit": "Küldje be a"
+  },
+  "practice_methods": {
+    "title": "Válassza ki a gyakorlati módszert",
+    "options": "Gyakorlati lehetőségek",
+    "order": "Gyakorlati sorrend",
+    "amount": "Gyakorolandó szavak:",
+    "start": "Indítsa el a  oldalt.",
+    "translation": "Fordítás",
+    "translation_description": "Fordítsa le a szavakat.",
+    "multiple-choice": "Többszörös választás",
+    "multiple-choice_description": "Válassza ki a megfelelő opciót.",
+    "flashcards": "Villámkártyák",
+    "flashcards_description": "Fordítsd meg, hogy tanulj.",
+    "list": "Lista",
+    "list_description": "Szavak listájának böngészése"
+  },
+  "flashcards": {
+    "title": "Villámkártyák"
+  },
+  "list": {
+    "title": "Lista",
+    "search": "Kereső szó"
+  },
+  "translation": {
+    "title": "Fordítás",
+    "hint": "Hint",
+    "check": "Ellenőrizze a  címet.",
+    "skip": "Skip",
+    "complete": "Gyakorlat befejezve!",
+    "results": "Eredmények megtekintése",
+    "again": "Próbálja újra",
+    "different_exercise": "Különböző gyakorlati módszer",
+    "home": "Menj haza",
+    "translation": "fordítás",
+    "wrong_try_again": "Tévedés, próbáld újra!",
+    "similarity_score": "hasonlósági pontszám"
+  },
+  "multiple-choice": {
+    "title": "Fordítás",
+    "complete": "Gyakorlat befejezve!",
+    "results": "Eredmények megtekintése",
+    "again": "Próbálja újra",
+    "different_exercise": "Különböző gyakorlati módszer",
+    "home": "Menj haza",
+    "wrong_choice": "Rossz választás!"
+  },
+  "stats": {
+    "title": "Eredmények",
+    "words_to_review": "Szavak felülvizsgálatra",
+    "again": "Próbálja újra",
+    "different_exercise": "Különböző gyakorlati módszer",
+    "home": "Menj haza",
+    "correct_first_try": "Helyes első próbálkozásra",
+    "words_practiced": "Gyakorolt szavak",
+    "mistakes_made": "Elkövetett hibák",
+    "time_spent": "Gyakorlással töltött idő",
+    "words_skipped": "Kihagyott szavak",
+    "hints_used": "Használt tippek"
+  },
+  "toast": {
+    "something_wrong": "Valami rosszul ment, kérjük, próbálja meg újra",
+    "input_not_empty": "A szövegbevitel nem lehet üres",
+    "thank_feedback": "Köszönjük visszajelzését!",
+    "word_in_list": "A szó már szerepel a listában",
+    "need_min_words": "Ehhez a feladathoz legalább {számolj} több szóra van szükséged.",
+    "all_hints_used": "Minden már használt tipp",
+    "deleted_successfully": "Word Pack sikeresen törölve.",
+    "fill_one_field": "Legalább egy mező kitöltése"
+  }
+}

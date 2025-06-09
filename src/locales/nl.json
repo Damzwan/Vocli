@@ -1,0 +1,161 @@
+{
+  "languages": {
+    "English": "Engels",
+    "German": "Duits",
+    "French": "Frans",
+    "Italian": "Italiaans",
+    "Spanish": "Spaans",
+    "Portuguese": "Portugees",
+    "Russian": "Russisch",
+    "Polish": "Pools",
+    "Dutch": "Nederlands",
+    "Turkish": "Turks",
+    "Romanian": "Roemeens",
+    "Swedish": "Zweeds",
+    "Greek": "Grieks",
+    "Hungarian": "Hongaars",
+    "Czech": "Tsjechië",
+    "en": "Engels",
+    "de": "Duits",
+    "fr": "Frans",
+    "it": "Italiaans",
+    "es": "Spaans",
+    "pt": "Portugees",
+    "ru": "Russisch",
+    "pl": "Pools",
+    "nl": "Nederlands",
+    "tr": "Turks",
+    "ro": "Roemeens",
+    "sv": "Zweeds",
+    "gr": "Grieks",
+    "hu": "Hongaars",
+    "cz": "Tsjechië"
+  },
+  "home": {
+    "no_word_packs": "Maak een woordpakket om te beginnen met oefenen",
+    "customize_word_pack": "Uw woordpakket aanpassen",
+    "knownLanguage": "Taal die je kent",
+    "learnLanguage": "Taal om te leren",
+    "name": "Naam",
+    "create": "Maak",
+    "feedback": "Feedback",
+    "name_example": "bijv. basiswoordenschat",
+    "title": "Home",
+    "actions": "Acties",
+    "practice": "Praktijk",
+    "edit": "Bewerk",
+    "delete": "Verwijder",
+    "delete_alert": {
+      "title": "Word-pakket verwijderen?",
+      "subtitle": "Deze actie kan niet ongedaan worden gemaakt.",
+      "cancel": "Annuleren.",
+      "confirm": "Verwijder"
+    },
+    "word_pack_card": {
+      "words": "woorden"
+    },
+    "ok": "Ok",
+    "cancel": "Annuleren"
+  },
+  "create": {
+    "wordsImporter": {
+      "import_words": "Woorden importeren",
+      "import_method": "Kies de importmethode:",
+      "raw_words": "Ruwe woorden plakken",
+      "raw_placeholder": "Plak je woorden hier, gescheiden door spaties of nieuwe regels",
+      "topic": "Genereren op onderwerp",
+      "topic_placeholder": "Voer een onderwerp in om woorden te genereren, bijv. dieren",
+      "amount": "Aantal woorden om te importeren:",
+      "add": "Toevoegen aan woordpakket"
+    },
+    "next_word": "Mijn volgende woord...",
+    "auto_translate": "Automatisch vertalen bij Enter of klik op",
+    "word_pack_name_placeholder": "Mijn woordenschatlijst",
+    "edit": {
+      "title": "Edit word",
+      "delete": "verwijderen",
+      "confirm": "bevestigen"
+    }
+  },
+  "feedback": {
+    "title": "Deel uw gedachten",
+    "subtitle": "Vocli is gemaakt door één persoon. Ik heb je hulp nodig!",
+    "like_helper": "Wat vind jij van Vocli?",
+    "like_placeholder": "Ik denk dat...",
+    "dislike_helper": "Wat vind je niet leuk aan Vocli?",
+    "dislike_placeholder": "Ik wou dat...",
+    "you_like": "Hou je van Vocli?",
+    "i_like": "Ik vind het leuk",
+    "no_opinion": "Geen uitgesproken mening",
+    "not_like": "Ik vind het niet leuk",
+    "submit": "Stuur  in"
+  },
+  "practice_methods": {
+    "title": "Oefenmethode kiezen",
+    "options": "Praktijk opties",
+    "order": "Praktijk volgorde",
+    "amount": "Woorden om te oefenen:",
+    "start": "Start",
+    "translation": "Vertaling",
+    "translation_description": "Vertaal woorden.",
+    "multiple-choice": "Meerkeuze",
+    "multiple-choice_description": "Kies de juiste optie.",
+    "flashcards": "Flashcards",
+    "flashcards_description": "Flip om te leren.",
+    "list": "Lijst",
+    "list_description": "Browse word list"
+  },
+  "flashcards": {
+    "title": "Flashcards"
+  },
+  "list": {
+    "title": "Lijst",
+    "search": "Zoekwoord"
+  },
+  "translation": {
+    "title": "Vertaling",
+    "hint": "Tip",
+    "check": "Controleer",
+    "skip": "Skip",
+    "complete": "Oefening voltooid!",
+    "results": "Resultaten bekijken",
+    "again": "Probeer het opnieuw",
+    "different_exercise": "Verschillende oefenmethode",
+    "home": "Ga naar huis",
+    "translation": "vertaling",
+    "wrong_try_again": "Fout, probeer het opnieuw!",
+    "similarity_score": "similariteitsscore"
+  },
+  "multiple-choice": {
+    "title": "Vertaling",
+    "complete": "Oefening voltooid!",
+    "results": "Resultaten bekijken",
+    "again": "Probeer het opnieuw",
+    "different_exercise": "Verschillende oefenmethode",
+    "home": "Ga naar huis",
+    "wrong_choice": "Verkeerde keuze!"
+  },
+  "stats": {
+    "title": "Resultaten",
+    "words_to_review": "Woorden om te herzien",
+    "again": "Probeer het opnieuw",
+    "different_exercise": "Verschillende oefenmethode",
+    "home": "Ga naar huis",
+    "correct_first_try": "Correct bij eerste poging",
+    "words_practiced": "Geoefende woorden",
+    "mistakes_made": "Gemaakte fouten",
+    "time_spent": "Tijd besteed aan oefenen",
+    "words_skipped": "Woorden overgeslagen",
+    "hints_used": "Gebruikte tips"
+  },
+  "toast": {
+    "something_wrong": "Er is iets fout gegaan, probeer het opnieuw",
+    "input_not_empty": "Tekstinvoer mag niet leeg zijn",
+    "thank_feedback": "Bedankt voor je feedback!",
+    "word_in_list": "Woord al in lijst",
+    "need_min_words": "Je hebt minstens {telling} meer woorden nodig voor deze oefening",
+    "all_hints_used": "Alle hints zijn al gebruikt",
+    "deleted_successfully": "Word Pack succesvol verwijderd.",
+    "fill_one_field": "Vul minstens één veld"
+  }
+}

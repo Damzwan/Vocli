@@ -1,0 +1,161 @@
+{
+  "languages": {
+    "English": "İngilizce",
+    "German": "Alman",
+    "French": "Fransızca",
+    "Italian": "İtalyan",
+    "Spanish": "İspanyolca",
+    "Portuguese": "Portekizce",
+    "Russian": "Rusça",
+    "Polish": "Lehçe",
+    "Dutch": "Hollandaca",
+    "Turkish": "Türkçe",
+    "Romanian": "Romence",
+    "Swedish": "İsveç",
+    "Greek": "Yunan",
+    "Hungarian": "Macarca",
+    "Czech": "Çek Cumhuriyeti",
+    "en": "İngilizce",
+    "de": "Alman",
+    "fr": "Fransızca",
+    "it": "İtalyan",
+    "es": "İspanyolca",
+    "pt": "Portekizce",
+    "ru": "Rusça",
+    "pl": "Lehçe",
+    "nl": "Hollandaca",
+    "tr": "Türkçe",
+    "ro": "Romence",
+    "sv": "İsveç",
+    "gr": "Yunan",
+    "hu": "Macarca",
+    "cz": "Çek Cumhuriyeti"
+  },
+  "home": {
+    "no_word_packs": "Pratik yapmaya başlamak için bir kelime paketi oluşturun",
+    "customize_word_pack": "Kelime Paketinizi Özelleştirin",
+    "knownLanguage": "Bildiğiniz dil",
+    "learnLanguage": "Öğrenilecek dil",
+    "name": "İsim",
+    "create": "Oluştur",
+    "feedback": "Geri bildirim",
+    "name_example": "Örneğin, Temel Kelime Bilgisi",
+    "title": "Ev",
+    "actions": "Eylemler",
+    "practice": "Uygulama",
+    "edit": "Düzenle",
+    "delete": "Silme",
+    "delete_alert": {
+      "title": "Kelime Paketi Silinsin mi?",
+      "subtitle": "Bu işlem geri alınamaz.",
+      "cancel": "İptal et.",
+      "confirm": "Silme"
+    },
+    "word_pack_card": {
+      "words": "kelimeler"
+    },
+    "ok": "Tamam.",
+    "cancel": "İptal"
+  },
+  "create": {
+    "wordsImporter": {
+      "import_words": "İthal Kelimeler",
+      "import_method": "İçe aktarma yöntemini seçin:",
+      "raw_words": "Ham Kelimeleri Yapıştır",
+      "raw_placeholder": "Kelimelerinizi boşluk veya yeni satırlarla ayırarak buraya yapıştırın",
+      "topic": "Konuya Göre Oluştur",
+      "topic_placeholder": "Kelime üretmek için bir konu girin, örneğin hayvanlar",
+      "amount": "İçe aktarılacak kelime miktarı:",
+      "add": "Kelime paketine ekle"
+    },
+    "next_word": "Bir sonraki kelimem.",
+    "auto_translate": "Enter'da otomatik çevir veya tıklayın",
+    "word_pack_name_placeholder": "Kelime Listem",
+    "edit": {
+      "title": "Kelimeyi düzenle",
+      "delete": "silme",
+      "confirm": "onaylayın"
+    }
+  },
+  "feedback": {
+    "title": "Düşüncelerinizi paylaşın",
+    "subtitle": "Vocli tek bir kişi tarafından yapıldı. Yardımınıza ihtiyacım var!",
+    "like_helper": "Vocli hakkında ne düşünüyorsunuz?",
+    "like_placeholder": "Sanırım.",
+    "dislike_helper": "Vocli'nin nesini sevmiyorsunuz?",
+    "dislike_placeholder": "Keşke...",
+    "you_like": "Vocli'yi sever misin?",
+    "i_like": "Hoşuma gitti.",
+    "no_opinion": "Güçlü bir görüş yok",
+    "not_like": "Bunu sevmedim.",
+    "submit": "Gönder"
+  },
+  "practice_methods": {
+    "title": "Uygulama Yöntemini Seçin",
+    "options": "Uygulama seçenekleri",
+    "order": "Uygulama sırası",
+    "amount": "Pratik yapmak için kelimeler:",
+    "start": "Başlangıç",
+    "translation": "Çeviri",
+    "translation_description": "Kelimeleri çevir.",
+    "multiple-choice": "Çoktan seçmeli",
+    "multiple-choice_description": "Doğru seçeneği seçin.",
+    "flashcards": "Bilgi Kartları",
+    "flashcards_description": "Öğrenmek için çevir.",
+    "list": "Liste",
+    "list_description": "Kelime listesine göz atın"
+  },
+  "flashcards": {
+    "title": "Bilgi Kartları"
+  },
+  "list": {
+    "title": "Liste",
+    "search": "Arama kelimesi"
+  },
+  "translation": {
+    "title": "Çeviri",
+    "hint": "İpucu",
+    "check": "Kontrol et",
+    "skip": "Atla",
+    "complete": "Egzersiz tamamlandı!",
+    "results": "Sonuçları Gör",
+    "again": "Tekrar deneyin",
+    "different_exercise": "Farklı uygulama yöntemi",
+    "home": "Eve Git",
+    "translation": "çeviri",
+    "wrong_try_again": "Yanlış, tekrar dene!",
+    "similarity_score": "benzerlik puanı"
+  },
+  "multiple-choice": {
+    "title": "Çeviri",
+    "complete": "Egzersiz tamamlandı!",
+    "results": "Sonuçları Gör",
+    "again": "Tekrar deneyin",
+    "different_exercise": "Farklı uygulama yöntemi",
+    "home": "Eve Git",
+    "wrong_choice": "Yanlış seçim!"
+  },
+  "stats": {
+    "title": "Sonuçlar",
+    "words_to_review": "İncelenecek kelimeler",
+    "again": "Tekrar deneyin",
+    "different_exercise": "Farklı uygulama yöntemi",
+    "home": "Eve Git",
+    "correct_first_try": "İlk denemede doğru",
+    "words_practiced": "Uygulanan kelimeler",
+    "mistakes_made": "Yapılan hatalar",
+    "time_spent": "Pratik yapmak için harcanan zaman",
+    "words_skipped": "Atlanan kelimeler",
+    "hints_used": "Kullanılan ipuçları"
+  },
+  "toast": {
+    "something_wrong": "Bir şeyler ters gitti lütfen tekrar deneyin",
+    "input_not_empty": "Metin girişi boş olmamalıdır",
+    "thank_feedback": "Geri bildiriminiz için teşekkür ederiz!",
+    "word_in_list": "Kelime zaten listede",
+    "need_min_words": "Bu alıştırma için en az {sayıca} daha fazla kelimeye ihtiyacınız var",
+    "all_hints_used": "Tüm ipuçları zaten kullanıldı",
+    "deleted_successfully": "Word Pack başarıyla silindi.",
+    "fill_one_field": "En az bir alanı doldurun"
+  }
+}

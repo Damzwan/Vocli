@@ -1,0 +1,146 @@
+{
+  "languages": {
+    "en": "English",
+    "de": "German",
+    "fr": "French",
+    "it": "Italian",
+    "es": "Spanish",
+    "pt": "Portuguese",
+    "ru": "Russian",
+    "pl": "Polish",
+    "nl": "Dutch",
+    "tr": "Turkish",
+    "ro": "Romanian",
+    "sv": "Swedish",
+    "gr": "Greek",
+    "hu": "Hungarian",
+    "cz": "Czech"
+  },
+  "toast": {
+    "something_wrong": "Something went wrong please try again",
+    "input_not_empty": "Text input should not be empty",
+    "thank_feedback": "Thank you for your feedback!",
+    "word_in_list": "Word already in list",
+    "need_min_words": "You need at least {count} more words for this exercise",
+    "all_hints_used": "All hints already used",
+    "deleted_successfully": "Word Pack deleted successfully.",
+    "fill_one_field": "Fill at least one field"
+  },
+  "home": {
+    "title": "Home",
+    "actions": "Actions",
+    "practice": "Practice",
+    "edit": "Edit",
+    "delete": "Delete",
+    "no_word_packs": "Create a word pack in order to start practicing",
+    "customize_word_pack": "Customize Your Word Pack",
+    "knownLanguage": "Language you know",
+    "learnLanguage": "Language to learn",
+    "name": "Name",
+    "create": "Create",
+    "feedback": "Feedback",
+    "name_example": "e.g., Basic Vocabulary",
+    "ok": "Ok",
+    "cancel": "Cancel",
+    "delete_alert": {
+      "title": "Delete Word Pack?",
+      "subtitle": "This action cannot be undone.",
+      "cancel": "Cancel.",
+      "confirm": "Delete"
+    },
+    "word_pack_card": {
+      "words": "words"
+    }
+  },
+  "create": {
+    "next_word": "My next word...",
+    "auto_translate": "Auto-translate on Enter or click",
+    "word_pack_name_placeholder": "My Vocabulary List",
+    "wordsImporter": {
+      "import_words": "Import Words",
+      "import_method": "Choose import method:",
+      "raw_words": "Paste Raw Words",
+      "raw_placeholder": "Paste your words here, separated by spaces or new lines",
+      "topic": "Generate by Topic",
+      "topic_placeholder": "Enter a topic to generate words, e.g. animals",
+      "amount": "Amount of words to import:",
+      "add": "Add to word pack"
+    },
+    "edit": {
+      "title": "Edit word",
+      "delete": "delete",
+      "confirm": "confirm"
+    }
+  },
+  "feedback": {
+    "title": "Share your thoughts",
+    "subtitle": "Vocli was made by one single person. I need your help!",
+    "like_helper": "What do you think about Vocli?",
+    "like_placeholder": "I think that...",
+    "dislike_helper": "What do you dislike about Vocli?",
+    "dislike_placeholder": "I wish that...",
+    "you_like": "Do you like Vocli?",
+    "i_like": "I like it",
+    "no_opinion": "No strong opinion",
+    "not_like": "I do not like it",
+    "submit": "Submit"
+  },
+  "practice_methods": {
+    "title": "Choose Practice Method",
+    "options": "Practice options",
+    "order": "Practice order",
+    "amount": "Words to practice:",
+    "start": "Start",
+    "translation": "Translation",
+    "translation_description": "Translate words.",
+    "multiple-choice": "Multiple choice",
+    "multiple-choice_description": "Pick the right option.",
+    "flashcards": "Flashcards",
+    "flashcards_description": "Flip to learn.",
+    "list": "List",
+    "list_description": "Browse word list"
+  },
+  "flashcards": {
+    "title": "Flashcards"
+  },
+  "list": {
+    "title": "List",
+    "search": "Search word"
+  },
+  "translation": {
+    "title": "Translation",
+    "hint": "Hint",
+    "check": "Check",
+    "skip": "Skip",
+    "complete": "Exercise complete!",
+    "results": "See Results",
+    "again": "Try again",
+    "different_exercise": "Different practice method",
+    "home": "Go Home",
+    "translation": "translation",
+    "wrong_try_again": "Wrong, Try again!",
+    "similarity_score": "similarity score"
+  },
+  "multiple-choice": {
+    "title": "Translation",
+    "complete": "Exercise complete!",
+    "results": "See Results",
+    "again": "Try again",
+    "different_exercise": "Different practice method",
+    "home": "Go Home",
+    "wrong_choice": "Wrong Choice!"
+  },
+  "stats": {
+    "title": "Results",
+    "words_to_review": "Words to review",
+    "again": "Try again",
+    "different_exercise": "Different practice method",
+    "home": "Go Home",
+    "correct_first_try": "Correct on first try",
+    "words_practiced": "Words practiced",
+    "mistakes_made": "Mistakes made",
+    "time_spent": "Time spent practicing",
+    "words_skipped": "Words skipped",
+    "hints_used": "Hints used"
+  }
+}
