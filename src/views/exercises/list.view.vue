@@ -49,7 +49,7 @@
         </div>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
+    <ion-content v-if="wordPack">
       <div class="flex flex-col h-full px-4 space-y-4">
         <div class="flex justify-center items-center space-x-4">
           <div class="w-full justify-center flex">
@@ -63,7 +63,8 @@
             </ion-button>
           </div>
 
-
+<!--          small hack-->
+          <div class="flex w-full"/>
         </div>
 
         <div class="flex-1 overflow-y-auto space-y-4">
@@ -75,6 +76,7 @@
               :hideLeft="hideLeft"
               :hide-right="hideRight"
               :highlighted-word="indicesToHighlight.includes(i) ? wordToSearch : undefined"
+              @open-word-info="open({learnWord: word.to, knownWord: word.from, knownLanguage: wordPack.knownLanguage, learnLanguage: wordPack.learnLanguage})"
           />
         </div>
       </div>
@@ -101,12 +103,14 @@ import ListWordCard from "@/components/exercises/ListWordCard.vue";
 import {ref} from "vue";
 import {sanitize} from "@/helpers/exercises";
 import {useI18n} from "vue-i18n";
+import {useWordInfoStore} from "@/states/wordInfo.state";
 
 const router = useIonRouter()
 
 const hideLeft = ref(false);
 const hideRight = ref(false);
 
+const {open} = useWordInfoStore()
 
 const {wordPack} = storeToRefs(useVocabularyPracticeStore())
 const {t} = useI18n()

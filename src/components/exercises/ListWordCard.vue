@@ -1,27 +1,46 @@
 <template>
   <div
-      class="w-full bg-card-background hover:bg-card-background-hover active:bg-card-background-active border-card-border hover:border-b-card-border-hover rounded-xl px-4 py-3 grid grid-cols-2 gap-4 items-center">
+      class="w-full bg-card-background hover:bg-card-background-hover active:bg-card-background-active border-card-border hover:border-b-card-border-hover rounded-xl py-3 grid grid-cols-3 gap-4 items-center relative"
+  >
     <!-- From word with TTS -->
     <div class="flex items-center justify-center space-x-2">
-      <div class="text-white text-xl font-medium text-center cursor-pointer" @click="localHideLeft=!localHideLeft"
-           v-html="localHideLeft ? unknown : getHighlightedParts(wordItem.from)">
+      <div
+          class="text-white text-xl font-medium text-center cursor-pointer"
+          @click="localHideLeft = !localHideLeft"
+          v-html="localHideLeft ? unknown : getHighlightedParts(wordItem.from)"
+      >
       </div>
     </div>
 
     <!-- To word with TTS -->
     <div class="flex items-center justify-center space-x-2">
-      <div class="text-white text-xl font-medium text-center cursor-pointer" @click="localHideRight=!localHideRight"
-           v-html="localHideRight ? unknown : getHighlightedParts(wordItem.to)">
+      <div
+          class="text-white text-xl font-medium text-center cursor-pointer"
+          @click="localHideRight = !localHideRight"
+          v-html="localHideRight ? unknown : getHighlightedParts(wordItem.to)"
+      >
       </div>
     </div>
+
+    <!-- 🔹 Word info button -->
+    <ion-button
+        fill="clear"
+        @click="emits('open-word-info')"
+    >
+      <ion-icon slot="icon-only" :icon="informationCircleOutline"></ion-icon>
+    </ion-button>
   </div>
 </template>
 
 
 <script setup lang="ts">
+import {IonIcon, IonButton} from "@ionic/vue";
 import {WordItem} from "@/types";
 import {ref, watch} from "vue";
 import {sanitize} from "@/helpers/exercises";
+import {informationCircleOutline} from "ionicons/icons";
+
+const emits = defineEmits(["open-word-info"]);
 
 const localHideLeft = ref(false)
 const localHideRight = ref(false)

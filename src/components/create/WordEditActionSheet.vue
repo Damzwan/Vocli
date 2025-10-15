@@ -7,12 +7,12 @@
 
       <div class="bg-background-card rounded-xl p-3 space-y-4 mt-4">
         <ion-input v-model="from" class="rounded-lg">
-          <ion-icon slot="start" class="px-3" :icon="LANGUAGE_FLAGS[knownLanguage]"/>
+          <ion-icon slot="start" class="px-3" :icon="LANGUAGE_FLAGS[wordPack?.knownLanguage ?? LANGUAGE.en]"/>
           <ion-icon slot="end" class="px-3" :icon="createOutline"/>
         </ion-input>
 
         <ion-input v-model="to" class="rounded-lg">
-          <ion-icon slot="start" class="px-3" :icon="LANGUAGE_FLAGS[learnLanguage]"/>
+          <ion-icon slot="start" class="px-3" :icon="LANGUAGE_FLAGS[wordPack?.learnLanguage ?? LANGUAGE.it]"/>
           <ion-icon slot="end" class="px-3" :icon="createOutline"/>
         </ion-input>
       </div>
@@ -41,7 +41,7 @@ import {createOutline} from "ionicons/icons";
 
 import {ref} from "vue";
 import {WordItem} from "@/types";
-import {LANGUAGE_FLAGS} from "@/config/languages.config";
+import {LANGUAGE, LANGUAGE_FLAGS} from "@/config/languages.config";
 import {storeToRefs} from "pinia";
 import {useVocabularyCreatorStore} from "@/states/vocabulary-creator.state";
 import {useI18n} from "vue-i18n";
@@ -51,7 +51,7 @@ const modal = ref<any>();
 const from = ref<string>("");
 const to = ref<string>("");
 
-const {learnLanguage, knownLanguage} = storeToRefs(useVocabularyCreatorStore())
+const {wordPack} = storeToRefs(useVocabularyCreatorStore())
 
 const props = defineProps<{
   isOpen: boolean;

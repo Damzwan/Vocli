@@ -16,6 +16,7 @@ export const useAppStore = defineStore('app', () => {
     const toastMessage = ref('')
     const toastOptions = ref<ToastOptions>(baseToastOptions);
 
+
     function showToast(message: string, options?: ToastOptions) {
         isToastOpen.value = true;
         toastMessage.value = message;
