@@ -1,14 +1,20 @@
 <template>
   <ion-page class="max-w-[1000px] mx-auto" v-if="wordPack">
+    <ion-header>
+      <ion-toolbar color="background">
+        <div class="flex items-center px-2 h-16">
+          <ion-button fill="clear" @click="router.back()">
+            <ion-icon slot="icon-only" :icon="arrowBack"/>
+          </ion-button>
+          <p class="text-2xl font-bold pl-2">{{ t(`${tPrefix}.title`) }}</p>
+        </div>
+      </ion-toolbar>
+
+    </ion-header>
     <ion-content>
-      <div class="flex items-center px-2 h-16">
-        <ion-button fill="clear" @click="router.back(iosTransitionAnimation)">
-          <ion-icon slot="icon-only" :icon="arrowBack"/>
-        </ion-button>
-        <p class="text-2xl font-bold pl-2">{{ t(`${tPrefix}.title`) }}</p>
-      </div>
+
       <div class="p-4 w-full h-full space-y-3 flex flex-col">
-        <ExerciseMethodCard :exercise-method="exerciseMethod" v-for="exerciseMethod in PRACTICE_MODES"
+        <ExerciseMethodCard :exercise-method="exerciseMethod" v-for="exerciseMethod in PracticeModes"
                             :key="exerciseMethod.id" @click="() => onPracticeMethodClick(exerciseMethod)"/>
       </div>
 
@@ -91,12 +97,13 @@ import {
   IonModal,
   IonPage,
   IonRange,
-  iosTransitionAnimation,
+  IonHeader,
   onIonViewWillEnter,
   useIonRouter,
+  IonToolbar,
 } from "@ionic/vue";
 import ExerciseMethodCard from "@/components/exercises/ExerciseMethodCard.vue";
-import {AVG_PRACTICE_WORDS, MIN_PRACTICE_WORDS, PRACTICE_MODES} from "@/config/exercises/PRACTICE_MODES";
+import {AVG_PRACTICE_WORDS, MIN_PRACTICE_WORDS, PracticeModes} from "@/config/exercises/practiceModes";
 import {ref} from "vue";
 import {PracticeMode, PracticeOrder} from "@/types";
 import {storeToRefs} from "pinia";
@@ -128,19 +135,19 @@ function onPracticeMethodClick(practiceMethod: PracticeMode) {
 
   if (selectedPracticeMode.value.id === "translation" || selectedPracticeMode.value.id === "multiple-choice") {
     if (wordPack.value.words.length < MIN_PRACTICE_WORDS) {
-      showToast(t('toast.need_min_words', {count: MIN_PRACTICE_WORDS - wordPack.value.words.length}),{color: 'warning'});
+      showToast(t('toast.need_min_words', {count: MIN_PRACTICE_WORDS - wordPack.value.words.length}), {color: 'warning'});
       return;
     }
     isPracticeMethodOptionActionSheetOpen.value = true;
   } else {
-    router.push(`/practice/${practiceMethod.link}`, iosTransitionAnimation)
+    router.push(`/practice/${practiceMethod.link}`)
   }
 }
 
 function startTranslateExercise() {
   if (!selectedPracticeMode.value) return
   isPracticeMethodOptionActionSheetOpen.value = false;
-  router.push(`/practice/${selectedPracticeMode.value.link}`, iosTransitionAnimation)
+  router.push(`/practice/${selectedPracticeMode.value.link}`)
 
 }
 

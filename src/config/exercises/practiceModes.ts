@@ -3,7 +3,7 @@ import {imagesOutline, keypadOutline, listOutline, textOutline} from "ionicons/i
 
 export const MIN_PRACTICE_WORDS = 5;
 export const AVG_PRACTICE_WORDS = 10;
-export const PRACTICE_MODES: PracticeMode[] = [
+export const PracticeModes: PracticeMode[] = [
     {
         id: "translation",
         link: "translation",

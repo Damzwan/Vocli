@@ -2,7 +2,7 @@ import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router';
 
-import {IonicVue} from '@ionic/vue';
+import {IonicVue, iosTransitionAnimation, mdTransitionAnimation} from '@ionic/vue';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -43,7 +43,7 @@ import tr from './locales/tr.json'
 import cz from './locales/cz.json'
 import ru from './locales/ru.json'
 import hu from './locales/hu.json'
-import {getInitLanguage} from "@/helpers/app.helper";
+import {getInitLanguage, isNative} from "@/helpers/app.helper";
 
 dayjs.extend(duration);
 
@@ -62,8 +62,9 @@ getInitLanguage().then((locale) => {
     i18n.global.locale = locale as any;
 })
 
+
 const app = createApp(App)
-    .use(IonicVue).use(i18n)
+    .use(IonicVue, {navAnimation: isNative() ? iosTransitionAnimation : mdTransitionAnimation}).use(i18n)
     .use(router).use(pinia)
 
 router.isReady().then(() => {

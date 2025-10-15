@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "548787620052",
+    "project_id": "vocli-ab84e",
+    "storage_bucket": "vocli-ab84e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:548787620052:android:25718fb5606bbb2df21341",
+        "android_client_info": {
+          "package_name": "com.vocli.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "548787620052-g68637pjrisgsumlma1e9pnoab3onf8q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC24BAMFCx455bM3l9hu8bwRZMT9yAROEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "548787620052-g68637pjrisgsumlma1e9pnoab3onf8q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

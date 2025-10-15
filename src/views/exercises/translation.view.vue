@@ -1,12 +1,17 @@
 <template>
   <ion-page class="max-w-[1000px] mx-auto">
+    <ion-header>
+      <ion-toolbar color="background">
+        <div class="flex items-center px-2 h-16">
+          <ion-button fill="clear" @click="router.back()">
+            <ion-icon slot="icon-only" :icon="arrowBack"/>
+          </ion-button>
+          <p class="text-2xl font-bold pl-2">{{ t('translation.title') }}</p>
+        </div>
+      </ion-toolbar>
+    </ion-header>
     <ion-content v-if="words.length > 0 && wordPack">
-      <div class="flex items-center px-2 h-16">
-        <ion-button fill="clear" @click="router.back(iosTransitionAnimation)">
-          <ion-icon slot="icon-only" :icon="arrowBack"/>
-        </ion-button>
-        <p class="text-2xl font-bold pl-2">{{ t('translation.title') }}</p>
-      </div>
+
 
       <div class="w-full h-3/5 flex justify-center items-center p-12 flex-col">
         <div :class="{ 'opacity-50 pointer-events-none': finished }" class="transition-opacity duration-500 w-full">
@@ -75,9 +80,10 @@ import {
   IonIcon,
   IonInput,
   IonPage,
-  iosTransitionAnimation,
   onIonViewWillEnter,
-  useIonRouter
+  useIonRouter,
+  IonHeader,
+  IonToolbar
 } from "@ionic/vue";
 import {useVocabularyPracticeStore} from "@/states/vocabulary-practice.state";
 import {ref} from "vue";

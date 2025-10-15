@@ -4,6 +4,7 @@ export type WordPack = {
     id: string;
     name: string;
     lastEdited: string;
+    lastPracticed?: string;
     learnLanguage: LANGUAGE;
     knownLanguage: LANGUAGE;
     words: WordItem[]
@@ -37,4 +38,12 @@ export type PracticeMode = {
 export enum VocabImportMode {
     generate = 'generate',
     raw = 'raw'
+}
+
+export type User = {
+    uid: string;
+    creationDate: string;
+    learnLanguage: LANGUAGE;
+    knownLanguage: LANGUAGE;
+    locale: LANGUAGE;
 }

@@ -152,11 +152,12 @@ async function onGenerateClick() {
     showToast(t("toast.input_not_empty"), {color: 'danger'})
     return;
   }
-  const {knownLanguage, learnLanguage} = useVocabularyCreatorStore()
+  const {wordPack} = useVocabularyCreatorStore()
+  if (!wordPack) return
   wordImportState.value = "loading"
   const words: WordItem[] = await importVocabulary(
       importMode.value === VocabImportMode.generate ? generateTopic.value : rawImport.value,
-      LANGUAGE_LABELS[knownLanguage], LANGUAGE_LABELS[learnLanguage], importMode.value, amountOfWords.value)
+      LANGUAGE_LABELS[wordPack.knownLanguage], LANGUAGE_LABELS[wordPack.learnLanguage], importMode.value, amountOfWords.value)
 
   if (words.length == 0) {
     wordImportState.value = "input"
@@ -164,8 +165,8 @@ async function onGenerateClick() {
     showToast(t('toast.something_wrong'), {color: 'danger'})
     return;
   } else {
-    const {wordItems} = useVocabularyCreatorStore()
-    wordsToImport.value = words.filter((w1) => !wordItems.some(w2 => areWordsEqual(w1, w2))).map(w => {
+    const {wordPack} = useVocabularyCreatorStore()
+    wordsToImport.value = words.filter((w1) => !wordPack?.words.some(w2 => areWordsEqual(w1, w2))).map(w => {
       return {from: sanitize_lite(w.from), to: sanitize_lite(w.to)}
     })
     wordImportState.value = "output"

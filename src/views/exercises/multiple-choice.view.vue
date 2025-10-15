@@ -1,12 +1,16 @@
 <template>
   <ion-page class="max-w-[1000px] mx-auto">
+    <ion-header>
+      <ion-toolbar color="background">
+        <div class="flex items-center px-2 h-16">
+          <ion-button fill="clear" @click="router.back()">
+            <ion-icon slot="icon-only" :icon="arrowBack"/>
+          </ion-button>
+          <p class="text-2xl font-bold pl-2">{{ t('multiple-choice.title') }}</p>
+        </div>
+      </ion-toolbar>
+    </ion-header>
     <ion-content v-if="multipleChoiceItems.length > 0">
-      <div class="flex items-center px-2 h-16">
-        <ion-button fill="clear" @click="router.back(iosTransitionAnimation)">
-          <ion-icon slot="icon-only" :icon="arrowBack"/>
-        </ion-button>
-        <p class="text-2xl font-bold pl-2">{{ t('multiple-choice.title') }}</p>
-      </div>
       <div class="w-full h-full flex justify-center items-center p-12 flex-col">
         <div :class="{ 'opacity-50 pointer-events-none': finished }" class="transition-opacity duration-500 w-full">
           <p class="text-4xl text-white text-center">
@@ -62,9 +66,10 @@ import {
   IonContent,
   IonIcon,
   IonPage,
-  iosTransitionAnimation,
   onIonViewWillEnter,
-  useIonRouter
+  useIonRouter,
+  IonHeader,
+  IonToolbar,
 } from "@ionic/vue";
 import {arrowBack} from "ionicons/icons";
 import {storeToRefs} from "pinia";

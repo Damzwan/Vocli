@@ -48,8 +48,12 @@
 
 
 <script setup lang="ts">
-
 import {closeOutline} from "ionicons/icons";
+import {ref} from 'vue'
+import {IonButton, IonIcon, IonModal, IonRadio, IonRadioGroup, IonTextarea, modalController} from '@ionic/vue'
+import {useAppStore} from "@/states/app.state";
+import {useI18n} from "vue-i18n";
+import {FirebaseFirestore} from '@capacitor-firebase/firestore';
 
 const {t} = useI18n()
 const tPrefix = "feedback"
@@ -61,41 +65,37 @@ enum FeedbackOptions {
   empty = 'empty',
 }
 
-import {IonButton, IonIcon, IonModal, IonRadio, IonRadioGroup, IonTextarea, modalController} from '@ionic/vue'
-import {ref} from 'vue'
-import {addDoc, collection, getFirestore, serverTimestamp} from '@firebase/firestore'
-import {useAppStore} from "@/states/app.state";
-import {useI18n} from "vue-i18n";
-
-
 const likeText = ref('')
 const dislikeText = ref('')
 const score = ref<FeedbackOptions>(FeedbackOptions.empty)
 
 async function submit() {
   const {showToast} = useAppStore()
-  if (likeText.value == '' && dislikeText.value == '' && score.value == FeedbackOptions.empty) {
+
+  if (likeText.value === '' && dislikeText.value === '' && score.value === FeedbackOptions.empty) {
     showToast(t('toast.fill_one_field'), {color: 'warning'})
     return
   }
-  const db = getFirestore()
-
 
   try {
-    await addDoc(collection(db, 'feedback'), {
-      likeText: likeText.value,
-      dislikeText: dislikeText.value,
-      score: score.value,
-      timestamp: serverTimestamp(),
-    })
+    await FirebaseFirestore.addDocument({
+      reference: 'feedback', // root collection
+      data: {
+        likeText: likeText.value,
+        dislikeText: dislikeText.value,
+        score: score.value,
+        timestamp: new Date().toISOString(), // plain string timestamp
+      },
+    });
+
     showToast(t('toast.thank_feedback'), {color: 'success'})
     modalController.dismiss()
     resetForm()
   } catch (e) {
     console.error('Error adding feedback: ', e)
+    showToast(t('toast.error_feedback'), {color: 'danger'})
     modalController.dismiss()
   }
-
 }
 
 function resetForm() {
@@ -103,9 +103,8 @@ function resetForm() {
   likeText.value = ''
   score.value = FeedbackOptions.empty
 }
-
-
 </script>
+
 
 <style scoped>
 

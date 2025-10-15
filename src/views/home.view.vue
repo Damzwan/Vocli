@@ -1,33 +1,39 @@
 <template>
   <ion-page class="max-w-[1000px] mx-auto">
-    <ion-content>
-      <div class="px-4 h-16 items-center flex justify-between">
-        <p class="text-2xl font-bold">{{ t('home.title') }}</p>
-        <div class="flex items-center">
-          <ion-select @ionChange="changeLanguage" :value="empty" ref="selectRef" :okText="t('home.ok')" :cancelText="t('home.cancel')">
-            <img :src="LANGUAGE_FLAGS[locale]" alt="Language" width="26" slot="start" class="cursor-pointer"
-                 @click="selectRef?.$el.open()">
-            <ion-select-option
-                v-for="language in Object.values(LANGUAGE).sort((a, b) => t(`languages.${a}`).localeCompare(t(`languages.${b}`)))"
-                :key="language"
-                :value="language"
-            >
-              <div class="flex items-center space-x-3">
-                <img :src="LANGUAGE_FLAGS[language]" alt="" class="w-5 h-5 rounded"/>
-                <span class="text-white">{{ t(`languages.${language}`) }}</span>
-              </div>
-            </ion-select-option>
-          </ion-select>
-          <ion-button fill="clear" size="large" class="text-white ml-2" id="feedback">
-            <ion-icon slot="icon-only" :icon="chatbubblesOutline"/>
-          </ion-button>
+    <ion-header>
+      <ion-toolbar color="background">
+        <div class="px-4 h-16 items-center flex justify-between">
+          <p class="text-2xl font-bold">{{ t('home.title') }}</p>
+          <div class="flex items-center">
+            <ion-select @ionChange="(val) => {authStore.changeLocale(val.detail.value)}" :value="empty" ref="selectRef"
+                        :okText="t('home.ok')"
+                        :cancelText="t('home.cancel')">
+              <img :src="LANGUAGE_FLAGS[user?.locale ?? locale as LANGUAGE]" alt="Language" width="26" slot="start"
+                   class="cursor-pointer"
+                   @click="selectRef?.$el.open()">
+              <ion-select-option
+                  v-for="language in Object.values(LANGUAGE).sort((a, b) => t(`languages.${a}`).localeCompare(t(`languages.${b}`)))"
+                  :key="language"
+                  :value="language"
+              >
+                <div class="flex items-center space-x-3">
+                  <img :src="LANGUAGE_FLAGS[language]" alt="" class="w-5 h-5 rounded"/>
+                  <span class="text-white">{{ t(`languages.${language}`) }}</span>
+                </div>
+              </ion-select-option>
+            </ion-select>
+            <ion-button fill="clear" size="large" class="text-white ml-2" id="feedback">
+              <ion-icon slot="icon-only" :icon="chatbubblesOutline"/>
+            </ion-button>
+          </div>
+
         </div>
+      </ion-toolbar>
 
-      </div>
-
-
-      <div class="w-full h-full p-4">
-        <div v-if="isLoading" class="w-full h-full flex justify-center items-center">
+    </ion-header>
+    <ion-content class="flex flex-col">
+      <div class="w-full p-4 h-full">
+        <div v-if="wordPacksLoading" class="w-full h-full flex justify-center items-center">
           <ion-spinner color="primary" class="w-[56px] h-[56px]"/>
         </div>
         <div v-else-if="wordPacks.length == 0" class="flex justify-center items-center h-11/12 flex-col space-y-4">
@@ -35,13 +41,13 @@
           <ion-button @click="isCreateWordPackActionSheetOpen=true">{{ t("home.create") }}</ion-button>
         </div>
         <div v-else class="flex flex-col space-y-3">
-          <WordPackCard v-for="wordPack in wordPacks" :key="wordPack.id" :wordPack="wordPack"
-                        @click="() => onWordPackClick(wordPack)"/>
+          <WordPackCard v-for="wordPack in sortedWordPacks" :key="wordPack.id" :wordPack="wordPack"
+                        @edit-click="onWordPackEditClick(wordPack)" @proceed="goToPractice(wordPack)"/>
         </div>
       </div>
 
       <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-        <ion-fab-button @click="isCreateWordPackActionSheetOpen=true" :router-animation="iosTransitionAnimation">
+        <ion-fab-button @click="isCreateWordPackActionSheetOpen=true">
           <ion-icon :icon="add"/>
         </ion-fab-button>
       </ion-fab>
@@ -70,7 +76,8 @@
           <!-- Known Language Select -->
           <div>
             <label class="text-sm font-medium text-gray-300 mb-3 block">{{ t("home.knownLanguage") }}</label>
-            <ion-select v-model="knownLanguage" @ionChange="(e) => knownLanguage = e.detail.value" :okText="t('home.ok')" :cancelText="t('home.cancel')"
+            <ion-select v-model="knownLanguage" @ionChange="(e) => knownLanguage = e.detail.value"
+                        :okText="t('home.ok')" :cancelText="t('home.cancel')"
                         class="w-full bg-neutral-800 rounded-lg" style="--padding-start: 1rem;">
               <ion-icon slot="start" :icon="LANGUAGE_FLAGS[knownLanguage]" class="mr-3" aria-hidden="true"/>
 
@@ -91,7 +98,8 @@
           <!-- Learn Language Select -->
           <div>
             <label class="text-sm font-medium text-gray-300 mb-3 block">{{ t("home.learnLanguage") }}</label>
-            <ion-select v-model="learnLanguage" class="w-full bg-neutral-800 rounded-lg" :okText="t('home.ok')" :cancelText="t('home.cancel')"
+            <ion-select v-model="learnLanguage" class="w-full bg-neutral-800 rounded-lg" :okText="t('home.ok')"
+                        :cancelText="t('home.cancel')"
                         style="--padding-start: 1rem;">
               <ion-icon slot="start" :icon="LANGUAGE_FLAGS[learnLanguage]" class="mr-3" aria-hidden="true"/>
               <ion-select-option
@@ -137,6 +145,7 @@ import {
   IonContent,
   IonFab,
   IonFabButton,
+  IonHeader,
   IonIcon,
   IonInput,
   IonModal,
@@ -144,14 +153,13 @@ import {
   IonSelect,
   IonSelectOption,
   IonSpinner,
-  iosTransitionAnimation,
+  IonToolbar,
   modalController,
-  onIonViewWillEnter,
   useIonRouter
 } from '@ionic/vue';
-import {computed, ref} from 'vue';
-import {add, americanFootballOutline, chatbubblesOutline, createOutline, trashOutline} from "ionicons/icons";
-
+import {computed, ref, watch} from 'vue';
+import {add, chatbubblesOutline, createOutline, trashOutline} from "ionicons/icons";
+import {v4 as uuidv4} from 'uuid';
 import {useVocabularyCreatorStore} from "@/states/vocabulary-creator.state";
 import WordPackCard from "@/components/home/WordPackCard.vue";
 import {WordPack} from "@/types";
@@ -162,77 +170,106 @@ import {LANGUAGE, LANGUAGE_FLAGS} from "@/config/languages.config";
 import {useAppStore} from "@/states/app.state";
 import FeedbackModal from "@/components/home/FeedbackModal.vue";
 import {useI18n} from "vue-i18n";
+import {useAuthStore} from "@/states/auth.state";
+import {FirebaseFirestore} from "@capacitor-firebase/firestore";
 
-const wordPacks = ref<WordPack[]>([])
 const router = useIonRouter()
 
-const {fetchWordPacks} = useVocabularyCreatorStore()
-const {knownLanguage, learnLanguage, name, wordItems} = storeToRefs(useVocabularyCreatorStore())
+const authStore = useAuthStore()
+const {wordPacksLoading, wordPacks, authUser, user} = storeToRefs(useAuthStore())
+const {wordPack: wordPackToEdit} = storeToRefs(useVocabularyCreatorStore())
 const {wordPack} = storeToRefs(useVocabularyPracticeStore())
-const isLoading = ref(true);
 
 const isWordPackActionSheetOpen = ref<boolean>(false)
 const isCreateWordPackActionSheetOpen = ref<boolean>(false)
 
 const selectRef = ref<any>()
+const appStore = useAppStore()
 
 const {t, locale} = useI18n()
 
 const empty = ref("")
 
-onIonViewWillEnter(async () => {
-  isLoading.value = true
-  wordPacks.value = await fetchWordPacks()
-  isLoading.value = false
+// create vocabulary refs
+const name = ref<string>("")
+const learnLanguage = ref<LANGUAGE>(LANGUAGE.en)
+const knownLanguage = ref<LANGUAGE>(LANGUAGE.it)
+
+watch(user, (newUserVal) => {
+  if (!newUserVal) return;
+  learnLanguage.value = newUserVal.learnLanguage
+  knownLanguage.value = newUserVal.knownLanguage
 })
 
-function onWordPackClick(clickedWordPack: WordPack) {
+const sortedWordPacks = computed(() => {
+  return [...wordPacks.value].sort((a, b) => {
+    const dateA = a.lastPracticed ? new Date(a.lastPracticed) : new Date(a.lastEdited);
+    const dateB = b.lastPracticed ? new Date(b.lastPracticed) : new Date(b.lastEdited);
+    return dateB.getTime() - dateA.getTime(); // descending order (most recent first)
+  });
+});
+
+
+function onWordPackEditClick(clickedWordPack: WordPack) {
   isWordPackActionSheetOpen.value = true
   wordPack.value = clickedWordPack
 }
 
-function goToPractice() {
-  router.push(`practice`, iosTransitionAnimation)
+function goToPractice(clickedWordPack: WordPack) {
+  wordPack.value = clickedWordPack
+  router.push(`practice`)
 }
 
 async function onCreateWordPack() {
-  wordItems.value = []
-  await Preferences.remove({key: "wordPackId"})
+  if (!user.value) return;
+  const newId = uuidv4()
+  wordPackToEdit.value = {
+    id: newId,
+    name: name.value,
+    lastEdited: new Date().toISOString(),
+    learnLanguage: learnLanguage.value,
+    knownLanguage: knownLanguage.value,
+    words: []
+  }
+
+  if (learnLanguage.value !== user.value.learnLanguage || knownLanguage.value !== user.value.knownLanguage) {
+    void authStore.changeLearnAndKnownLanguage(learnLanguage.value, knownLanguage.value)
+  }
+
+  await Preferences.set({key: "wordPackId", value: newId})
   modalController.dismiss()
-  router.push(`create`, iosTransitionAnimation)
+  router.push(`create`)
 }
 
 function editWordPack() {
   if (!wordPack.value) return;
+  wordPackToEdit.value = wordPack.value
   Preferences.set({key: "wordPackId", value: wordPack.value.id})
-  knownLanguage.value = wordPack.value.knownLanguage
-  learnLanguage.value = wordPack.value.learnLanguage
-  name.value = wordPack.value.name
-  router.push(`create`, iosTransitionAnimation)
+  router.push(`create`)
 }
+
 
 function deleteWordPack() {
   if (!wordPack.value) return;
-  Preferences.remove({key: `pack_${wordPack.value.id}`})
+  Preferences.remove({key: `pack-${wordPack.value.id}`})
   Preferences.remove({key: "wordPackId"})
   wordPacks.value = wordPacks.value.filter((p) => p.id !== wordPack.value!.id)
+
+  FirebaseFirestore.deleteDocument({
+    reference: `wordPacks/${authUser.value.uid}/packs/${wordPack.value.id}`,
+  });
+
+  FirebaseFirestore.deleteDocument({
+    reference: `wordPacks/${authUser.value.uid}/metadata/${wordPack.value.id}`,
+  });
+
 
   const {showToast} = useAppStore()
   showToast(t('toast.deleted_successfully'), {color: 'success', duration: 500})
 }
 
-function changeLanguage(val: any) {
-  locale.value = val.detail.value
-  Preferences.set({key: "locale", value: locale.value})
-}
 
-
-const actionSheetButtons = computed((locale) => [
-  {
-    text: t('home.practice'),
-    icon: americanFootballOutline,
-    handler: goToPractice
-  },
+const actionSheetButtons = computed(() => [
   {
     text: t('home.edit'),
     icon: createOutline,
@@ -248,7 +285,7 @@ const actionSheetButtons = computed((locale) => [
 
 ]);
 
-const alertButtons = computed((locale) => [
+const alertButtons = computed(() => [
   {
     text: t('home.delete_alert.cancel'),
     role: 'cancel',

@@ -1,53 +1,56 @@
 <template>
   <ion-page v-if="wordPack" class="max-w-[1000px] mx-auto">
-    <ion-content>
-      <div class="flex justify-between px-2 h-16 space-x-4 items-center items-center">
-        <div class="flex items-center justify-center">
-          <ion-button fill="clear" @click="router.back(iosTransitionAnimation)">
-            <ion-icon slot="icon-only" :icon="arrowBack"/>
-          </ion-button>
-          <p class="text-2xl font-bold pl-2">{{ t('list.title') }}</p>
-        </div>
+    <ion-header>
+      <ion-toolbar color="background">
+        <div class="flex justify-between px-2 h-16 space-x-4 items-center items-center">
+          <div class="flex items-center justify-center">
+            <ion-button fill="clear" @click="router.back()">
+              <ion-icon slot="icon-only" :icon="arrowBack"/>
+            </ion-button>
+            <p class="text-2xl font-bold pl-2">{{ t('list.title') }}</p>
+          </div>
 
 
-        <div class="h-8">
-          <div class="flex items-center space-x-2">
-            <!-- Search input -->
-            <ion-input
-                class="bg-card-background rounded-lg"
-                size="small"
-                v-model="wordToSearch"
-                @keyup.enter="scrollToIndex(indicesToHighlight[currentIndexToScrollTo])"
-                @ionInput="setHighlighting"
-                :clear-input="true"
-                :placeholder="t('list.search')"
-            >
-              <div slot="start" class="pl-1"/>
-              <ion-icon slot="end" :icon="searchOutline" class="px-3"/>
-            </ion-input>
+          <div class="h-8">
+            <div class="flex items-center space-x-2">
+              <!-- Search input -->
+              <ion-input
+                  class="bg-card-background rounded-lg"
+                  size="small"
+                  v-model="wordToSearch"
+                  @keyup.enter="scrollToIndex(indicesToHighlight[currentIndexToScrollTo])"
+                  @ionInput="setHighlighting"
+                  :clear-input="true"
+                  :placeholder="t('list.search')"
+              >
+                <div slot="start" class="pl-1"/>
+                <ion-icon slot="end" :icon="searchOutline" class="px-3"/>
+              </ion-input>
 
-            <!-- If there are highlights, show controls -->
+              <!-- If there are highlights, show controls -->
+            </div>
           </div>
         </div>
-      </div>
-      <div class="flex w-full justify-end h-4 mt-2">
-        <div v-if="indicesToHighlight.length > 0" class="flex items-center">
-          <ion-button fill="clear" @click="prevMatch">
-            <ion-icon :icon="chevronBackOutline"/>
-          </ion-button>
+        <div class="flex w-full justify-end my-2">
+          <div v-if="indicesToHighlight.length > 0" class="flex items-center">
+            <ion-button fill="clear" @click="prevMatch">
+              <ion-icon :icon="chevronBackOutline"/>
+            </ion-button>
 
-          <span class="text-white text-sm">
+            <span class="text-white text-sm">
       {{ currentIndexToScrollTo + 1 }} / {{ indicesToHighlight.length }}
               </span>
 
-          <ion-button fill="clear" @click="nextMatch"
-          >
-            <ion-icon :icon="chevronForwardOutline"/>
-          </ion-button>
+            <ion-button fill="clear" @click="nextMatch"
+            >
+              <ion-icon :icon="chevronForwardOutline"/>
+            </ion-button>
+          </div>
         </div>
-      </div>
-
-      <div class="flex flex-col h-full p-4 space-y-4">
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div class="flex flex-col h-full px-4 space-y-4">
         <div class="flex justify-center items-center space-x-4">
           <div class="w-full justify-center flex">
             <ion-button fill="clear" class="text-white" size="large" @click="hideLeft=!hideLeft">
@@ -83,7 +86,7 @@
 
 <script setup lang="ts">
 
-import {IonButton, IonContent, IonIcon, IonInput, IonPage, iosTransitionAnimation, useIonRouter} from "@ionic/vue";
+import {IonButton, IonContent, IonIcon, IonInput, IonPage, useIonRouter, IonHeader, IonToolbar} from "@ionic/vue";
 import {
   arrowBack,
   chevronBackOutline,

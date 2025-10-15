@@ -15,8 +15,6 @@ export const useAppStore = defineStore('app', () => {
     const isToastOpen = ref(false);
     const toastMessage = ref('')
     const toastOptions = ref<ToastOptions>(baseToastOptions);
-    const learnLanguage = ref<LANGUAGE>(LANGUAGE.it);
-    const knownLanguage = ref<LANGUAGE>(LANGUAGE.en);
 
     function showToast(message: string, options?: ToastOptions) {
         isToastOpen.value = true;
@@ -24,5 +22,5 @@ export const useAppStore = defineStore('app', () => {
         toastOptions.value = {...baseToastOptions, ...options};
     }
 
-    return {showToast, isToastOpen, toastMessage, toastOptions, learnLanguage, knownLanguage};
+    return {showToast, isToastOpen, toastMessage, toastOptions};
 })

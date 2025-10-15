@@ -1,12 +1,16 @@
 <template>
   <ion-page class="max-w-[1000px] mx-auto">
+    <ion-header>
+      <ion-toolbar color="background">
+        <div class="flex items-center px-2 h-16">
+          <ion-button fill="clear" @click="router.back()">
+            <ion-icon slot="icon-only" :icon="arrowBack"/>
+          </ion-button>
+          <p class="text-2xl font-bold pl-2">{{ t('flashcards.title') }}</p>
+        </div>
+      </ion-toolbar>
+    </ion-header>
     <ion-content>
-      <div class="flex items-center px-2 h-16">
-        <ion-button fill="clear" @click="router.back(iosTransitionAnimation)">
-          <ion-icon slot="icon-only" :icon="arrowBack"/>
-        </ion-button>
-        <p class="text-2xl font-bold pl-2">{{t('flashcards.title')}}</p>
-      </div>
       <div class="w-full h-4/5 flex justify-center items-center" v-if="active && wordPack">
         <swiper
             effect="cards"
@@ -36,7 +40,7 @@
 
 <script setup lang="ts">
 
-import {IonButton, IonContent, IonIcon, IonPage, iosTransitionAnimation, useIonRouter} from "@ionic/vue";
+import {IonButton, IonContent, IonIcon, IonPage, useIonRouter, IonHeader, IonToolbar} from "@ionic/vue";
 import {arrowBack} from "ionicons/icons";
 import {storeToRefs} from "pinia";
 import {useVocabularyPracticeStore} from "@/states/vocabulary-practice.state";

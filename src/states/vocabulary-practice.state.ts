@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
 import {PracticeMethodName, PracticeOrder, WordItem, WordPack, WrongWordItem} from "@/types";
-import {AVG_PRACTICE_WORDS} from "@/config/exercises/PRACTICE_MODES";
+import {AVG_PRACTICE_WORDS} from "@/config/exercises/practiceModes";
 
 export const useVocabularyPracticeStore = defineStore('vocabulary-practice', () => {
     const wordPack = ref<WordPack>()

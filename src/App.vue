@@ -1,5 +1,8 @@
 <template>
   <ion-app id="root">
+    <div class="w-full h-full z-50 flex justify-center items-center bg-background" v-if="authLoading">
+      <ion-spinner  class="z-50" color="primary"/>
+    </div>
     <ion-router-outlet/>
     <ion-toast
         :is-open="isToastOpen"
@@ -12,11 +15,17 @@
 </template>
 
 <script setup lang="ts">
-import {IonApp, IonRouterOutlet, IonToast} from '@ionic/vue';
+import {IonApp, IonRouterOutlet, IonToast, IonSpinner} from '@ionic/vue';
 import {storeToRefs} from "pinia";
 import {useAppStore} from "@/states/app.state";
+import {useAuthStore} from "@/states/auth.state";
+import {initFirebase} from "@/helpers/firebase";
 
 const {toastMessage, toastOptions, isToastOpen} = storeToRefs(useAppStore())
+const authStore = useAuthStore()
+const {authLoading} = storeToRefs(authStore)
+authStore.initAuthListener()
+
 </script>
 
 

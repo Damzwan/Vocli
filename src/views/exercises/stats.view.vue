@@ -76,7 +76,7 @@ import {
 } from "ionicons/icons";
 import MistakeCard from "@/components/exercises/MistakeCard.vue";
 import dayjs from 'dayjs';
-import {PRACTICE_MODES} from "@/config/exercises/PRACTICE_MODES";
+import {PracticeModes} from "@/config/exercises/practiceModes";
 import {computed, ref} from "vue";
 import {useI18n} from "vue-i18n";
 
@@ -171,7 +171,7 @@ function formatPracticeTime(ms: number): string {
 }
 
 function onTryAgain() {
-  const practiceMethod = PRACTICE_MODES.find(el => el.id == practiceMethodName.value)
+  const practiceMethod = PracticeModes.find(el => el.id == practiceMethodName.value)
   if (!practiceMethod) return
   router.replace(`/practice/${practiceMethod.link}?retry=true`)
 }
