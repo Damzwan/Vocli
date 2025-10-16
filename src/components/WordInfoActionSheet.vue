@@ -22,18 +22,38 @@
 
         <!-- Word info -->
         <div class="text-center space-y-1">
-          <p class="text-4xl font-bold">{{ wordInfoInput.learnWord }}</p>
-          <div class="flex flex-wrap justify-center gap-1 mt-2">
-              <span
-                  v-for="pos in wordInfoRes.partOfSpeech"
-                  :key="pos"
-                  class="text-xs uppercase text-gray-400 px-2 py-0.5 border rounded-lg"
-              >
-                {{ pos }}
-              </span>
+          <!-- Learn word -->
+          <div class="relative text-center">
+            <!-- Learn word -->
+            <p class="text-4xl font-bold">{{ wordInfoInput.learnWord }}</p>
+
+            <!-- TTS button, positioned absolutely -->
+            <ion-button
+                size="large"
+                fill="clear"
+                class="absolute -right-14 top-1/2 -translate-y-1/2"
+                @click="playTTS(wordInfoInput.learnWord, wordInfoInput.learnLanguage)"
+            >
+              <ion-icon slot="icon-only" :icon="volumeHighOutline"></ion-icon>
+            </ion-button>
           </div>
+
+
+          <!-- Part of speech tags -->
+          <div class="flex flex-wrap justify-center gap-1 mt-2">
+    <span
+        v-for="pos in wordInfoRes.partOfSpeech"
+        :key="pos"
+        class="text-xs uppercase text-gray-400 px-2 py-0.5 border rounded-lg"
+    >
+      {{ pos }}
+    </span>
+          </div>
+
+          <!-- Known word -->
           <p class="text-2xl font-semibold mt-2 text-gray-400">{{ wordInfoInput.knownWord }}</p>
         </div>
+
 
         <!-- 🔹 Selector chips (only show if data exists) -->
         <div class="flex justify-center flex-wrap gap-4 mt-4">
@@ -53,7 +73,19 @@
         <!-- 🔹 Display content based on selected chip -->
         <div v-if="selectedChip === 'examples'" class="flex flex-col gap-2 mt-4 w-full max-w-md">
           <div v-for="(ex, i) in wordInfoRes.examples" :key="i" class="space-y-1">
-            <p class="font-medium ">{{ ex.learnLanguageSentence }}</p>
+
+            <!-- Sentence + small TTS button -->
+            <div class="flex items-center space-x-2">
+              <p class="font-medium">{{ ex.learnLanguageSentence }}</p>
+              <ion-button
+                  size="small"
+                  fill="clear"
+                  @click="playTTS(ex.learnLanguageSentence, wordInfoInput.learnLanguage)"
+              >
+                <ion-icon slot="icon-only" :icon="volumeHighOutline"></ion-icon>
+              </ion-button>
+            </div>
+
             <p class="text-sm text-gray-400">{{ ex.translation }}</p>
           </div>
         </div>
@@ -64,9 +96,14 @@
               :key="i"
               color="secondary"
               class="px-3 py-2"
+              :id="`synonym-popover-trigger-${i}`"
           >
-            {{ syn }}
+            {{ syn.word }}
+            <ion-popover :trigger="`synonym-popover-trigger-${i}`" trigger-action="click">
+              <div class="p-2">{{ syn.translation }}</div>
+            </ion-popover>
           </ion-chip>
+
         </div>
 
         <div v-else-if="selectedChip === 'antonyms'" class="flex flex-wrap gap-3 mt-4 justify-center">
@@ -75,8 +112,12 @@
               :key="i"
               color="tertiary"
               class="px-3 py-2"
+              :id="`antonym-popover-trigger-${i}`"
           >
-            {{ ant }}
+            {{ ant.word }}
+            <ion-popover :trigger="`antonym-popover-trigger-${i}`" trigger-action="click">
+              <div class="p-2">{{ ant.translation }}</div>
+            </ion-popover>
           </ion-chip>
         </div>
       </div>
@@ -89,7 +130,7 @@
 </template>
 
 <script setup lang="ts">
-import {IonModal, IonChip, IonSpinner, IonIcon, IonContent} from "@ionic/vue";
+import {IonModal, IonChip, IonSpinner, IonIcon, IonContent, IonPopover} from "@ionic/vue";
 import {storeToRefs} from "pinia";
 import {useWordInfoStore} from "@/states/wordInfo.state";
 import {computed, ref, watch} from "vue";
@@ -104,7 +145,8 @@ const {wordInfoActionSheetOpen, loading, wordInfoRes, error, wordInfoInput} =
 const selectedChip = ref<SelectOption>("examples");
 
 // Chip options with title, icon, and value
-import {bookOutline, gitCompareOutline, swapHorizontalOutline} from "ionicons/icons";
+import {bookOutline, gitCompareOutline, swapHorizontalOutline, volumeHighOutline} from "ionicons/icons";
+import {playTTS} from "@/helpers/tts.helper";
 
 const chipOptions = [
   {title: "Examples", ionIcon: bookOutline, value: "examples" as SelectOption},
@@ -115,6 +157,7 @@ const chipOptions = [
 const availableChips = computed(() => {
   return chipOptions.filter(option => hasData(option.value));
 });
+
 
 // Reset chip selection whenever a new word is opened
 watch(wordInfoInput, () => {
@@ -138,5 +181,9 @@ function hasData(option: SelectOption) {
 
 ion-modal {
   --height: auto;
+}
+
+ion-popover {
+  --width: auto;
 }
 </style>

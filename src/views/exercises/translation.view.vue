@@ -13,7 +13,7 @@
     <ion-content v-if="words.length > 0 && wordPack">
 
 
-      <div class="w-full h-3/5 flex justify-center items-center p-12 flex-col">
+      <div class="w-full h-4/5 flex justify-center items-center p-12 flex-col">
         <div :class="{ 'opacity-50 pointer-events-none': finished }" class="transition-opacity duration-500 w-full">
           <p class="text-4xl text-white text-center">
             {{ practiceOrder == PracticeOrder.knownToLearn ? words[0].from : words[0].to }}
@@ -72,8 +72,12 @@
           @will-dismiss="skipWord"
           trigger="skip-alert"
           header="Word Skipped"
-          :message="practiceOrder == PracticeOrder.knownToLearn ? words[0].to : words[0].from "
-          :buttons="['Ok']"
+          :message="`${practiceOrder == PracticeOrder.knownToLearn ? words[0].to : words[0].from} - ${practiceOrder == PracticeOrder.knownToLearn ? words[0].from : words[0].to}`"
+          :buttons="[{text: 'info', handler: () => {
+            if (!wordPack) return;
+            open({learnLanguage: wordPack.learnLanguage, knownLanguage: wordPack.knownLanguage, knownWord: words[0].from, learnWord: words[0].to})
+            return false
+          }}, 'Ok']"
       />
 
     </ion-content>
@@ -107,6 +111,7 @@ import {LANGUAGE_FLAGS} from "@/config/languages.config";
 import {Capacitor} from "@capacitor/core";
 import {Haptics, NotificationType} from "@capacitor/haptics";
 import {useI18n} from "vue-i18n";
+import {useWordInfoStore} from "@/states/wordInfo.state";
 
 const {
   wrongWords,
@@ -119,6 +124,8 @@ const {
   copyOfWords,
   practiceMethodName
 } = storeToRefs(useVocabularyPracticeStore());
+
+const {open} = useWordInfoStore()
 
 const words = ref<WordItem[]>([]);
 const router = useIonRouter();

@@ -11,8 +11,8 @@ export type WordInfoInput = {
 
 export type WordInfoRes = {
     partOfSpeech: string[];
-    synonyms: string[];
-    antonyms: string[];
+    synonyms: { word: string; translation: string }[];
+    antonyms: { word: string; translation: string }[];
     examples: {
         learnLanguageSentence: string;
         translation: string;

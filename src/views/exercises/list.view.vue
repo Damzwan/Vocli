@@ -51,20 +51,22 @@
     </ion-header>
     <ion-content v-if="wordPack">
       <div class="flex flex-col h-full px-4 space-y-4">
-        <div class="flex justify-center items-center space-x-4">
-          <div class="w-full justify-center flex">
-            <ion-button fill="clear" class="text-white" size="large" @click="hideLeft=!hideLeft">
+        <div class="grid grid-cols-[1fr_1fr_auto] w-full gap-4 items-center mb-2">
+          <!-- Left button -->
+          <div class="flex justify-center">
+            <ion-button fill="clear" class="text-white" size="large" @click="hideLeft = !hideLeft">
               <ion-icon slot="icon-only" :icon="hideLeft ? eyeOffOutline : eyeOutline"/>
             </ion-button>
           </div>
-          <div class="w-full justify-center flex">
-            <ion-button fill="clear" class="text-white" size="large" @click="hideRight=!hideRight">
+
+          <!-- Right button -->
+          <div class="flex justify-center">
+            <ion-button fill="clear" class="text-white" size="large" @click="hideRight = !hideRight">
               <ion-icon slot="icon-only" :icon="hideRight ? eyeOffOutline : eyeOutline"/>
             </ion-button>
           </div>
 
-<!--          small hack-->
-          <div class="flex w-full"/>
+          <div class="w-26"/>
         </div>
 
         <div class="flex-1 overflow-y-auto space-y-4">
@@ -77,6 +79,7 @@
               :hide-right="hideRight"
               :highlighted-word="indicesToHighlight.includes(i) ? wordToSearch : undefined"
               @open-word-info="open({learnWord: word.to, knownWord: word.from, knownLanguage: wordPack.knownLanguage, learnLanguage: wordPack.learnLanguage})"
+              @play-tts="(word) => playTTS(word, wordPack!.learnLanguage)"
           />
         </div>
       </div>
@@ -104,6 +107,7 @@ import {ref} from "vue";
 import {sanitize} from "@/helpers/exercises";
 import {useI18n} from "vue-i18n";
 import {useWordInfoStore} from "@/states/wordInfo.state";
+import {playTTS} from "@/helpers/tts.helper";
 
 const router = useIonRouter()
 

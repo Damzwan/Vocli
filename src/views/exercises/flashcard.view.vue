@@ -44,15 +44,28 @@
                 <!-- Front -->
                 <div
                     class="flip-card-front absolute w-full h-full flex justify-center items-center rounded-2xl backface-hidden">
-                  <p class="text-black text-3xl font-bold text-center">{{ frontIsLearnLanguage ? word.to : word.from }}</p>
+                  <p class="text-black text-3xl font-bold text-center">{{
+                      frontIsLearnLanguage ? word.to : word.from
+                    }}</p>
                 </div>
 
                 <!-- Back -->
                 <div
                     class="flip-card-back absolute w-full h-full flex justify-center items-center rounded-2xl backface-hidden rotate-y-180">
-                  <p class="text-black text-3xl font-bold text-center">{{ frontIsLearnLanguage ? word.from : word.to }}</p>
+                  <p class="text-black text-3xl font-bold text-center">{{
+                      frontIsLearnLanguage ? word.from : word.to
+                    }}</p>
                 </div>
               </div>
+
+              <ion-button
+                  size="large"
+                  fill="clear"
+                  class="absolute bottom-2 right-12 text-black"
+                  @click="(e: Event) => onTTSClick(e, word)"
+              >
+                <ion-icon slot="icon-only" :icon="volumeHighOutline"></ion-icon>
+              </ion-button>
 
               <ion-button
                   fill="clear"
@@ -83,8 +96,18 @@
 
 <script setup lang="ts">
 
-import {IonButton, IonContent, IonIcon, IonPage, useIonRouter, IonHeader, IonToolbar, IonToggle} from "@ionic/vue";
-import {arrowBack, informationCircleOutline} from "ionicons/icons";
+import {
+  IonButton,
+  IonContent,
+  IonIcon,
+  IonPage,
+  useIonRouter,
+  IonHeader,
+  IonToolbar,
+  IonToggle,
+  onIonViewDidLeave, onIonViewWillEnter
+} from "@ionic/vue";
+import {arrowBack, informationCircleOutline, volumeHighOutline} from "ionicons/icons";
 import {storeToRefs} from "pinia";
 import {useVocabularyPracticeStore} from "@/states/vocabulary-practice.state";
 // import Swiper styles
@@ -92,11 +115,12 @@ import {Swiper, SwiperSlide} from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
 import {EffectCards} from 'swiper/modules';
-import {onBeforeUnmount, onMounted, ref} from "vue";
+import {onBeforeUnmount, onMounted, onUnmounted, ref} from "vue";
 import {useI18n} from "vue-i18n";
 import {useWordInfoStore} from "@/states/wordInfo.state";
 import {WordItem} from "@/types";
 import {LANGUAGE_FLAGS} from "@/config/languages.config";
+import {playTTS} from "@/helpers/tts.helper";
 
 const swiperRef = ref<any>(null);
 
@@ -117,27 +141,28 @@ const router = useIonRouter()
 
 const flippedIndex = ref<number | null>(null);
 
-onMounted(() => {
-  const onKeyDown = (event: KeyboardEvent) => {
-    if (!swiperRef.value) return;
+const onKeyDown = (event: KeyboardEvent) => {
+  if (!swiperRef.value) return;
 
-    const swiper = swiperRef.value.$el.swiper; // access swiper instance
+  const swiper = swiperRef.value.$el.swiper; // access swiper instance
 
-    if (event.key === 'ArrowLeft') {
-      swiper.slidePrev();
-    } else if (event.key === 'ArrowRight') {
-      swiper.slideNext();
-    } else if (event.key === 'ArrowUp') {
-      onCardClick(swiperRef.value.$el.swiper.realIndex)
-    }
-  };
-
+  if (event.key === 'ArrowLeft') {
+    swiper.slidePrev();
+  } else if (event.key === 'ArrowRight') {
+    swiper.slideNext();
+  } else if (event.key === 'ArrowUp') {
+    onCardClick(swiperRef.value.$el.swiper.realIndex)
+  }
+};
+onIonViewWillEnter(() => {
   document.addEventListener('keydown', onKeyDown);
-
-  onBeforeUnmount(() => {
-    document.removeEventListener('keydown', onKeyDown);
-  });
 });
+
+onIonViewDidLeave(() => {
+  if (swiperRef.value) {
+    document.removeEventListener('keydown', onKeyDown);
+  }
+})
 
 
 const {wordPack} = storeToRefs(useVocabularyPracticeStore())
@@ -147,6 +172,7 @@ function onCardClick(index: number) {
 }
 
 function onSlideChange() {
+  if (!swiperRef.value) return;
   currentSlide.value = swiperRef.value.$el.swiper.realIndex
   flippedIndex.value = null; // reset flip on card change
 }
@@ -161,6 +187,14 @@ function onWordInfoClick(e: Event, word: WordItem) {
     learnLanguage: wordPack.value.learnLanguage
   })
 }
+
+function onTTSClick(e: Event, word: WordItem) {
+  e.stopPropagation();
+  if (!wordPack.value) return;
+  playTTS(word.to, wordPack.value.learnLanguage)
+}
+
+
 
 const colors = ['#FDE68A', '#A7F3D0', '#BFDBFE', '#FBCFE8', '#DDD6FE', '#FCA5A5', '#C4B5FD']
 </script>

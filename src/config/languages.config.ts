@@ -67,3 +67,21 @@ export const LANGUAGE_FLAGS: Record<LANGUAGE, string> = {
     [LANGUAGE.hu]: hu,
     [LANGUAGE.cz]: cz,
 };
+
+export const LANGUAGE_TTS: Record<LANGUAGE, string> = {
+    [LANGUAGE.en]: 'en-US',    // English (United States)
+    [LANGUAGE.it]: 'it-IT',    // Italian (Italy)
+    [LANGUAGE.fr]: 'fr-FR',    // French (France)
+    [LANGUAGE.de]: 'de-DE',    // German (Germany)
+    [LANGUAGE.es]: 'es-ES',    // Spanish (Spain)
+    [LANGUAGE.pt]: 'pt-PT',    // Portuguese (Portugal)
+    [LANGUAGE.ru]: 'ru-RU',    // Russian (Russia)
+    [LANGUAGE.pl]: 'pl-PL',    // Polish (Poland)
+    [LANGUAGE.nl]: 'nl-NL',    // Dutch (Netherlands)
+    [LANGUAGE.tr]: 'tr-TR',    // Turkish (Turkey)
+    [LANGUAGE.ro]: 'ro-RO',    // Romanian (Romania)
+    [LANGUAGE.sv]: 'sv-SE',    // Swedish (Sweden)
+    [LANGUAGE.gr]: 'el-GR',    // Greek (Greece)
+    [LANGUAGE.hu]: 'hu-HU',    // Hungarian (Hungary)
+    [LANGUAGE.cz]: 'cs-CZ',    // Czech (Czech Republic)
+};
