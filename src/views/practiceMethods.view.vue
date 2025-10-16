@@ -61,6 +61,31 @@
             </div>
           </div>
 
+          <!-- Word Selection -->
+          <div class="space-y-2">
+            <p class="text-2xl text-zinc-400 text-center">{{ t(`${tPrefix}.wordSelection`) }}</p>
+            <div class="w-full flex justify-center items-center space-x-4 py-1">
+              <ion-chip
+                  :class="{'bg-primary': wordSelectionStrategy == WordSelectionStrategy.handPicked}"
+                  @click="wordSelectionStrategy = WordSelectionStrategy.handPicked"
+                  class="rounded-xl p-2"
+              >
+                <p class="mr-2">Select</p>
+                <ion-icon :icon="handLeftOutline"/>
+              </ion-chip>
+
+              <ion-chip
+                  :class="{'bg-primary': wordSelectionStrategy == WordSelectionStrategy.random}"
+                  @click="wordSelectionStrategy = WordSelectionStrategy.random"
+                  class="rounded-xl p-2"
+              >
+                <p class="mr-2">Random</p>
+                <ion-icon :icon="shuffleOutline"/>
+              </ion-chip>
+
+            </div>
+          </div>
+
           <!-- Word amount selector -->
           <div class="space-y-2 px-4">
             <p class="text-2xl text-zinc-400 text-center">
@@ -105,11 +130,11 @@ import {
 import ExerciseMethodCard from "@/components/exercises/ExerciseMethodCard.vue";
 import {AVG_PRACTICE_WORDS, MIN_PRACTICE_WORDS, PracticeModes} from "@/config/exercises/practiceModes";
 import {ref} from "vue";
-import {PracticeMode, PracticeOrder} from "@/types";
+import {PracticeMode, PracticeOrder, WordSelectionStrategy} from "@/types";
 import {storeToRefs} from "pinia";
 import {useVocabularyPracticeStore} from "@/states/vocabulary-practice.state";
 import {useAppStore} from "@/states/app.state";
-import {arrowBack} from "ionicons/icons";
+import {arrowBack, handLeftOutline, shuffleOutline} from "ionicons/icons";
 import {LANGUAGE_FLAGS} from "@/config/languages.config";
 import {useI18n} from "vue-i18n";
 
@@ -121,7 +146,7 @@ const tPrefix = "practice_methods"
 const isPracticeMethodOptionActionSheetOpen = ref(false);
 const selectedPracticeMode = ref<PracticeMode>();
 
-const {wordPack, amountOfWords, practiceOrder} = storeToRefs(useVocabularyPracticeStore())
+const {wordPack, amountOfWords, practiceOrder, wordSelectionStrategy} = storeToRefs(useVocabularyPracticeStore())
 const {showToast} = useAppStore()
 
 onIonViewWillEnter(() => {

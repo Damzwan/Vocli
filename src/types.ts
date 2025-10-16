@@ -28,6 +28,11 @@ export enum PracticeOrder {
     learnToKnown
 }
 
+export enum WordSelectionStrategy {
+    handPicked,
+    random
+}
+
 export type PracticeMode = {
     id: PracticeMethodName
     description: string

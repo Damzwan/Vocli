@@ -34,9 +34,9 @@
             <!-- First row: hint + skip -->
             <div class="flex justify-end flex-wrap space-x-4">
               <ion-button @click="hint">
-                {{ t('translation.hint') }} ({{ hintPartRevealed }} / {{ maxAmountOfHints }})
+                {{ t('translation.hint') }} ({{ currentHints }} / {{ maxHints }})
               </ion-button>
-              <ion-button @click="skipAnswer">{{ t('translation.skip') }}</ion-button>
+              <ion-button id="skip-alert">{{ t('translation.skip') }}</ion-button>
             </div>
 
             <!-- Second row: check -->
@@ -68,8 +68,17 @@
         </transition>
       </div>
 
+      <ion-alert
+          @will-dismiss="skipWord"
+          trigger="skip-alert"
+          header="Word Skipped"
+          :message="practiceOrder == PracticeOrder.knownToLearn ? words[0].to : words[0].from "
+          :buttons="['Ok']"
+      />
 
     </ion-content>
+
+
   </ion-page>
 </template>
 
@@ -83,7 +92,8 @@ import {
   onIonViewWillEnter,
   useIonRouter,
   IonHeader,
-  IonToolbar
+  IonToolbar,
+  IonAlert
 } from "@ionic/vue";
 import {useVocabularyPracticeStore} from "@/states/vocabulary-practice.state";
 import {ref} from "vue";
@@ -108,140 +118,136 @@ const {
   practiceTime,
   copyOfWords,
   practiceMethodName
-} = storeToRefs(useVocabularyPracticeStore())
-const words = ref<WordItem[]>([])
-const router = useIonRouter()
+} = storeToRefs(useVocabularyPracticeStore());
+
+const words = ref<WordItem[]>([]);
+const router = useIonRouter();
 const route = useRoute();
-const {t} = useI18n()
+const {t} = useI18n();
 
-const toWord = ref("")
-const toWordInput = ref("")
-const startingAmountOfWords = ref(0)
+const toWordInput = ref("");
+const currentWord = ref<WordItem | null>(null);
+const startingAmountOfWords = ref(0);
 
-const maxAmountOfHints = 3;
-const hintPartRevealed = ref(0);
+const maxHints = 3;
+const currentHints = ref(0);
 
 const wrongInput = ref("");
 const wrongAnimation = ref(false);
-
 const finished = ref(false);
-let startTime = new Date().getTime();
+let startTime = 0;
 
-const initWords = (isRetry = false) => {
-  if (!wordPack.value) return
-  words.value = isRetry ? shuffle(copyOfWords.value) : shuffle(wordPack.value.words).splice(0, amountOfWords.value)
-  copyOfWords.value = words.value
-  toWord.value = practiceOrder.value == PracticeOrder.knownToLearn ? words.value[0].to : words.value[0].from
-  wrongWords.value = []
-  hintsUsed.value = 0
-  wordsSkipped.value = 0
-  startingAmountOfWords.value = words.value.length
-  finished.value = false
-  wrongInput.value = ""
-  toWordInput.value = ""
-  startTime = new Date().getTime();
-  practiceMethodName.value = 'translation'
+function initWords(isRetry = false) {
+  if (!wordPack.value) return;
+
+  words.value = shuffle(isRetry && copyOfWords.value.length ? copyOfWords.value : wordPack.value.words)
+      .slice(0, amountOfWords.value);
+
+  copyOfWords.value = [...words.value];
+  startingAmountOfWords.value = words.value.length;
+  wrongWords.value = [];
+  hintsUsed.value = 0;
+  wordsSkipped.value = 0;
+  finished.value = false;
+  currentHints.value = 0;
+  wrongInput.value = "";
+  toWordInput.value = "";
+
+  currentWord.value = words.value[0];
+  startTime = Date.now();
+  practiceMethodName.value = 'translation';
 }
 
-function skipAnswer() {
-  const wrongWord = wrongWords.value.length > 0 ? wrongWords.value[wrongWords.value.length - 1] : undefined;
+function showNextWord(pushToEnd = false) {
+  if (!currentWord.value) return;
 
-  if (!wrongWord || wrongWord.to != toWord.value) {
-    wrongWords.value.push({from: words.value[0].from, to: words.value[0].to, skipped: true});
-  } else wrongWords.value[wrongWords.value.length - 1].skipped = true
+  // Move current word to end if needed
+  if (pushToEnd) words.value.push(currentWord.value);
 
-  if (Capacitor.isNativePlatform()) {
-    Haptics.notification({type: NotificationType.Success});
+  // Remove first word (or same if pushed)
+  words.value.shift();
+
+  if (words.value.length === 0) {
+    finished.value = true;
+    practiceTime.value = Date.now() - startTime;
+    if (Capacitor.isNativePlatform()) Haptics.vibrate({duration: 1000});
+    return;
   }
 
-  wordsSkipped.value++
-  nextWord()
+  currentWord.value = words.value[0];
+  toWordInput.value = "";
+  currentHints.value = 0;
+  wrongInput.value = "";
 }
 
 function checkAnswer() {
+  if (!currentWord.value) return;
+
   const input = sanitize(toWordInput.value);
-  const correct = sanitize(toWord.value);
+  const correct = sanitize(practiceOrder.value === PracticeOrder.knownToLearn ? currentWord.value.to : currentWord.value.from);
 
-  const isCorrect = input === correct;
-
-  if (isCorrect) {
-    // play sound?
-    nextWord()
-    if (Capacitor.isNativePlatform()) {
-      Haptics.notification({type: NotificationType.Success});
-    }
+  if (input === correct) {
+    if (Capacitor.isNativePlatform()) Haptics.notification({type: NotificationType.Success});
+    if (currentHints.value === maxHints) showNextWord(true);
+    else showNextWord();
   } else {
-    const similarity = similarityScore(input, correct); // 0.0 to 1.0
-    wrongInput.value = `${t('translation.wrong_try_again')} (${t('translation.similarity_score')}: ${Math.round(similarity * 100)}%)`
-    const wrongWord = wrongWords.value.length > 0 ? wrongWords.value[wrongWords.value.length - 1] : undefined;
-    if (!wrongWord || wrongWord.to != toWord.value) {
-      wrongWords.value.push({from: words.value[0].from, to: words.value[0].to, mistakes: [input]});
+    const similarity = Math.round(similarityScore(input, correct) * 100);
+    wrongInput.value = `${t('translation.wrong_try_again')} (${t('translation.similarity_score')}: ${similarity}%)`;
+
+    // Track wrong word
+    const lastWrong = wrongWords.value[wrongWords.value.length - 1];
+    if (!lastWrong || lastWrong.to !== currentWord.value.to) {
+      wrongWords.value.push({from: currentWord.value.from, to: currentWord.value.to, mistakes: [input]});
     } else {
-      if (wrongWords.value[wrongWords.value.length - 1].mistakes) wrongWords.value[wrongWords.value.length - 1].mistakes.push(input);
-      else wrongWords.value[wrongWords.value.length - 1].mistakes = [input]
+      lastWrong.mistakes?.push(input);
     }
 
-    wrongAnimation.value = true
-    if (Capacitor.isNativePlatform()) {
-      Haptics.notification({type: NotificationType.Success});
-    }
-    setTimeout(() => {
-      wrongAnimation.value = false
-    }, 1000)
-  }
-
-}
-
-function nextWord() {
-  wrongInput.value = ""
-  if (words.value.length == 1) {
-    finished.value = true
-    if (Capacitor.isNativePlatform()) {
-      Haptics.vibrate({duration: 1000});
-    }
-    practiceTime.value = new Date().getTime() - startTime;
-  } else {
-    words.value = words.value.toSpliced(0, 1)
-    toWord.value = practiceOrder.value == PracticeOrder.knownToLearn ? words.value[0].to : words.value[0].from
-    toWordInput.value = ""
-    hintPartRevealed.value = 0;
+    wrongAnimation.value = true;
+    if (Capacitor.isNativePlatform()) Haptics.notification({type: NotificationType.Success});
+    setTimeout(() => wrongAnimation.value = false, 1000);
   }
 }
 
+function skipWord() {
+  if (!currentWord.value) return;
+
+  wrongWords.value.push({from: currentWord.value.from, to: currentWord.value.to, skipped: true});
+  wordsSkipped.value++;
+  if (Capacitor.isNativePlatform()) Haptics.notification({type: NotificationType.Success});
+  showNextWord(true); // push skipped word to end
+}
 
 function hint() {
-  if (hintPartRevealed.value == maxAmountOfHints) {
-    const {showToast} = useAppStore()
-    showToast(t('toast.all_hints_used'), {color: 'warning'})
-    return
+  if (!currentWord.value) return;
+
+  if (currentHints.value >= maxHints) {
+    useAppStore().showToast(t('toast.all_hints_used'), {color: 'warning'});
+    return;
   }
-  hintPartRevealed.value = Math.min(hintPartRevealed.value + 1, maxAmountOfHints);
+
+  currentHints.value++;
   hintsUsed.value++;
 
-  const word = toWord.value;
-  const totalLength = word.length;
-  const fraction = hintPartRevealed.value / maxAmountOfHints;
-  const revealLength = Math.ceil(fraction * totalLength);
+  const word = practiceOrder.value === PracticeOrder.knownToLearn ? currentWord.value.to : currentWord.value.from;
+  const revealCount = Math.ceil((currentHints.value / maxHints) * word.length);
+  toWordInput.value = word.slice(0, revealCount) + '*'.repeat(word.length - revealCount);
 
-  const revealed = word.slice(0, revealLength);
-  const masked = '*'.repeat(totalLength - revealLength);
-
-  toWordInput.value = revealed + masked;
-
-  const wrongWord = wrongWords.value.length > 0 ? wrongWords.value[wrongWords.value.length - 1] : undefined;
-  if (!wrongWord || wrongWord.to != toWord.value) {
-    wrongWords.value.push({from: words.value[0].from, to: words.value[0].to, hint: 1});
-  } else wrongWords.value[wrongWords.value.length - 1].hint = wrongWord.hint ? wrongWord.hint + 1 : 1
+  // Track hint usage
+  const lastWrong = wrongWords.value[wrongWords.value.length - 1];
+  if (!lastWrong || lastWrong.to !== currentWord.value.to) {
+    wrongWords.value.push({from: currentWord.value.from, to: currentWord.value.to, hint: 1});
+  } else {
+    lastWrong.hint = (lastWrong.hint || 0) + 1;
+  }
 
 }
-
 
 onIonViewWillEnter(() => {
   const retry = route.query.retry;
   initWords(!!retry && copyOfWords.value.length > 0);
-})
-
+});
 </script>
+
 
 <style scoped>
 .fade-enter-active,
