@@ -22,8 +22,11 @@
                 </div>
               </ion-select-option>
             </ion-select>
-            <ion-button fill="clear" size="large" class="text-white ml-2" id="feedback">
+            <ion-button fill="clear" size="large" class="text-white ml-2" @click="feedbackModalOpen=true">
               <ion-icon slot="icon-only" :icon="chatbubblesOutline"/>
+            </ion-button>
+            <ion-button fill="clear" size="large" class="text-white ml-2" id="logout">
+              <ion-icon slot="icon-only" :icon="logOutOutline"/>
             </ion-button>
           </div>
 
@@ -41,8 +44,21 @@
           <ion-button @click="isCreateWordPackActionSheetOpen=true">{{ t("home.create") }}</ion-button>
         </div>
         <div v-else class="flex flex-col space-y-3">
-          <WordPackCard v-for="wordPack in sortedWordPacks" :key="wordPack.id" :wordPack="wordPack"
-                        @edit-click="onWordPackEditClick(wordPack)" @proceed="goToPractice(wordPack)"/>
+          <WordPackCard
+              v-for="wordPack in sortedWordPacks"
+              :key="wordPack.id"
+              :wordPack="wordPack"
+              :notifications="wordPackToNotificationMap[wordPack.id] ?? []"
+              @edit-click="onWordPackEditClick(wordPack)"
+              @proceed="goToPractice(wordPack)"
+
+              @mouseenter="isNative() ? null : onWordPackHoverStart(wordPack, $event)"
+              @mouseleave="isNative() ? null :  onWordPackHoverLeave()"
+
+              @touchstart="isNative() ? onWordPackHoverStart(wordPack, $event) : null"
+              @touchend="isNative() ? onWordPackHoverLeave() : null"
+          />
+
         </div>
       </div>
 
@@ -58,7 +74,7 @@
       <ion-modal :initial-breakpoint="1" :breakpoints="[0, 1]" :is-open="isCreateWordPackActionSheetOpen"
                  @didDismiss="isCreateWordPackActionSheetOpen=false"
                  @willPresent="name=''">
-        <div class="p-6 space-y-6 bg-neutral-900 text-white h-full rounded-t-2xl w-full h-full">
+        <div class="p-6 space-y-6 bg-neutral-900 text-white h-full rounded-t-2xl w-full">
           <p class="text-2xl font-bold">{{ t("home.customize_word_pack") }}</p>
 
           <!-- Word Pack Name Input -->
@@ -75,8 +91,12 @@
 
           <!-- Known Language Select -->
           <div>
+
             <label class="text-sm font-medium text-gray-300 mb-3 block">{{ t("home.knownLanguage") }}</label>
-            <ion-select v-model="knownLanguage" @ionChange="(e) => knownLanguage = e.detail.value"
+            <ion-select v-model="knownLanguage" @ionChange="(e) => {
+              knownLanguage = e.detail.value
+              void authStore.changeLearnAndKnownLanguage(learnLanguage, knownLanguage)
+            }"
                         :okText="t('home.ok')" :cancelText="t('home.cancel')"
                         class="w-full bg-neutral-800 rounded-lg" style="--padding-start: 1rem;">
               <ion-icon slot="start" :icon="LANGUAGE_FLAGS[knownLanguage]" class="mr-3" aria-hidden="true"/>
@@ -99,6 +119,10 @@
           <div>
             <label class="text-sm font-medium text-gray-300 mb-3 block">{{ t("home.learnLanguage") }}</label>
             <ion-select v-model="learnLanguage" class="w-full bg-neutral-800 rounded-lg" :okText="t('home.ok')"
+                        @ionChange="e => {
+              learnLanguage = e.detail.value
+              void authStore.changeLearnAndKnownLanguage(learnLanguage, knownLanguage)
+            }"
                         :cancelText="t('home.cancel')"
                         style="--padding-start: 1rem;">
               <ion-icon slot="start" :icon="LANGUAGE_FLAGS[learnLanguage]" class="mr-3" aria-hidden="true"/>
@@ -130,11 +154,14 @@
       />
 
 
-      <FeedbackModal/>
+      <PeekWordsModal :is-open="isHoveringOnWordPack" :word-pack="hoveringWordPack" :mouseY="mouseY"/>
+      <NotificationModal/>
+      <LogoutAlert/>
 
     </ion-content>
 
   </ion-page>
+
 </template>
 
 <script setup lang="ts">
@@ -158,7 +185,14 @@ import {
   useIonRouter
 } from '@ionic/vue';
 import {computed, ref, watch} from 'vue';
-import {add, chatbubblesOutline, createOutline, trashOutline} from "ionicons/icons";
+import {
+  add,
+  chatbubblesOutline,
+  createOutline,
+  logOutOutline,
+  notificationsOutline,
+  trashOutline
+} from "ionicons/icons";
 import {v4 as uuidv4} from 'uuid';
 import {useVocabularyCreatorStore} from "@/states/vocabulary-creator.state";
 import WordPackCard from "@/components/home/WordPackCard.vue";
@@ -168,10 +202,14 @@ import {useVocabularyPracticeStore} from "@/states/vocabulary-practice.state";
 import {Preferences} from "@capacitor/preferences";
 import {LANGUAGE, LANGUAGE_FLAGS} from "@/config/languages.config";
 import {useAppStore} from "@/states/app.state";
-import FeedbackModal from "@/components/home/FeedbackModal.vue";
 import {useI18n} from "vue-i18n";
 import {useAuthStore} from "@/states/auth.state";
 import {FirebaseFirestore} from "@capacitor-firebase/firestore";
+import PeekWordsModal from "@/components/home/PeekWordsModal.vue";
+import {isNative} from "@/helpers/app.helper";
+import NotificationModal from "@/components/home/NotificationModal.vue";
+import {useNotificationStore} from "@/states/notification.state";
+import LogoutAlert from "@/components/home/LogoutAlert.vue";
 
 const router = useIonRouter()
 
@@ -179,12 +217,13 @@ const authStore = useAuthStore()
 const {wordPacksLoading, wordPacks, authUser, user} = storeToRefs(useAuthStore())
 const {wordPack: wordPackToEdit} = storeToRefs(useVocabularyCreatorStore())
 const {wordPack} = storeToRefs(useVocabularyPracticeStore())
+const {wordPackToNotificationMap} = storeToRefs(useNotificationStore())
+const {feedbackModalOpen} = storeToRefs(useAppStore())
 
 const isWordPackActionSheetOpen = ref<boolean>(false)
 const isCreateWordPackActionSheetOpen = ref<boolean>(false)
 
 const selectRef = ref<any>()
-const appStore = useAppStore()
 
 const {t, locale} = useI18n()
 
@@ -195,6 +234,12 @@ const name = ref<string>("")
 const learnLanguage = ref<LANGUAGE>(LANGUAGE.en)
 const knownLanguage = ref<LANGUAGE>(LANGUAGE.it)
 
+const hoveringWordPack = ref<WordPack>()
+const isHoveringOnWordPack = ref(false)
+let wordPackHoverTimeout: any
+const mouseY = ref(0);
+
+
 watch(user, (newUserVal) => {
   if (!newUserVal) return;
   learnLanguage.value = newUserVal.learnLanguage
@@ -203,9 +248,15 @@ watch(user, (newUserVal) => {
 
 const sortedWordPacks = computed(() => {
   return [...wordPacks.value].sort((a, b) => {
-    const dateA = a.lastPracticed ? new Date(a.lastPracticed) : new Date(a.lastEdited);
-    const dateB = b.lastPracticed ? new Date(b.lastPracticed) : new Date(b.lastEdited);
-    return dateB.getTime() - dateA.getTime(); // descending order (most recent first)
+    const dateA = Math.max(
+        new Date(a.lastPracticed || 0).getTime(),
+        new Date(a.lastEdited || 0).getTime()
+    );
+    const dateB = Math.max(
+        new Date(b.lastPracticed || 0).getTime(),
+        new Date(b.lastEdited || 0).getTime()
+    );
+    return dateB - dateA; // descending order (most recent first)
   });
 });
 
@@ -217,7 +268,14 @@ function onWordPackEditClick(clickedWordPack: WordPack) {
 
 function goToPractice(clickedWordPack: WordPack) {
   wordPack.value = clickedWordPack
-  router.push(`practice`)
+
+  // otherwise clunky ui
+  setTimeout(() => {
+    const {updateLastPracticed} = useVocabularyPracticeStore()
+    updateLastPracticed()
+  }, 200)
+
+  router.push(`practice/${clickedWordPack.id}`)
 }
 
 async function onCreateWordPack() {
@@ -232,9 +290,6 @@ async function onCreateWordPack() {
     words: []
   }
 
-  if (learnLanguage.value !== user.value.learnLanguage || knownLanguage.value !== user.value.knownLanguage) {
-    void authStore.changeLearnAndKnownLanguage(learnLanguage.value, knownLanguage.value)
-  }
 
   await Preferences.set({key: "wordPackId", value: newId})
   modalController.dismiss()
@@ -251,6 +306,7 @@ function editWordPack() {
 
 function deleteWordPack() {
   if (!wordPack.value) return;
+
   Preferences.remove({key: `pack-${wordPack.value.id}`})
   Preferences.remove({key: "wordPackId"})
   wordPacks.value = wordPacks.value.filter((p) => p.id !== wordPack.value!.id)
@@ -269,11 +325,42 @@ function deleteWordPack() {
 }
 
 
+function onWordPackHoverStart(pack: WordPack, e: MouseEvent | TouchEvent) {
+  wordPackHoverTimeout = setTimeout(() => {
+    hoveringWordPack.value = pack
+    isHoveringOnWordPack.value = true
+
+    if ('clientY' in e) {
+      // MouseEvent
+      mouseY.value = e.clientY
+    } else if (e.touches && e.touches.length > 0) {
+      // TouchEvent
+      mouseY.value = e.touches[0].clientY
+    } else if (e.changedTouches && e.changedTouches.length > 0) {
+      // fallback for touchend
+      mouseY.value = e.changedTouches[0].clientY
+    }
+
+  }, isNative() ? 0 : 500)
+}
+
+
+function onWordPackHoverLeave() {
+  clearTimeout(wordPackHoverTimeout)
+  isHoveringOnWordPack.value = false
+}
+
+
 const actionSheetButtons = computed(() => [
   {
     text: t('home.edit'),
     icon: createOutline,
     handler: editWordPack
+  },
+  {
+    text: "Notifications",
+    icon: notificationsOutline,
+    id: "notification-modal",
   },
   {
     text: t('home.delete'),

@@ -1,5 +1,5 @@
 <template>
-  <ion-page class="max-w-[1000px] mx-auto">
+  <ion-page class="max-w-[1000px] mx-auto" v-if="wordPack && words.length > 0">
     <ion-header>
       <ion-toolbar color="background">
         <div class="flex items-center px-2 h-16">
@@ -10,7 +10,7 @@
         </div>
       </ion-toolbar>
     </ion-header>
-    <ion-content v-if="words.length > 0 && wordPack">
+    <ion-content>
 
 
       <div class="w-full h-4/5 flex justify-center items-center p-12 flex-col">
@@ -55,11 +55,11 @@
           <div v-if="finished"
                class="mt-8 text-center absolute bottom-12 flex flex-col bg-card-background p-4 rounded-2xl">
             <p class="text-2xl text-white font-bold mb-4">🎉 {{ t('translation.complete') }}! 🎉</p>
-            <ion-button class="mb-3" @click="router.replace('/practice/results')">{{ t('translation.results') }}
+            <ion-button class="mb-3" @click="router.replace({name: 'results'})">{{ t('translation.results') }}
             </ion-button>
             <ion-button class="mb-3" color="secondary" @click="() => initWords(true)">{{ t('translation.again') }}
             </ion-button>
-            <ion-button class="mb-3" fill="outline" color="secondary" @click="router.replace('/practice')">
+            <ion-button class="mb-3" fill="outline" color="secondary" @click="router.back()">
               {{ t('translation.different_exercise') }}
             </ion-button>
             <ion-button fill="clear" color="secondary" @click="router.replace('/home')">{{ t('translation.home') }}
@@ -69,7 +69,8 @@
       </div>
 
       <ion-alert
-          @will-dismiss="skipWord"
+          @did-dismiss="skipWord"
+          cssClass="custom_alert"
           trigger="skip-alert"
           header="Word Skipped"
           :message="`${practiceOrder == PracticeOrder.knownToLearn ? words[0].to : words[0].from} - ${practiceOrder == PracticeOrder.knownToLearn ? words[0].from : words[0].to}`"
@@ -100,7 +101,7 @@ import {
   IonAlert
 } from "@ionic/vue";
 import {useVocabularyPracticeStore} from "@/states/vocabulary-practice.state";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {useRoute} from 'vue-router';
 import {PracticeOrder, WordItem} from "@/types";
 import {storeToRefs} from "pinia";
@@ -171,15 +172,16 @@ function showNextWord(pushToEnd = false) {
   // Move current word to end if needed
   if (pushToEnd) words.value.push(currentWord.value);
 
-  // Remove first word (or same if pushed)
-  words.value.shift();
 
-  if (words.value.length === 0) {
+  if (words.value.length === 1) {
     finished.value = true;
     practiceTime.value = Date.now() - startTime;
     if (Capacitor.isNativePlatform()) Haptics.vibrate({duration: 1000});
     return;
   }
+
+  // Remove first word (or same if pushed)
+  words.value.shift();
 
   currentWord.value = words.value[0];
   toWordInput.value = "";
@@ -202,11 +204,18 @@ function checkAnswer() {
     wrongInput.value = `${t('translation.wrong_try_again')} (${t('translation.similarity_score')}: ${similarity}%)`;
 
     // Track wrong word
-    const lastWrong = wrongWords.value[wrongWords.value.length - 1];
-    if (!lastWrong || lastWrong.to !== currentWord.value.to) {
-      wrongWords.value.push({from: currentWord.value.from, to: currentWord.value.to, mistakes: [input]});
+    const existingWrong = wrongWords.value.find(
+        (w) => w.to === currentWord.value!.to && w.from === currentWord.value!.from
+    );
+
+    if (existingWrong) {
+      existingWrong.mistakes?.push(input);
     } else {
-      lastWrong.mistakes?.push(input);
+      wrongWords.value.push({
+        from: currentWord.value.from,
+        to: currentWord.value.to,
+        mistakes: [input],
+      });
     }
 
     wrongAnimation.value = true;
@@ -218,11 +227,29 @@ function checkAnswer() {
 function skipWord() {
   if (!currentWord.value) return;
 
-  wrongWords.value.push({from: currentWord.value.from, to: currentWord.value.to, skipped: true});
+  const existingWrong = wrongWords.value.find(
+      (w) => w.to === currentWord.value!.to && w.from === currentWord.value!.from
+  );
+
+  if (existingWrong) {
+    existingWrong.skipped = (existingWrong.skipped || 0) + 1;
+  } else {
+    wrongWords.value.push({
+      from: currentWord.value.from,
+      to: currentWord.value.to,
+      skipped: 1,
+    });
+  }
+
   wordsSkipped.value++;
-  if (Capacitor.isNativePlatform()) Haptics.notification({type: NotificationType.Success});
+
+  if (Capacitor.isNativePlatform()) {
+    Haptics.notification({type: NotificationType.Warning}); // More appropriate feedback
+  }
+
   showNextWord(true); // push skipped word to end
 }
+
 
 function hint() {
   if (!currentWord.value) return;
@@ -235,24 +262,41 @@ function hint() {
   currentHints.value++;
   hintsUsed.value++;
 
-  const word = practiceOrder.value === PracticeOrder.knownToLearn ? currentWord.value.to : currentWord.value.from;
+  const word =
+      practiceOrder.value === PracticeOrder.knownToLearn
+          ? currentWord.value.to
+          : currentWord.value.from;
+
   const revealCount = Math.ceil((currentHints.value / maxHints) * word.length);
-  toWordInput.value = word.slice(0, revealCount) + '*'.repeat(word.length - revealCount);
+  toWordInput.value =
+      word.slice(0, revealCount) + "*".repeat(word.length - revealCount);
 
-  // Track hint usage
-  const lastWrong = wrongWords.value[wrongWords.value.length - 1];
-  if (!lastWrong || lastWrong.to !== currentWord.value.to) {
-    wrongWords.value.push({from: currentWord.value.from, to: currentWord.value.to, hint: 1});
+
+  const existingWrong = wrongWords.value.find(
+      (w) => w.to === currentWord.value!.to && w.from === currentWord.value!.from
+  );
+
+  if (existingWrong) {
+    existingWrong.hint = (existingWrong.hint || 0) + 1;
   } else {
-    lastWrong.hint = (lastWrong.hint || 0) + 1;
+    wrongWords.value.push({
+      from: currentWord.value.from,
+      to: currentWord.value.to,
+      hint: 1,
+    });
   }
-
 }
 
-onIonViewWillEnter(() => {
+
+onMounted(() => {
   const retry = route.query.retry;
   initWords(!!retry && copyOfWords.value.length > 0);
-});
+})
+
+// onIonViewWillEnter(() => {
+//   const retry = route.query.retry;
+//   initWords(!!retry && copyOfWords.value.length > 0);
+// });
 </script>
 
 
@@ -266,5 +310,13 @@ onIonViewWillEnter(() => {
 .fade-leave-to {
   opacity: 0;
   transform: translateY(20px);
+}
+
+
+</style>
+
+<style>
+.custom_alert .alert-message {
+  font-size: 1.4rem;
 }
 </style>

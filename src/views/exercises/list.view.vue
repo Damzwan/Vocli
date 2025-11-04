@@ -2,7 +2,7 @@
   <ion-page v-if="wordPack" class="max-w-[1000px] mx-auto">
     <ion-header>
       <ion-toolbar color="background">
-        <div class="flex justify-between px-2 h-16 space-x-4 items-center items-center">
+        <div class="flex justify-between px-2 h-16 space-x-4 items-center">
           <div class="flex items-center justify-center">
             <ion-button fill="clear" @click="router.back()">
               <ion-icon slot="icon-only" :icon="arrowBack"/>

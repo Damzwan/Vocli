@@ -5,6 +5,7 @@
     </div>
     <ion-router-outlet/>
     <WordInfoActionSheet/>
+    <FeedbackModal/>
     <ion-toast
         :is-open="isToastOpen"
         :message="toastMessage"
@@ -16,16 +17,30 @@
 </template>
 
 <script setup lang="ts">
-import {IonApp, IonRouterOutlet, IonToast, IonSpinner} from '@ionic/vue';
+import {IonApp, IonRouterOutlet, IonSpinner, IonToast} from '@ionic/vue';
 import {storeToRefs} from "pinia";
 import {useAppStore} from "@/states/app.state";
 import {useAuthStore} from "@/states/auth.state";
 import WordInfoActionSheet from "@/components/WordInfoActionSheet.vue";
+import {watch} from "vue";
+import {SplashScreen} from "@capacitor/splash-screen";
+import FeedbackModal from "@/components/home/FeedbackModal.vue";
 
-const {toastMessage, toastOptions, isToastOpen} = storeToRefs(useAppStore())
+
+const appStore = useAppStore()
+const {toastMessage, toastOptions, isToastOpen} = storeToRefs(appStore)
+
 const authStore = useAuthStore()
 const {authLoading} = storeToRefs(authStore)
+
 authStore.initAuthListener()
+appStore.initShake()
+
+
+watch(authLoading, () => {
+  if (!authLoading.value) SplashScreen.hide()
+})
+
 
 </script>
 

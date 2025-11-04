@@ -99,3 +99,4 @@ export function debounce<T extends (...args: any[]) => Promise<any> | void>(
 export function isNative() {
     return Capacitor.isNativePlatform();
 }
+

@@ -40,14 +40,15 @@
           <div v-if="finished"
                class="mt-8 text-center absolute bottom-12 flex flex-col bg-card-background p-4 rounded-2xl">
             <p class="text-2xl text-white font-bold mb-4">{{ t('multiple-choice.complete') }}! 🎉</p>
-            <ion-button class="mb-3" @click="router.replace('/practice/results')">{{ t('multiple-choice.results') }}
+            <ion-button class="mb-3" @click="router.replace(`/practice/${wordPack?.id}/results`)">
+              {{ t('multiple-choice.results') }}
             </ion-button>
             <ion-button class="mb-3" color="secondary" @click="() => initWords(true)">{{ t('multiple-choice.again') }}
             </ion-button>
-            <ion-button class="mb-3" fill="outline" color="secondary" @click="router.replace('/practice')">
+            <ion-button class="mb-3" fill="outline" color="secondary" @click="router.back()">
               {{ t('multiple-choice.different_exercise') }}
             </ion-button>
-            <ion-button fill="clear" color="secondary" @click="router.replace('/home')">
+            <ion-button fill="clear" color="secondary" @click="router.replace({name: 'home'})">
               {{ t('multiple-choice.home') }}
             </ion-button>
           </div>
@@ -75,7 +76,7 @@ import {arrowBack} from "ionicons/icons";
 import {storeToRefs} from "pinia";
 import {useVocabularyPracticeStore} from "@/states/vocabulary-practice.state";
 import {PracticeOrder} from "@/types";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
 import {Capacitor} from "@capacitor/core";
 import {Haptics, NotificationType} from "@capacitor/haptics";
@@ -179,6 +180,7 @@ function checkAnswer(option: string) {
     if (!wrongWord || wrongWord.to !== item.correct) {
       wrongWords.value.push({from: item.toShow, to: item.correct, mistakes: [option]});
     } else {
+      if (!wrongWords.value[0].mistakes) return
       wrongWords.value[0].mistakes.push(option);
     }
 
@@ -192,10 +194,14 @@ function checkAnswer(option: string) {
   }
 }
 
-onIonViewWillEnter(() => {
+onMounted(() => {
   const retry = route.query.retry;
   initWords(!!retry && copyOfWords.value.length > 0);
 })
+// onIonViewWillEnter(() => {
+//   const retry = route.query.retry;
+//   initWords(!!retry && copyOfWords.value.length > 0);
+// })
 
 </script>
 

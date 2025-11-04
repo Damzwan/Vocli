@@ -9,7 +9,7 @@
       {{ wordItem.to }}
     </div>
     <ion-button fill="clear">
-      <ion-icon slot="icon-only" :icon="arrowForwardOutline"/>
+      <ion-icon slot="icon-only" :icon="ellipsisVertical"/>
     </ion-button>
   </div>
 </template>
@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import {IonIcon, IonButton} from "@ionic/vue";
-import {arrowForwardOutline} from "ionicons/icons";
+import {arrowForwardOutline, ellipsisVertical} from "ionicons/icons";
 
 import {WordItem} from "@/types";
 

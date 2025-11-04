@@ -1,70 +1,63 @@
 import {createRouter, createWebHistory} from '@ionic/vue-router';
 import {RouteRecordRaw} from 'vue-router';
-import HomePage from '../views/home.view.vue'
-import LoginPage from '../views/login.view.vue'
-import CreatePage from '../views/create.view.vue'
-import practiceMethodsPage from '../views/practiceMethods.view.vue'
-import practiceListPage from '../views/exercises/list.view.vue'
-import practiceFlashcardPage from '../views/exercises/flashcard.view.vue'
-import practiceTranslatePage from '../views/exercises/translation.view.vue'
-import practiceResultPage from '../views/exercises/stats.view.vue'
-import practiceMultipleChoicePage from '../views/exercises/multiple-choice.view.vue'
+
+// ✅ Preloaded (imported normally)
+import HomePage from '../views/home.view.vue';
+import LoginPage from '../views/login.view.vue';
+import AccountPage from '../views/account.view.vue';
+import CreatePage from '../views/create.view.vue';
+import PracticeLayoutPage from '../views/exercises/practice-layout.view.vue';
+import PracticeMethodsPage from '../views/practiceMethods.view.vue';
+import PracticeListPage from '../views/exercises/list.view.vue';
+import PracticeFlashcardPage from '../views/exercises/flashcard.view.vue';
+import PracticeTranslatePage from '../views/exercises/translation.view.vue';
+import PracticeResultPage from '../views/exercises/stats.view.vue';
+import PracticeMultipleChoicePage from '../views/exercises/multiple-choice.view.vue';
+
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
-        redirect: '/home'
+        redirect: '/home',
     },
     {
         path: '/login',
-        name: 'Login',
-        component: LoginPage
+        name: 'login',
+        component: LoginPage, // preloaded
     },
     {
         path: '/home',
-        name: 'Home',
-        component: HomePage
+        name: 'home',
+        component: HomePage, // preloaded
     },
     {
         path: '/create',
-        name: 'Create',
-        component: CreatePage
+        name: 'create',
+        component: CreatePage,
     },
     {
-        path: '/practice',
-        name: 'Practice',
-        component: practiceMethodsPage
+        path: '/practice/:wordPackId',
+        component: PracticeLayoutPage,
+        children: [
+            {path: '', name: 'methods', component: PracticeMethodsPage},
+            {path: 'list', name: 'list', component: PracticeListPage},
+            {path: 'flashcard', name: 'flashcard', component: PracticeFlashcardPage},
+            {path: 'translation', name: 'translation', component: PracticeTranslatePage},
+            {path: 'multiple-choice', name: 'multiple-choice', component: PracticeMultipleChoicePage},
+        ],
+        props: true,
     },
     {
-        path: '/practice/list',
-        name: 'PracticeList',
-        component: practiceListPage
+        path: '/practice/:wordPackId/results',
+        name: 'results',
+        component: PracticeResultPage,
+        props: true,
     },
-    {
-        path: '/practice/flashcard',
-        name: 'PracticeFlashcard',
-        component: practiceFlashcardPage
-    },
-    {
-        path: '/practice/translation',
-        name: 'PracticeTranslate',
-        component: practiceTranslatePage
-    },
-    {
-        path: '/practice/multiple-choice',
-        name: 'PracticeMultipleChoice',
-        component: practiceMultipleChoicePage
-    },
-    {
-        path: '/practice/results',
-        name: 'PracticeResults',
-        component: practiceResultPage
-    }
-]
+];
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
-    routes
-})
+    routes,
+});
 
-export default router
+export default router;

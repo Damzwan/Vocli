@@ -24,58 +24,58 @@
             :loop="true"
             class="w-[240px] h-[320px]"
             ref="swiperRef"
-            @slideChange="onSlideChange()"
+            @realIndexChange="onSlideChange()"
+            @slideChangeTransitionEnd="onTransitionEnd"
+            @slideResetTransitionEnd="onTransitionEnd"
 
         >
           <swiper-slide
               v-for="(word, i) in wordPack.words"
               :key="word.from"
               class="relative cursor-pointer rounded-2xl"
+              @click="onCardClick(swiperRef.$el.swiper.realIndex)"
               :style="{ backgroundColor: colors[i % colors.length] }"
           >
-            <!-- Wrapper for flip animation -->
-            <div class="flip-wrapper w-full h-full flex justify-center items-center rounded-2xl"
-                 @click="onCardClick(i)">
-              <!-- Inner flip card -->
-              <div
-                  class="flip-card w-full h-full rounded-2xl transition-transform duration-500 ease-in-out transform"
-                  :class="{ 'rotate-y-180 scale-105': flippedIndex === i }"
-              >
-                <!-- Front -->
-                <div
-                    class="flip-card-front absolute w-full h-full flex justify-center items-center rounded-2xl backface-hidden">
-                  <p class="text-black text-3xl font-bold text-center">{{
-                      frontIsLearnLanguage ? word.to : word.from
-                    }}</p>
-                </div>
 
-                <!-- Back -->
-                <div
-                    class="flip-card-back absolute w-full h-full flex justify-center items-center rounded-2xl backface-hidden rotate-y-180">
-                  <p class="text-black text-3xl font-bold text-center">{{
-                      frontIsLearnLanguage ? word.from : word.to
-                    }}</p>
-                </div>
-              </div>
 
-              <ion-button
-                  size="large"
-                  fill="clear"
-                  class="absolute bottom-2 right-12 text-black"
-                  @click="(e: Event) => onTTSClick(e, word)"
+            <div
+                class="w-full h-full flex justify-center items-center p-4"
+            >
+              <!-- Front -->
+              <p
+                  v-if="flippedIndex !== i"
+                  class="text-black text-3xl font-bold text-center animate-fade animate-duration-500"
               >
-                <ion-icon slot="icon-only" :icon="volumeHighOutline"></ion-icon>
-              </ion-button>
+                {{ frontIsLearnLanguage ? word.to : word.from }}
+              </p>
 
-              <ion-button
-                  fill="clear"
-                  size="large"
-                  class="absolute bottom-2 right-2 text-black"
-                  @click="(e: Event) => onWordInfoClick(e, word)"
+              <!-- Back -->
+              <p
+                  v-else
+                  class="text-black text-3xl font-bold text-center animate-fade animate-duration-500"
               >
-                <ion-icon slot="icon-only" class="w-10 h-10" :icon="informationCircleOutline"></ion-icon>
-              </ion-button>
+                {{ frontIsLearnLanguage ? word.from : word.to }}
+              </p>
             </div>
+
+
+            <ion-button
+                size="large"
+                fill="clear"
+                class="absolute bottom-2 right-12 text-black"
+                @click="(e: Event) => onTTSClick(e, word)"
+            >
+              <ion-icon slot="icon-only" :icon="volumeHighOutline"></ion-icon>
+            </ion-button>
+
+            <ion-button
+                fill="clear"
+                size="large"
+                class="absolute bottom-2 right-2 text-black"
+                @click="(e: Event) => onWordInfoClick(e, word)"
+            >
+              <ion-icon slot="icon-only" class="w-10 h-10" :icon="informationCircleOutline"></ion-icon>
+            </ion-button>
           </swiper-slide>
 
 
@@ -99,13 +99,14 @@
 import {
   IonButton,
   IonContent,
+  IonHeader,
   IonIcon,
   IonPage,
-  useIonRouter,
-  IonHeader,
-  IonToolbar,
   IonToggle,
-  onIonViewDidLeave, onIonViewWillEnter
+  IonToolbar,
+  onIonViewDidLeave,
+  onIonViewWillEnter,
+  useIonRouter
 } from "@ionic/vue";
 import {arrowBack, informationCircleOutline, volumeHighOutline} from "ionicons/icons";
 import {storeToRefs} from "pinia";
@@ -115,7 +116,7 @@ import {Swiper, SwiperSlide} from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
 import {EffectCards} from 'swiper/modules';
-import {onBeforeUnmount, onMounted, onUnmounted, ref} from "vue";
+import {ref} from "vue";
 import {useI18n} from "vue-i18n";
 import {useWordInfoStore} from "@/states/wordInfo.state";
 import {WordItem} from "@/types";
@@ -174,7 +175,14 @@ function onCardClick(index: number) {
 function onSlideChange() {
   if (!swiperRef.value) return;
   currentSlide.value = swiperRef.value.$el.swiper.realIndex
-  flippedIndex.value = null; // reset flip on card change
+}
+
+function onTransitionEnd() {
+  if (!swiperRef.value) return;
+  const index = swiperRef.value.$el.swiper.realIndex
+
+  if (flippedIndex.value === index) return;
+  flippedIndex.value = null
 }
 
 function onWordInfoClick(e: Event, word: WordItem) {
@@ -195,27 +203,11 @@ function onTTSClick(e: Event, word: WordItem) {
 }
 
 
-
 const colors = ['#FDE68A', '#A7F3D0', '#BFDBFE', '#FBCFE8', '#DDD6FE', '#FCA5A5', '#C4B5FD']
 </script>
 
 <style scoped>
 
-.perspective {
-  perspective: 1000px;
-}
-
-.flip-card {
-  transform-style: preserve-3d;
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-}
-
-.rotate-y-180 {
-  transform: rotateY(180deg);
-}
 
 
 </style>

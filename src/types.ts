@@ -17,7 +17,7 @@ export type WordItem = {
 
 export type WrongWordItem = WordItem & {
     mistakes?: string[]
-    skipped?: boolean
+    skipped?: number
     hint?: number
 }
 
@@ -51,4 +51,15 @@ export type User = {
     learnLanguage: LANGUAGE;
     knownLanguage: LANGUAGE;
     locale: LANGUAGE;
+}
+
+export type WordAlternativeResponse = {
+    primary: string
+    alternatives: string[]
+}
+
+export type WordPackNotificationItem = {
+    time: string
+    startDate: string
+    endDate: string
 }

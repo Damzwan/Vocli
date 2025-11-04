@@ -44,6 +44,7 @@ import cz from './locales/cz.json'
 import ru from './locales/ru.json'
 import hu from './locales/hu.json'
 import {getInitLanguage, isNative} from "@/helpers/app.helper";
+import {LocalNotifications} from "@capacitor/local-notifications";
 
 dayjs.extend(duration);
 
@@ -60,6 +61,11 @@ const i18n = createI18n({
 })
 getInitLanguage().then((locale) => {
     i18n.global.locale = locale as any;
+})
+
+// TODO move this somewhere! better!
+LocalNotifications.addListener("localNotificationActionPerformed", (notification) => {
+    void router.push(`/practice/${notification.notification.extra.wordPackId}`)
 })
 
 

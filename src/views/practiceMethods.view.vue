@@ -3,10 +3,10 @@
     <ion-header>
       <ion-toolbar color="background">
         <div class="flex items-center px-2 h-16">
-          <ion-button fill="clear" @click="router.back()">
+          <ion-button fill="clear" @click="router.navigate('/home', 'back', 'pop')">
             <ion-icon slot="icon-only" :icon="arrowBack"/>
           </ion-button>
-          <p class="text-2xl font-bold pl-2">{{ t(`${tPrefix}.title`) }}</p>
+          <p class="text-2xl font-bold pl-2">Practice • {{ wordPack.name }}</p>
         </div>
       </ion-toolbar>
 
@@ -137,8 +137,10 @@ import {useAppStore} from "@/states/app.state";
 import {arrowBack, handLeftOutline, shuffleOutline} from "ionicons/icons";
 import {LANGUAGE_FLAGS} from "@/config/languages.config";
 import {useI18n} from "vue-i18n";
+import {useRoute} from "vue-router";
 
 const router = useIonRouter()
+const route = useRoute()
 const {t} = useI18n()
 const tPrefix = "practice_methods"
 
@@ -165,14 +167,19 @@ function onPracticeMethodClick(practiceMethod: PracticeMode) {
     }
     isPracticeMethodOptionActionSheetOpen.value = true;
   } else {
-    router.push(`/practice/${practiceMethod.link}`)
+    router.push({
+      name: practiceMethod.link,
+    });
+
   }
 }
 
 function startTranslateExercise() {
   if (!selectedPracticeMode.value) return
   isPracticeMethodOptionActionSheetOpen.value = false;
-  router.push(`/practice/${selectedPracticeMode.value.link}`)
+  router.push({
+    name: selectedPracticeMode.value.link,
+  });
 
 }
 

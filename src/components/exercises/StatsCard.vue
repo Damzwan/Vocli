@@ -1,11 +1,16 @@
 <template>
   <div
-      class="rounded-2xl p-2 text-white shadow-lg flex flex-col items-center justify-center flex text-center"
+      class="rounded-2xl px-3 py-2 text-white shadow-lg flex items-center space-x-3 text-left"
       :style="{ backgroundColor: color }"
   >
-    <ion-icon :icon="icon" class="mb-2"></ion-icon>
-    <div class="text-2xl font-bold">{{ title }}</div>
-    <div class="text-lg">{{ description }}</div>
+    <!-- Icon -->
+    <ion-icon :icon="icon" class="w-6 h-6 flex-shrink-0"></ion-icon>
+
+    <!-- Text content -->
+    <div class="flex flex-col gap-y-1">
+      <div class="text-xl font-bold leading-none">{{ title }}</div>
+      <div class="opacity-80 leading-none">{{ description }}</div>
+    </div>
   </div>
 </template>
 
@@ -22,7 +27,6 @@ defineProps<{
 
 <style scoped>
 ion-icon {
-  width: 32px;
-  height: 32px;
+  vertical-align: middle;
 }
 </style>

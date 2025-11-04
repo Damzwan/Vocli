@@ -5,7 +5,7 @@ import {AuthStateChange, FirebaseAuthentication, SignInResult,} from '@capacitor
 import {FirebaseFirestore} from '@capacitor-firebase/firestore';
 import {useAppStore} from '@/states/app.state';
 import {User, WordPack} from '@/types';
-import {syncWordPacks} from '@/helpers/auth.helper';
+import {loadLocalWordPacks, syncWordPacks} from '@/helpers/auth.helper';
 import {LANGUAGE} from "@/config/languages.config";
 import {useI18n} from "vue-i18n";
 import {Preferences} from "@capacitor/preferences";
@@ -15,6 +15,7 @@ export const useAuthStore = defineStore('auth', () => {
     const user = ref<User | null>(null);
     const wordPacks = ref<WordPack[]>([]);
     const wordPacksLoading = ref(true);
+    const wordPacksOnlineLoading = ref(true);
     const authLoading = ref(true);
 
     const router = useRouter();
@@ -33,7 +34,7 @@ export const useAuthStore = defineStore('auth', () => {
 
                 if (firebaseUser) {
                     if (route.path === '/login') {
-                        router.push('/home').then(() => {
+                        router.replace('/home').then(() => {
                             setTimeout(() => {
                                 authLoading.value = false;
                             }, 200);
@@ -43,6 +44,7 @@ export const useAuthStore = defineStore('auth', () => {
                     }
 
                     authUser.value = firebaseUser;
+                    void loadLocalWordPacks()
 
                     // Fetch or create Firestore user
                     const fireUser = await getFireStoreUser(firebaseUser.uid);
@@ -60,13 +62,12 @@ export const useAuthStore = defineStore('auth', () => {
                     authUser.value = null;
                     user.value = null;
                     authLoading.value = false;
-                    router.push('/login');
+                    router.replace('/login');
                 }
             }
         );
     };
 
-    // ✅ Google login
     const loginGoogle = async () => {
         try {
             const result: SignInResult = await FirebaseAuthentication.signInWithGoogle();
@@ -81,7 +82,20 @@ export const useAuthStore = defineStore('auth', () => {
         }
     };
 
-    // ✅ Anonymous login
+    const loginMail = async () => {
+        try {
+            const result: SignInResult = await FirebaseAuthentication.signInWithGoogle();
+            if (result.user) {
+                authUser.value = result.user;
+            } else {
+                throw new Error('Google sign-in returned no user.');
+            }
+        } catch (error) {
+            console.error('Google login failed:', error);
+            appStore.showToast('Google login failed.');
+        }
+    };
+
     const loginAnonymously = async () => {
         try {
             const result: SignInResult = await FirebaseAuthentication.signInAnonymously();
@@ -92,20 +106,27 @@ export const useAuthStore = defineStore('auth', () => {
         }
     };
 
-    // ✅ Logout
     const logout = async () => {
         try {
+            // Sign out the user
             await FirebaseAuthentication.signOut();
-            authUser.value = null;
-            user.value = null;
-            router.push('/login');
+
+            // Remove all keys except 'locale' in parallel
+            const {keys} = await Preferences.keys();
+            await Promise.all(
+                keys
+                    .filter(key => key !== 'locale')
+                    .map(key => Preferences.remove({key}))
+            );
+
+            resetLocalState()
         } catch (error) {
             console.error('Logout failed:', error);
-            appStore.showToast('Logout failed.');
+            appStore.showToast('Logout failed. Please try again.');
         }
     };
 
-    // ✅ Fetch Firestore user (native)
+
     const getFireStoreUser = async (uid: string): Promise<User | null> => {
         try {
             const docSnap = await FirebaseFirestore.getDocument({
@@ -118,7 +139,6 @@ export const useAuthStore = defineStore('auth', () => {
         }
     };
 
-    // ✅ Create Firestore user (native)
     const createFireStoreUser = async (authUser: any) => {
         try {
             const newUser: User = {
@@ -156,6 +176,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     async function changeLearnAndKnownLanguage(learnLanguage: LANGUAGE, knownLanguage: LANGUAGE) {
         try {
+            console.log("Updating learnLanguage and knownLanguage in Firestore:", learnLanguage, knownLanguage);
             if (!user.value) return;
             user.value.learnLanguage = learnLanguage;
             user.value.knownLanguage = knownLanguage;
@@ -166,6 +187,12 @@ export const useAuthStore = defineStore('auth', () => {
         } catch (error) {
             console.error("Failed to update locale in Firestore:", error);
         }
+    }
+
+    function resetLocalState() {
+        authUser.value = null;
+        user.value = null;
+        wordPacks.value = [];
     }
 
     return {
@@ -179,6 +206,8 @@ export const useAuthStore = defineStore('auth', () => {
         loginAnonymously,
         logout,
         changeLocale,
-        changeLearnAndKnownLanguage
+        changeLearnAndKnownLanguage,
+        wordPacksOnlineLoading,
+        loginMail
     };
 });

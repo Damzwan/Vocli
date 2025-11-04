@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-import {LANGUAGE} from "@/config/languages.config";
+import {CapacitorShake} from '@capgo/capacitor-shake';
 
 type ToastOptions = {
     duration?: number;
@@ -15,6 +15,7 @@ export const useAppStore = defineStore('app', () => {
     const isToastOpen = ref(false);
     const toastMessage = ref('')
     const toastOptions = ref<ToastOptions>(baseToastOptions);
+    const feedbackModalOpen = ref(false);
 
 
     function showToast(message: string, options?: ToastOptions) {
@@ -23,5 +24,11 @@ export const useAppStore = defineStore('app', () => {
         toastOptions.value = {...baseToastOptions, ...options};
     }
 
-    return {showToast, isToastOpen, toastMessage, toastOptions};
+    function initShake() {
+        CapacitorShake.addListener('shake', () => {
+            feedbackModalOpen.value = true;
+        });
+    }
+
+    return {showToast, isToastOpen, toastMessage, toastOptions, feedbackModalOpen, initShake};
 })

@@ -1,5 +1,5 @@
 <template>
-  <ion-modal trigger="feedback" class="z-[2000]">
+  <ion-modal class="z-[2000]" :is-open="feedbackModalOpen" @didDismiss="feedbackModalOpen = false">
     <div class="bg-background p-4">
       <ion-button fill="clear" class="absolute right-0 top-0" @click="modalController.dismiss()">
         <ion-icon slot="icon-only" class="fill-black" :icon="closeOutline"/>
@@ -54,9 +54,11 @@ import {IonButton, IonIcon, IonModal, IonRadio, IonRadioGroup, IonTextarea, moda
 import {useAppStore} from "@/states/app.state";
 import {useI18n} from "vue-i18n";
 import {FirebaseFirestore} from '@capacitor-firebase/firestore';
+import {storeToRefs} from "pinia";
 
 const {t} = useI18n()
 const tPrefix = "feedback"
+const {feedbackModalOpen} = storeToRefs(useAppStore())
 
 enum FeedbackOptions {
   like = 'like',

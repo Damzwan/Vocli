@@ -130,7 +130,7 @@
 </template>
 
 <script setup lang="ts">
-import {IonModal, IonChip, IonSpinner, IonIcon, IonContent, IonPopover} from "@ionic/vue";
+import {IonModal, IonChip, IonSpinner, IonIcon, IonButton, IonPopover} from "@ionic/vue";
 import {storeToRefs} from "pinia";
 import {useWordInfoStore} from "@/states/wordInfo.state";
 import {computed, ref, watch} from "vue";

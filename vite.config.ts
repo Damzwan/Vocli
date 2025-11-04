@@ -8,6 +8,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    assetsInclude: ['**/*.lottie'],
     plugins: [
         vue(),
         legacy(),

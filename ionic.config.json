@@ -1,5 +1,7 @@
 {
-  "name": "AIWordBuilder",
-  "integrations": {},
+  "name": "Vocli",
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "vue-vite"
 }

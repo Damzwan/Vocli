@@ -1,4 +1,7 @@
-const api_url = import.meta.env.VITE_TRANSLATE_API_URL; // use VITE_ prefix for Vite projects (Vue 3)
+import {WordAlternativeResponse} from "@/types";
+
+const api_url = import.meta.env.VITE_TRANSLATE_API_URL;
+const translations_alternative_api_url = import.meta.env.VITE_TRANSLATION_ALTERNATIVE_API_URL;
 
 export function useTranslate() {
     async function translate(text: string, fromLanguage: string, toLanguage: string): Promise<string[]> {
@@ -25,7 +28,35 @@ export function useTranslate() {
         }
     }
 
+    async function findTranslationAlternatives(text: string, mainTranslation: string, knownLanguage: string, learnLanguage: string): Promise<string[]> {
+        const params = JSON.stringify({
+            text,
+            mainTranslation,
+            knownLanguage,
+            learnLanguage,
+        })
+
+        try {
+            const response = await fetch(translations_alternative_api_url, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: params,
+            });
+            if (!response.ok) {
+                throw new Error(`Translation alternatives API error: ${response.statusText}`);
+            }
+
+
+            const data = await response.json() as WordAlternativeResponse;
+            return data.alternatives || [];
+        } catch (err) {
+            console.error('Translation alternatives failed:', err);
+            return [];
+        }
+    }
+
     return {
-        translate
+        translate,
+        findTranslationAlternatives
     };
 }
