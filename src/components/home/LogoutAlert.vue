@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import {useAuthStore} from "@/states/auth.state";
-import {alertController} from "@ionic/vue";
+import {alertController, IonAlert} from "@ionic/vue";
 
 const authStore = useAuthStore();
 

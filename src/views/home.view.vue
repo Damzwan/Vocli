@@ -52,11 +52,11 @@
               @edit-click="onWordPackEditClick(wordPack)"
               @proceed="goToPractice(wordPack)"
 
-              @mouseenter="mobilePlatform ? null : onWordPackHoverStart(wordPack, $event)"
-              @mouseleave="mobilePlatform ? null :  onWordPackHoverLeave()"
+              @mouseenter="isMobilePlatform ? null : onWordPackHoverStart(wordPack, $event)"
+              @mouseleave="isMobilePlatform ? null :  onWordPackHoverLeave()"
 
-              @touchstart="mobilePlatform ? onWordPackHoverStart(wordPack, $event) : null"
-              @touchend="mobilePlatform? onWordPackHoverLeave() : null"
+              @touchstart="isMobilePlatform ? onWordPackHoverStart(wordPack, $event) : null"
+              @touchend="isMobilePlatform? onWordPackHoverLeave() : null"
           />
 
         </div>
@@ -240,7 +240,7 @@ let wordPackHoverTimeout: any
 const mouseY = ref(0);
 
 const platform = getExtendedPlatform()
-const mobilePlatform = platform === 'native' || platform === 'nativeWeb'
+const isMobilePlatform = platform === 'native' || platform === 'nativeWeb'
 
 
 watch(user, (newUserVal) => {
@@ -344,7 +344,7 @@ function onWordPackHoverStart(pack: WordPack, e: MouseEvent | TouchEvent) {
       mouseY.value = e.changedTouches[0].clientY
     }
 
-  }, isNative() ? 0 : 500)
+  }, isMobilePlatform ? 0 : 500)
 }
 
 

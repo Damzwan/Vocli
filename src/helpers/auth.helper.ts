@@ -25,12 +25,14 @@ export async function loadLocalWordPacks(): Promise<void> {
 
     const localWordPacks = await getLocalWordPacks()
     wordPacks.value = Object.values(localWordPacks);
-    wordPacksLoading.value = false;
+    if (wordPacks.value.length > 0){
+        wordPacksLoading.value = false; // otherwise we assume all packs are online and we need to fetch them
+    }
 }
 
 export async function syncWordPacks(userId: string): Promise<void> {
     const authStore = useAuthStore();
-    const {wordPacks, wordPacksOnlineLoading} = storeToRefs(authStore);
+    const {wordPacks, wordPacksOnlineLoading, wordPacksLoading} = storeToRefs(authStore);
 
     // Set local packs immediately for fast UI
     const localWordPacks = await getLocalWordPacks()
@@ -83,6 +85,7 @@ export async function syncWordPacks(userId: string): Promise<void> {
         })
     );
 
+    wordPacksLoading.value = false;
     wordPacksOnlineLoading.value = false;
 
 

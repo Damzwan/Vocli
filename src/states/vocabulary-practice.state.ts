@@ -20,12 +20,14 @@ export const useVocabularyPracticeStore = defineStore('vocabulary-practice', () 
     const wordsSkipped = ref<number>(0)
     const practiceTime = ref<number>(0)
 
+    const wordsToPractice = ref<WordItem[]>([])
+
 
     const authStore = useAuthStore();
 
     async function updateLastPracticed() {
         if (!wordPack.value || !authStore.user?.uid) return;
-        const { wordPacks } = storeToRefs(authStore);
+        const {wordPacks} = storeToRefs(authStore);
 
         wordPack.value.lastPracticed = new Date().toISOString();
 
@@ -73,7 +75,6 @@ export const useVocabularyPracticeStore = defineStore('vocabulary-practice', () 
     }
 
 
-
     return {
         wordPack,
         amountOfWords,
@@ -85,6 +86,7 @@ export const useVocabularyPracticeStore = defineStore('vocabulary-practice', () 
         copyOfWords,
         practiceMethodName,
         wordSelectionStrategy,
-        updateLastPracticed
+        updateLastPracticed,
+        wordsToPractice
     };
 })

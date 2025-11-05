@@ -30,7 +30,8 @@ export enum PracticeOrder {
 
 export enum WordSelectionStrategy {
     handPicked,
-    random
+    random,
+    all,
 }
 
 export type PracticeMode = {

@@ -3,7 +3,7 @@
     <ion-header>
       <ion-toolbar color="background">
         <div class="flex items-center justify-start">
-          <ion-button fill="clear" @click="router.back()">
+          <ion-button fill="clear" @click="router.replace({name: 'methods'})">
             <ion-icon slot="icon-only" :icon="arrowBack"/>
           </ion-button>
           <p class="text-2xl font-bold pl-2">{{ t('stats.title') }}</p>
@@ -57,7 +57,7 @@
         <!-- Fixed Buttons at the bottom -->
         <div class="space-y-3 flex flex-col justify-center">
           <ion-button class="mb-3" color="secondary" @click="onTryAgain">{{ t('stats.again') }}</ion-button>
-          <ion-button class="mb-3" fill="outline" color="secondary" @click="router.back()">
+          <ion-button class="mb-3" fill="outline" color="secondary" @click="router.replace({name: 'methods'})">
             {{ t('stats.different_exercise') }}
           </ion-button>
           <ion-button fill="clear" color="secondary" @click="goHome">{{

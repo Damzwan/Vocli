@@ -75,7 +75,7 @@ import {
 import {arrowBack} from "ionicons/icons";
 import {storeToRefs} from "pinia";
 import {useVocabularyPracticeStore} from "@/states/vocabulary-practice.state";
-import {PracticeOrder} from "@/types";
+import {PracticeOrder, WordItem, WordSelectionStrategy} from "@/types";
 import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
 import {Capacitor} from "@capacitor/core";
@@ -102,7 +102,9 @@ const {
   amountOfWords,
   practiceTime,
   copyOfWords,
-  practiceMethodName
+  practiceMethodName,
+  wordSelectionStrategy,
+  wordsToPractice
 } = storeToRefs(useVocabularyPracticeStore())
 
 const multipleChoiceItems = ref<MultipleChoiceItem[]>([])
@@ -118,9 +120,20 @@ function initWords(isRetry: boolean) {
   if (!wordPack.value) return;
 
   // Step 1: Get the word list
-  const words = isRetry
-      ? shuffle(copyOfWords.value)
-      : shuffle(wordPack.value.words).splice(0, amountOfWords.value);
+  let words: WordItem[] = [];
+
+  if (wordSelectionStrategy.value === WordSelectionStrategy.handPicked) {
+    words = shuffle(wordsToPractice.value)
+  } else {
+    words = isRetry
+        ? shuffle(copyOfWords.value)
+        : shuffle(wordPack.value.words);
+    if (wordSelectionStrategy.value === WordSelectionStrategy.random) {
+      words = words.slice(0, amountOfWords.value);
+    }
+  }
+
+
   copyOfWords.value = words;
   startingAmountOfWords.value = words.length
 

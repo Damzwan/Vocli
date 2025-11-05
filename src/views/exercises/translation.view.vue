@@ -103,7 +103,7 @@ import {
 import {useVocabularyPracticeStore} from "@/states/vocabulary-practice.state";
 import {onMounted, ref} from "vue";
 import {useRoute} from 'vue-router';
-import {PracticeOrder, WordItem} from "@/types";
+import {PracticeOrder, WordItem, WordSelectionStrategy} from "@/types";
 import {storeToRefs} from "pinia";
 import {arrowBack, chevronForwardOutline} from "ionicons/icons";
 import {useAppStore} from "@/states/app.state";
@@ -123,7 +123,9 @@ const {
   wordsSkipped,
   practiceTime,
   copyOfWords,
-  practiceMethodName
+  practiceMethodName,
+  wordSelectionStrategy,
+  wordsToPractice
 } = storeToRefs(useVocabularyPracticeStore());
 
 const {open} = useWordInfoStore()
@@ -148,8 +150,17 @@ let startTime = 0;
 function initWords(isRetry = false) {
   if (!wordPack.value) return;
 
-  words.value = shuffle(isRetry && copyOfWords.value.length ? copyOfWords.value : wordPack.value.words)
-      .slice(0, amountOfWords.value);
+  words.value = []
+
+  if (wordSelectionStrategy.value === WordSelectionStrategy.handPicked) {
+    words.value = shuffle(wordsToPractice.value)
+  } else {
+    words.value = shuffle(isRetry && copyOfWords.value.length ? copyOfWords.value : wordPack.value.words)
+    if (wordSelectionStrategy.value === WordSelectionStrategy.random) {
+      words.value = words.value.slice(0, amountOfWords.value);
+    }
+  }
+
 
   copyOfWords.value = [...words.value];
   startingAmountOfWords.value = words.value.length;

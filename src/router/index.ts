@@ -4,14 +4,13 @@ import {RouteRecordRaw} from 'vue-router';
 // ✅ Preloaded (imported normally)
 import HomePage from '../views/home.view.vue';
 import LoginPage from '../views/login.view.vue';
-import AccountPage from '../views/account.view.vue';
 import CreatePage from '../views/create.view.vue';
 import PracticeLayoutPage from '../views/exercises/practice-layout.view.vue';
 import PracticeMethodsPage from '../views/practiceMethods.view.vue';
 import PracticeListPage from '../views/exercises/list.view.vue';
 import PracticeFlashcardPage from '../views/exercises/flashcard.view.vue';
 import PracticeTranslatePage from '../views/exercises/translation.view.vue';
-import PracticeResultPage from '../views/exercises/stats.view.vue';
+import ReviewView from '../views/exercises/review.view.vue';
 import PracticeMultipleChoicePage from '../views/exercises/multiple-choice.view.vue';
 
 
@@ -50,7 +49,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/practice/:wordPackId/results',
         name: 'results',
-        component: PracticeResultPage,
+        component: ReviewView,
         props: true,
     },
 ];
