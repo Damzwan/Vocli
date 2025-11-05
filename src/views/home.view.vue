@@ -52,11 +52,11 @@
               @edit-click="onWordPackEditClick(wordPack)"
               @proceed="goToPractice(wordPack)"
 
-              @mouseenter="isNative() ? null : onWordPackHoverStart(wordPack, $event)"
-              @mouseleave="isNative() ? null :  onWordPackHoverLeave()"
+              @mouseenter="mobilePlatform ? null : onWordPackHoverStart(wordPack, $event)"
+              @mouseleave="mobilePlatform ? null :  onWordPackHoverLeave()"
 
-              @touchstart="isNative() ? onWordPackHoverStart(wordPack, $event) : null"
-              @touchend="isNative() ? onWordPackHoverLeave() : null"
+              @touchstart="mobilePlatform ? onWordPackHoverStart(wordPack, $event) : null"
+              @touchend="mobilePlatform? onWordPackHoverLeave() : null"
           />
 
         </div>
@@ -206,7 +206,7 @@ import {useI18n} from "vue-i18n";
 import {useAuthStore} from "@/states/auth.state";
 import {FirebaseFirestore} from "@capacitor-firebase/firestore";
 import PeekWordsModal from "@/components/home/PeekWordsModal.vue";
-import {isNative} from "@/helpers/app.helper";
+import {getExtendedPlatform, isNative} from "@/helpers/app.helper";
 import NotificationModal from "@/components/home/NotificationModal.vue";
 import {useNotificationStore} from "@/states/notification.state";
 import LogoutAlert from "@/components/home/LogoutAlert.vue";
@@ -238,6 +238,9 @@ const hoveringWordPack = ref<WordPack>()
 const isHoveringOnWordPack = ref(false)
 let wordPackHoverTimeout: any
 const mouseY = ref(0);
+
+const platform = getExtendedPlatform()
+const mobilePlatform = platform === 'native' || platform === 'nativeWeb'
 
 
 watch(user, (newUserVal) => {

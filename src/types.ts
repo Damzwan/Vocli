@@ -41,8 +41,16 @@ export type PracticeMode = {
 }
 
 export enum VocabImportMode {
-    generate = 'generate',
+    subject = 'subject',
     raw = 'raw'
+}
+
+export type ImportMethod = {
+    title: string
+    subtitle: string
+    icon: string
+    color: string
+    id: VocabImportMode
 }
 
 export type User = {

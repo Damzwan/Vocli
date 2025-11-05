@@ -100,3 +100,23 @@ export function isNative() {
     return Capacitor.isNativePlatform();
 }
 
+export function getExtendedPlatform() {
+    const platform = Capacitor.getPlatform();
+
+    if (platform === 'ios' || platform === 'android') {
+        return 'native';
+    }
+
+    // Detect if it's web on a mobile device (touch-enabled)
+    const isTouchDevice =
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0 ||
+        (navigator as any).msMaxTouchPoints > 0;
+
+    if (platform === 'web' && isTouchDevice) {
+        return 'nativeWeb';
+    }
+
+    return 'web';
+}
+

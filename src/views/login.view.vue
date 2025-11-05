@@ -4,6 +4,7 @@
       <div class="w-full h-full flex flex-col justify-center items-center p-4">
         <div class="flex flex-col grow justify-center items-center w-full">
           <p class="text-5xl py-2">Vocli</p>
+          <div>Test {{Capacitor.isNativePlatform()}} {{Capacitor.getPlatform()}} {{getExtendedPlatform()}}</div>
           <div class="grow w-full flex justify-center items-center">
             <swiper
                 v-show="!showLoginScreen"
@@ -206,7 +207,7 @@ import {
   IonInputPasswordToggle,
   IonPage,
   IonSpinner,
-  onIonViewDidLeave, useIonRouter
+  onIonViewDidLeave
 } from "@ionic/vue";
 import {useAuthStore} from "@/states/auth.state";
 import {lockClosedOutline, logoGoogle, mail, sendOutline} from "ionicons/icons";
@@ -224,6 +225,8 @@ import 'swiper/css/pagination';
 import loginImg1 from "@/assets/login/vocli1.webp"
 import loginImg2 from "@/assets/login/vocli2.webp"
 import loginImg3 from "@/assets/login/vocli3.webp"
+import {Capacitor} from "@capacitor/core";
+import {getExtendedPlatform} from "@/helpers/app.helper";
 
 const authStore = useAuthStore();
 const isRegistering = ref(false);
@@ -240,7 +243,6 @@ const forgotPasswordSent = ref(false)
 const isAnonymousConfirmationOpen = ref(false)
 const swiperRef = ref<any>(null)
 
-const router = useIonRouter()
 
 const smallDevice = computed(() => window.innerHeight < 700)
 

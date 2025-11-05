@@ -16,10 +16,9 @@
 
 
           <div class="px-1">
-            <ion-button fill="clear" id="wordsImporter" size="large">
+            <ion-button fill="clear" id="wordsImporter" size="large" @click="wordsImporterOpen = true">
               <ion-icon slot="icon-only" :icon="addOutline"/>
             </ion-button>
-            <WordImporter @importWords="importWords"/>
           </div>
         </div>
       </ion-toolbar>
@@ -28,13 +27,15 @@
       <div class="flex justify-center items-center bg-background w-full h-full" v-if="!wordPack">
         <ion-spinner color="secondary"/>
       </div>
-      <div class="w-full h-full" v-else>
+      <div class="w-full h-full flex flex-col" v-else>
 
         <div class="bg-card-background rounded-xl p-4 mt-4 mx-3">
           <ion-input :placeholder="t('create.next_word')" v-model="knownLanguageInput" ref="knownLanguageInputEl"
                      @keyup.enter="onInput"
                      class="bg-card-background">
-            <ion-icon slot="start" :icon="flipLanguages ? LANGUAGE_FLAGS[wordPack.learnLanguage] : LANGUAGE_FLAGS[wordPack.knownLanguage]" class="px-3"/>
+            <ion-icon slot="start"
+                      :icon="flipLanguages ? LANGUAGE_FLAGS[wordPack.learnLanguage] : LANGUAGE_FLAGS[wordPack.knownLanguage]"
+                      class="px-3"/>
             <ion-spinner color="primary" class="pr-12" slot="end" v-if="translateLoading"/>
             <ion-button slot="end" fill="clear" @click="onInput" v-else :disabled="knownLanguageInput == ''">
               <ion-icon :icon="arrowForwardOutline"/>
@@ -49,7 +50,9 @@
                      :disabled="!canEditToInput"
                      ref="learnLanguageInputEl"
                      @keyup.enter="onInput" class="bg-card-background">
-            <ion-icon slot="start" :icon="flipLanguages ? LANGUAGE_FLAGS[wordPack.knownLanguage] : LANGUAGE_FLAGS[wordPack.learnLanguage]" class="px-3"/>
+            <ion-icon slot="start"
+                      :icon="flipLanguages ? LANGUAGE_FLAGS[wordPack.knownLanguage] : LANGUAGE_FLAGS[wordPack.learnLanguage]"
+                      class="px-3"/>
             <div slot="end">
               <ion-button slot="end" fill="clear" id="wordAlternativesPopover" :disabled="learnLanguageInput == ''">
                 <ion-icon :icon="ellipsisHorizontal"/>
@@ -64,7 +67,26 @@
         </div>
         <hr class="border-t border-gray-600 mx-4 my-4"/>
 
-        <div class="pb-8 px-3 flex flex-col-reverse -my-2">
+        <div
+            class="m-auto flex flex-col justify-center items-center text-center pb-32"
+            v-if="wordPack.words.length === 0"
+        >
+          <img :src="buildSvg" alt="No words yet" class="w-48 h-48 opacity-90"/>
+
+          <p class="text-2xl font-semibold">Start building your word pack</p>
+
+          <p class="max-w-sm">
+            Add words manually above, or let AI help you generate a collection instantly.
+          </p>
+
+          <ion-button class="mt-4" @click="wordsImporterOpen = true">
+            <ion-icon :icon="addOutline" slot="start"/>
+            Import with AI
+          </ion-button>
+        </div>
+
+
+        <div class="pb-8 px-3 flex flex-col-reverse -my-2" v-else>
           <WordCard
               class="my-2"
               v-for="(wordItem, i) in wordPack.words"
@@ -94,6 +116,7 @@
           </div>
         </ion-popover>
       </div>
+      <WordImporter @importWords="importWords" v-model:is-open="wordsImporterOpen"/>
     </ion-content>
   </ion-page>
 </template>
@@ -104,14 +127,16 @@ import WordEditActionSheet from "@/components/create/WordEditActionSheet.vue";
 import {
   IonButton,
   IonContent,
+  IonHeader,
   IonIcon,
   IonInput,
+  IonItem,
   IonPage,
-  useIonRouter,
-  IonSpinner,
   IonPopover,
-  IonHeader,
-  IonItem, popoverController, IonToolbar,
+  IonSpinner,
+  IonToolbar,
+  popoverController,
+  useIonRouter,
 } from "@ionic/vue";
 import {
   addOutline,
@@ -121,10 +146,10 @@ import {
   ellipsisHorizontal,
   swapVerticalOutline
 } from "ionicons/icons";
-import {nextTick, onMounted, ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import WordCard from "@/components/create/WordCard.vue";
 import {useTranslate} from "@/api/translate";
-import {WordItem, WordPack} from "@/types";
+import {WordItem} from "@/types";
 import {storeToRefs} from "pinia";
 import {useVocabularyCreatorStore} from "@/states/vocabulary-creator.state";
 import {LANGUAGE_FLAGS} from "@/config/languages.config";
@@ -132,10 +157,10 @@ import WordImporter from "@/components/create/WordImporter.vue";
 import {sanitize_lite} from "@/helpers/exercises";
 import {areWordsEqual} from "@/helpers/create";
 import {useAppStore} from "@/states/app.state";
-import {Capacitor} from "@capacitor/core";
 import {useI18n} from "vue-i18n";
 import {Preferences} from "@capacitor/preferences";
 import {useAuthStore} from "@/states/auth.state";
+import buildSvg from "@/assets/illustrations/build.svg";
 
 
 const router = useIonRouter()
@@ -165,6 +190,7 @@ const translationAlternatives = ref<string[]>([])
 const fetchingAlternativeTranslations = ref(false)
 
 const canEditToInput = ref(false)
+const wordsImporterOpen = ref(false)
 
 
 const {t} = useI18n()
