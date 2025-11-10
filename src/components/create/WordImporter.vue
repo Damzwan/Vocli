@@ -100,7 +100,7 @@
                 :key="word.from"
                 v-for="(word, i) in wordsToImport"
                 @onDelete="() => onDelete(i)"
-                @onEdit="() => onEdit(word, i)"
+                @onEdit="(newWord) => onEdit(newWord, i)"
             />
           </div>
 
@@ -122,7 +122,7 @@
 
 
 import {ImportMethod, VocabImportMode, WordItem} from "@/types";
-import {IonButton, IonIcon, IonModal, IonTextarea, modalController, IonContent, IonRange} from "@ionic/vue";
+import {IonButton, IonIcon, IonModal, IonTextarea, modalController, IonContent, IonRange, IonSpinner} from "@ionic/vue";
 import {computed, ref, watch} from "vue";
 import {useLLM} from "@/api/llm";
 import {useVocabularyCreatorStore} from "@/states/vocabulary-creator.state";

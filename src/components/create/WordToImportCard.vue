@@ -31,9 +31,9 @@
 
     </div>
 
-    <div>
+    <div class="flex items-center justify-center">
       <ion-button fill="clear" @click="toggleEdit">
-        <ion-icon slot="icon-only" :icon="isEditing ? closeOutline: createOutline"/>
+        <ion-icon slot="icon-only" :icon="isEditing ? checkmarkOutline: createOutline"/>
       </ion-button>
 
       <ion-button fill="clear" color="danger" @click="emits('onDelete')">
@@ -46,7 +46,7 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {IonButton, IonIcon, IonInput} from "@ionic/vue";
-import {closeOutline, createOutline, trashOutline} from "ionicons/icons";
+import { createOutline, trashOutline, checkmarkOutline} from "ionicons/icons";
 
 import {WordItem} from "@/types";
 

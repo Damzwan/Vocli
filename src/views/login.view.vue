@@ -4,7 +4,6 @@
       <div class="w-full h-full flex flex-col justify-center items-center p-4">
         <div class="flex flex-col grow justify-center items-center w-full">
           <p class="text-5xl py-2">Vocli</p>
-          <div>Test {{Capacitor.isNativePlatform()}} {{Capacitor.getPlatform()}} {{getExtendedPlatform()}}</div>
           <div class="grow w-full flex justify-center items-center">
             <swiper
                 v-show="!showLoginScreen"
@@ -176,9 +175,9 @@
             Continue With Google
           </ion-button>
           <ion-button shape="round" color="secondary" size="large" class="w-5/6 max-w-md" fill="clear"
-                      @click="isAnonymousConfirmationOpen=true">Continue
+                      @click="isAnonymousConfirmationOpen=true">
             <ion-spinner name="crescent" slot="end" class="ml-2 text-secondary" v-if="anonymousLoading"/>
-            As Anonymous
+            Continue As Anonymous
           </ion-button>
         </div>
       </div>
@@ -186,10 +185,10 @@
           :is-open="isAnonymousConfirmationOpen"
           @didDismiss="isAnonymousConfirmationOpen=false"
           header="Anonymous Login"
-          message="You won't be able to access this account on other devices or after logout. You can upgrade later."
+          message="You won't be able to access your progress on other devices or after logout. You can create an account later."
           :buttons="[
       { text: 'Cancel', role: 'cancel' },
-      { text: 'Create anonymous account', handler: loginAnonymously }
+      { text: 'Continue', handler: loginAnonymously }
     ]"
       />
     </ion-content>
